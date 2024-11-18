@@ -118,7 +118,7 @@
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.3);
+    /*background-color: rgba(0, 0, 0, 0.1); 0.3에서 0.1로 변경하여 더 투명하게*/
 }
 
 .hero-content {
@@ -131,11 +131,17 @@
 }
 
 .hero-content h1 {
-    color: white;
-    font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
-    padding: 0 20px;
+  color: #1e3a8a;
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 0 20px;
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 

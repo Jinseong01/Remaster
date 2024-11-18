@@ -1,0 +1,21 @@
+.calenderAndDeadlineNotice{
+    margin-top: 30px;
+    width: 100%;
+    height: 1200px;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    
+}
+
+.calenderWrapper{
+    width: 70%;
+    height: 70%;
+    background-color: beige;
+}
+
+.deadlineNoticeWrapper{
+    width: 30%;
+    height: 70%;
+    gap: 3rem;
+}

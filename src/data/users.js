@@ -1,0 +1,46 @@
+// User 더미 데이터 생성
+export let users = [
+    {
+      id: 'hyechang123',
+      pw: 'password123',
+      name: '홍혜창',
+      gender: '남',
+      address: '인천 미추홀구 아파트',
+      phone_number: '010-1234-5678',
+      emergency_phone_number: '010-1111-2222',
+      height: 180,
+      weight: 75,
+      disability_type: ["시각장애"],
+      disability_grade:  {"시각장애" : "1"},
+      before_programs :[],
+      programs : [],
+      l_support : [],
+      t_support : [],
+      schedule : [],
+      job : [],
+      my_menu : [],
+      rest_menu : []
+    },
+    {
+        id: 'random1234',
+        pw: 'password123',
+        name: '김랜덤',
+        gender: '여',
+        address: '서울특별시 성북구 아파트',
+        phone_number: '010-1234-5678',
+        emergency_phone_number: '010-2222-3333',
+        height: 150,
+        weight: 45,
+        disability_type: '청각',
+        disability_grade: 2,
+        before_programs : [],
+        programs : [],
+        l_support : [],
+        t_support : [],
+        schedule : [],
+        job : [],
+        my_menu : [],
+        rest_menu : []
+      },
+     
+  ];

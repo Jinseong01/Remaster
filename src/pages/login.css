@@ -1,0 +1,211 @@
+.login-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    
+}
+
+.login-wrapper {
+    width: 40%;
+    display: flex;           /* 추가 */
+    flex-direction: column;  /* 추가 */
+}
+
+.logo-wrapper {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*
+.logo-image {
+    width: 200px;  
+    max-width: 1000px;  
+    height: auto; 
+    object-fit: contain; 
+    margin-bottom: 2rem;
+}
+*/
+.logo-line {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #79C7FF 0%, #5BA8FF 50%, #4A90E2 100%); margin: 1.5rem auto;
+    border-radius: 2px;
+}
+
+.login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1F2937;
+    margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+    color: #6B7280;
+    font-size: 1rem;
+}
+
+.login-card {
+    background: white;
+    border-radius: 1rem !important;
+    box-shadow: 
+        0 10px 15px rgba(0, 0, 0, 0.1),   /* 큰 그림자 */
+        0 4px 6px rgba(0, 0, 0, 0.05),    /* 작은 그림자 */
+        0 20px 25px rgba(0, 0, 0, 0.1),   /* 부드러운 그림자 */
+        0 1px 2px rgba(0, 0, 0, 0.05);    /* 얇은 테두리 */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* 호버 시 효과 */
+}
+
+/* 호버 시 박스 그림자 강조 효과 */
+.login-card:hover {
+    box-shadow: 
+        0 15px 20px rgba(0, 0, 0, 0.15),
+        0 8px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+}
+
+.card-content {
+    padding: 2rem !important;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 30px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    top: 0.6rem;  /* 고정된 픽셀값 사용 */
+    left: 1rem;
+    /* transform 제거 */
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    z-index: 1;  /* 아이콘이 항상 위에 보이도록 */
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #9CA3AF;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 3rem !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 0.5rem !important;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+.input-field:focus {
+    border-color: #4F46E5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1) !important;
+}
+
+
+.error-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #EF4444;
+    position: relative;  /* 에러 메시지의 위치 설정 */
+}
+
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-button {
+    width: 100%;
+    padding: 0.75rem !important;
+    background: #79C7FF;
+    color: white;
+    font-weight: 600;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s;
+}
+
+.login-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 0.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: calc(50% - 2rem);
+    height: 1px;
+    background-color: #E5E7EB;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background-color: white;
+    padding: 0 1rem;
+    color: #6B7280;
+    font-size: 0.875rem;
+}
+
+.signup-button {
+    width: 100%;
+    padding: 0.75rem !important;
+    border: 1px solid #E5E7EB !important;
+    color: #4B5563;
+    font-weight: 600;
+    border-radius: 0.5rem !important;
+    transition: all 0.2s;
+}
+
+.signup-button:hover {
+    background-color: #F9FAFB !important;
+}
+
+@media (max-width: 640px) {
+    .login-wrapper {
+        max-width: 100%;
+    }
+
+    .card-content {
+        padding: 1.5rem !important;
+    }
+
+    .login-title {
+        font-size: 1.75rem;
+    }
+}

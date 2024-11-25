@@ -1,0 +1,23 @@
+.my-masonry-grid {
+  display: flex;
+  margin-left: 100px;
+  margin-right: 100px;
+  width: auto; /* Masonry 그리드의 너비를 자동으로 설정 */
+}
+
+.my-masonry-grid_column {
+  padding-left: 30px;
+  background-clip: padding-box; /* 내부 패딩 포함해 배경 표시 */
+}
+
+.job-card {
+  background: #fff; /* 카드 배경 흰색 설정 */
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 30px;
+}
+
+.job-card img {
+  width: 100%; /* 이미지 너비를 카드 내부에 맞춤 */
+  height: auto; /* 이미지 비율을 유지하며 높이 조정 */
+}

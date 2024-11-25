@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Bell } from 'lucide-react';
-import { Card } from '../components/ui/card';
-import notices from '../data/notice';
+import { Card } from '../../components/ui/card';
+import notices from '../../data/notice';
 import {useNavigate } from 'react-router-dom';
 import "./mainpage.css"
-import programs from '../data/program';
-import jobs from '../data/job';
+import programs from '../../data/program';
+import jobs from '../../data/jobs';
 
 import { AlertCircle, Briefcase, Users, Clock, MapPin, Calendar } from 'lucide-react';
 

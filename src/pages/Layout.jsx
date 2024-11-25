@@ -41,7 +41,7 @@ function Layout({loginState,setLogin,currentUser,setCurrentUser}) {
             {/* Logo */}
             <div className="logo-container">
               <img 
-                src="/myLogo.png" 
+                src="/assets/images/logo/myLogo.png" 
                 alt="ReLife" 
                 className="logo"
                 onClick={()=>{
@@ -54,9 +54,9 @@ function Layout({loginState,setLogin,currentUser,setCurrentUser}) {
             <div className="nav-links">
             <Link to="/program?data=123&data2=456" className="nav-link">프로그램</Link>
             <Link to="/activity" className="nav-link">활동보조</Link>
-            <Link to="/work" className="nav-link">일자리</Link>
+            <Link to="/jobs" className="nav-link">일자리</Link>
             <Link to="/notice" className="nav-link">공지사항</Link>
-            <Link to="/personal" className="nav-link">개인일정</Link>
+            <Link to="/schedule" className="nav-link">개인일정</Link>
             <Link to="/mypage" className="nav-link">마이페이지</Link>
             </div>
 

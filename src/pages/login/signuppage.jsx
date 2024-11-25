@@ -2,9 +2,9 @@ import { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import "./signup.css"
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import { Card, CardContent } from "../components/ui/card"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
+import { Card, CardContent } from "../../components/ui/card"
 import { useNavigate } from 'react-router-dom';
 import { 
     User, 
@@ -141,7 +141,7 @@ const handleGradeSelect = (type, grade) => {
             <div className="signup-wrapper">
                 <div className="signup-logo-wrapper">
                     <img
-                        src="/mylogo.png"
+                        src="/assets/images/logo/mylogo.png"
                         alt="ReLife"
                         className="signup-logo-img"
                     />
@@ -482,7 +482,7 @@ const handleGradeSelect = (type, grade) => {
 
                     <div className="illustration-wrapper">
                         <img
-                            src="/signupbackground.jpg"
+                            src="/assets/images/signup/signupbackground.jpg"
                             alt="Signup Illustration"
                             className="illustration-image"
                         />

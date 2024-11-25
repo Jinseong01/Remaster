@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { Button } from "../components/ui/button"
-import { Input } from "../components/ui/input"
-import { Card, CardContent } from "../components/ui/card"
+import { Button } from "../../components/ui/button"
+import { Input } from "../../components/ui/input"
+import { Card, CardContent } from "../../components/ui/card"
 import { User, Lock } from "lucide-react"
-import './login.css'
+import './loginpage.css'
 
 const LoginPage = ({ setCurrentUser, allUsers, setLogin }) => {
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const LoginPage = ({ setCurrentUser, allUsers, setLogin }) => {
                 <div className="logo-wrapper">
                     {/* 계속에러가 나서 이미지만 따로 스타일을 주겠음 */}
                 <img
-                        src="/myLogo.png"
+                        src="/assets/images/logo/myLogo.png"
                         alt="ReLife"
                         className="logo-image"
                         style={{width:"100%", height:"auto",padding:"0 1.3rem 0 1.3rem"}}

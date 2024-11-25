@@ -4,13 +4,15 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from './pages/Layout';
 import {ProgramPage,WorkPage,ActivityPage,PersonalPage,MyPage} from "./pages/Pages"
 import { useState } from 'react';
-import LoginPage from './pages/loginpage';
-import SignUpPage from './pages/signuppage';
+import LoginPage from './pages/login/loginpage';
+import SignUpPage from './pages/login/signuppage';
 import {users} from "./data/users"
-import WorkApplicationPage from "./pages/workApplicationPage"
 import OnlyNavLayout from "./pages/onlyNavLayout"
-import MainPage   from './pages/mainpage';
-import NoticePage from './pages/noticepage';
+import MainPage from './pages/main/mainpage';
+import NoticePage from './pages/notice/noticepage';
+import JobsPage from './pages/job/JobsPage';
+import JobDetailPage from './pages/job/JobDetailPage';
+
 //router
 //아래 코드를 제대로 이해할 필요가 있다.
 //아래 코드는 / 이것은 기본적으로 Layout을 보여준다.
@@ -49,8 +51,8 @@ function App() {
           element: <ProgramPage />
         },
         {
-          path: "work",
-          element: <WorkPage />
+          path: "jobs",
+          element: <JobsPage/>
         },
         {
           path: "activity",
@@ -61,7 +63,7 @@ function App() {
           element: <NoticePage />
         },
         {
-          path: "personal",
+          path: "schedule",
           element: <PersonalPage />
         },
         {
@@ -79,12 +81,12 @@ function App() {
       element: <SignUpPage allUsers={allUsers} setallUsers={setallUsers}/>,
     },
     {
-      path: "/onlyNav",
-      element: <OnlyNavLayout />, // 네비게이션만 있는 레이아웃
+      path: "/",
+      element: <OnlyNavLayout loginState={login} setLogin={setLogin} currentUser={currentUser} setCurrentUser={setCurrentUser}/>, // 네비게이션만 있는 레이아웃
       children: [
         {
-          path: "workApply",  // 이렇게되면  /onlyNav/workApply 로  url이 되는것!!
-          element: <WorkApplicationPage />
+          path: "job/:id",  // /job/{id} 로  url이 되는것!!
+          element: <JobDetailPage currentUser={currentUser} loginState={login} setCurrentUser={setCurrentUser}/>
         }
         // {
         //   path: "b",  // /onlyNav/b

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, Calendar, User, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Card } from '../components/ui/card';
-import notices from '../data/notice';
+import { Card } from '../../components/ui/card';
+import notices from '../../data/notice';
 import { useSearchParams } from 'react-router-dom';
 
 const NoticePage = () => {

@@ -8,6 +8,9 @@ npm install react-router-dom
 npm install lucide-react
 npm install react-hook-form
 
+npm install react-masonry-css
+npm install react-table
+
 # shadcn/ui 컴포넌트
 
 # 필수 의존성 설치

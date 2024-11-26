@@ -1,0 +1,80 @@
+/* 사이드바 컨테이너 */
+.sidebar-container {
+  position: fixed;
+  top: 50%; /* 화면 세로 중앙 */
+  left: 20px; /* 왼쪽 고정 */
+  transform: translateY(-50%); /* 정확히 중앙 정렬 */
+  background-color: #b3e0f2; /* 연한 파란색 배경 */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  z-index: 1000;
+  width: 1000px; /* 기본 너비 */
+  height: 400px;
+  transition: width 0.3s ease; /* 확장/축소 애니메이션 */
+  overflow: hidden;
+  display: flex;
+  gap: 10px;
+}
+
+.sidebar-container.expanded {
+  width: 360px; /* 확장 시 너비 */
+}
+
+/* 기본 1x3 그리드 */
+.icon-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 기본 상태는 세로로 배치 */
+  gap: 15px;
+}
+
+.icon-grid.expanded-grid {
+  grid-template-columns: 1fr 1fr; /* 확장 상태에서 가로 2열 */
+  grid-auto-rows: auto;
+  gap: 15px;
+}
+
+/* 버튼 스타일 */
+.icon-button {
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: white; /* 흰색 배경 */
+  border: none;
+  border-radius: 10px; /* 둥근 네모 */
+  padding: 10px;
+  width: 80px;
+  height: 100px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+  transition: background-color 0.2s;
+}
+
+
+/* 아이콘 이미지 스타일 */
+.icon-image {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 5px;
+  object-fit: contain; /* 이미지 비율 유지 */
+}
+
+/* 버튼 텍스트 */
+.icon-button p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #333; /* 텍스트 색상 */
+  text-align: center;
+}
+
+.init{
+  background-color: red;
+}
+
+
+
+
+
+
+
+  

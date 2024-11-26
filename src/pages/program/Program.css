@@ -1,0 +1,238 @@
+/* 메인 콘텐츠 */
+
+/* 프로그램 제일 큰 정보*/
+.program-info {
+  display: flex;
+  flex-direction: row;
+  background-color: #ddd;
+  padding: 1%;
+  max-height: 500px;
+}
+
+/* 프로그램 이미지 */
+.program-info img {
+  flex: 1;
+  width: 100%;  
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* 프로그램 텍스트 섹션 */
+.program-details {
+  flex: 3;
+  text-align: center;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+/* 상세 내용 상단: h2와 주소, 핸드폰 번호*/
+.program-details-h2-and-address-phone{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.program-details h2 {
+  font-size: 2rem;
+  margin: 0 5px 10px 5px;
+  background-color: #fff; /* 하얀색 배경 */
+  border-radius: 8px; /* 살짝 둥근 모서리 */
+}
+
+.program-details .address-phone {
+  margin-top: 10px;
+  font-size: 1rem;
+  background-color: #fff; /* 하얀색 배경 */
+  border-radius: 8px; /* 살짝 둥근 모서리 */
+}
+
+.program-details .content {
+  margin: 20px auto;
+  font-size: 1rem;
+  background-color: #fff; /* 하얀색 배경 */
+  border-radius: 8px; /* 살짝 둥근 모서리 */
+}
+
+.date-deadline-button{
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: space-between;
+  
+}
+
+
+.program-details .date-deadline {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  background-color: #fff; /* 하얀색 배경 */
+  border-radius: 8px; /* 살짝 둥근 모서리 */
+}
+
+/* 신청하기 버튼 */
+.apply-button {
+  margin: 20px;
+  width: 200px;
+  height: 50px;
+  background-color: #5ebfd3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #4aaac0;
+}
+
+
+
+/* 프로그램 카드 섹션 */
+.program-cards {
+  margin: 20px;
+}
+
+.program-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 10px;
+}
+
+.program-card:hover {
+  transform: scale(1.05);
+}
+
+.program-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.program-card p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+
+/* 도움말 버튼 (이미지) */
+.help-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px; /* 버튼 크기 조정 */
+  height: 50px;
+  background-color: transparent; /* 배경 제거 */
+  border: none;
+  border-radius: 50%; /* 버튼을 동그랗게 */
+  cursor: pointer;
+  z-index: 10;
+  padding: 0; /* 기본 여백 제거 */
+}
+
+.help-button-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지 비율 유지하며 크기 조정 */
+  transition: transform 0.3s ease; /* 호버 효과 */
+}
+
+.help-button:hover .help-button-image {
+  transform: scale(1.1); /* 호버 시 확대 */
+}
+
+/*외부 흑백처리*/
+.help-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+/*도움말 바깥 배경색*/
+.help-dialog-background{
+  background: #dde5ec;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1200px;
+  height: 600px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo-and-h2{
+  display: flex;
+  flex-direction: row;
+  gap: 10px; /* 로고와 텍스트 사이 간격 */
+}
+
+/*도움말 바깥 h2*/
+.help-dialog-background h2{
+  font-size: 24px; /* 텍스트 크기 */
+  font-weight: 700; /* 텍스트 굵기 (700은 굵게) */
+  color: #333; /* 텍스트 색상 (선택 사항) */
+  margin-bottom: 20px; /* 아래 여백 (선택 사항) */
+}
+
+/*도움말 white 부분*/
+.help-dialog {
+  width: 100%;
+  background-color: white;
+  height: 84%;
+  margin-bottom: 10px;
+}
+
+.help-dialog p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #666;
+}
+
+.close-button {
+  width: 100px;
+  height: 40px;
+  background-color: #e53e3e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.close-button:hover {
+  background-color: #c53030;
+}
+
+
+/* dnd css */
+.sidebar-dnd{
+  position: fixed;
+  background-color: #b3e0f2; /* 연한 파란색 배경 */
+  padding: 20px;
+  z-index: 1;
+  border-radius: 15px;
+}
+
+.sidebar-droppable{
+  display: flex;
+  flex-direction: column;
+}
+
+

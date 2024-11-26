@@ -42,5 +42,26 @@ export let users = [
         my_menu : [],
         rest_menu : []
       },
+      {
+        id: 'hansung',
+        pw: '1234',
+        name: '한성',
+        gender: '남',
+        address: '서울특별시 성북구 아파트',
+        phone_number: '010-1234-5678',
+        emergency_phone_number: '010-2222-3333',
+        height: 160,
+        weight: 50,
+        disability_type: '청각',
+        disability_grade: 2,
+        before_programs : [],
+        programs : [],
+        l_support : [],
+        t_support : [],
+        schedule : [],
+        job : [],
+        my_menu : [],
+        rest_menu : []
+      },
      
   ];

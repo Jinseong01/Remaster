@@ -12,6 +12,8 @@ import MainPage from './pages/main/mainpage';
 import NoticePage from './pages/notice/noticepage';
 import JobsPage from './pages/job/JobsPage';
 import JobDetailPage from './pages/job/JobDetailPage';
+import Program from './pages/program/Program';
+import ProgramApply from './pages/program/ProgramApply';
 
 //router
 //아래 코드를 제대로 이해할 필요가 있다.
@@ -48,7 +50,11 @@ function App() {
         },
         {
           path: "program",// /program
-          element: <ProgramPage />
+          element: <Program />
+        },
+        {
+          path: "apply",// /program
+          element: <ProgramApply currentUser={currentUser}/>
         },
         {
           path: "jobs",

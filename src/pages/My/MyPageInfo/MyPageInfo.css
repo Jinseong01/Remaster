@@ -1,0 +1,110 @@
+/* src/components/MyPageInfo.css */
+
+.mypage-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* 정보 입력 폼 */
+.info-form {
+  width: 100%;
+  max-width: 500px; /* 입력 폼이 너무 넓지 않도록 설정 */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* 각 입력 필드 간의 간격 */
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #f1f5f9;
+  border-radius: 5px;
+  background-color: #f1f5f9;
+}
+
+.password-group .password-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.change-password-button {
+  align-self: flex-start;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.change-password-button:hover {
+  background-color: #333;
+}
+
+/* 제출 버튼 섹션 */
+.submit-section {
+  width: 100%;
+  max-width: 500px; /* 제출 버튼이 너무 넓지 않도록 설정 */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.submit-button {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: "Roboto", sans-serif;
+}
+
+.submit-button:hover {
+  background-color: #333;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 600px) {
+  .mypage-info-container {
+    padding: 10px;
+  }
+
+  .info-form {
+    max-width: 100%;
+    gap: 10px;
+  }
+
+  .submit-section {
+    max-width: 100%;
+  }
+
+  .dropdown-button {
+    font-size: 16px;
+  }
+
+  .submit-button {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,103 @@
+/* src/pages/MyPage/SubResultPage/SubResultPage.css */
+
+/* 전체 페이지 컨테이너 스타일 */
+.subresult-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px; /* 가로 폭을 제한하여 중앙으로 정렬 */
+  margin: 0 auto; /* 가운데 정렬을 위해 */
+}
+
+/* 드롭다운 버튼 섹션 */
+.dropdown-section {
+  width: 200px;
+  margin-bottom: 20px; /* 드롭다운 버튼과 콘텐츠 섹션 사이의 간격 추가 */
+  align-self: flex-end; /* 드롭다운을 오른쪽에 위치시키기 */
+}
+
+.dropdown-button {
+  width: 100%;
+  background-color: #f2f2f7;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown-icon {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* 드롭다운 메뉴 섹션 */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px); /* 드롭다운 버튼 바로 아래에 표시되도록 조정 */
+  left: 0;
+  width: 200px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* 콘텐츠 섹션 스타일 */
+.content-section {
+  width: 100%;
+  margin-top: 20px; /* 콘텐츠와 드롭다운 사이의 간격 추가 */
+}
+
+/* 개별 항목들 스타일 */
+.result-item {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+}
+
+.result-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 테이블 제목 섹션 */
+.result-header {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f2f2f7;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

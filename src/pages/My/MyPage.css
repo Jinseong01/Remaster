@@ -1,0 +1,78 @@
+.mypage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  position: relative;
+}
+
+/* 왼쪽 드롭다운 섹션 */
+.left-dropdown-section {
+  position: relative;
+  margin-bottom: 20px;
+  float: left;
+  margin-right: 20px;
+}
+
+/* 오른쪽 드롭다운 섹션 */
+.right-dropdown-section {
+  position: absolute;
+  right: 0;
+  margin-bottom: 20px;
+}
+
+/* 드롭다운 버튼 */
+.mypage-dropdown-button {
+  background-color: #f2f2f7;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* 드롭다운 아이콘 */
+.mypage-dropdown-icon {
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.mypage-dropdown-icon.rotate {
+  transform: rotate(180deg);
+}
+
+/* 드롭다운 메뉴 */
+.mypage-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 200px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* 드롭다운 항목 */
+.mypage-dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+}
+
+.mypage-dropdown-item:hover {
+  background-color: #f2f2f7;
+}
+
+/* 컨텐츠 섹션 */
+.content-section {
+  width: 100%;
+  margin-top: 20px;
+  box-shadow: none;
+}

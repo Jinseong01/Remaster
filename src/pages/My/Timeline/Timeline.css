@@ -1,0 +1,72 @@
+/* Timeline.css */
+
+.mypage-timeline {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  background-color: #000;
+  height: 100%;
+  top: 0;
+  z-index: -1;
+}
+
+.timeline-entry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.timeline-entry.left {
+  flex-direction: row-reverse;
+}
+
+.timeline-point {
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.program-box {
+  width: 400px;
+  background-color: #cbe5ff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.program-info {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.image-box {
+  width: 150px;
+  height: 150px;
+  margin: 0 20px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.program-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

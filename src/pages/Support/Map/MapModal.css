@@ -1,0 +1,103 @@
+.map-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* 상단과의 간격을 주기 위해 flex-start 사용 */
+  padding-top: 115px; /* 상단 여백을 추가하여 네비바와의 간격 확보 */
+  z-index: 1000;
+}
+
+.map-modal-container {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 90%;
+  max-width: 1000px;
+  box-sizing: border-box;
+}
+
+.map-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  font-size: 25px;
+}
+
+/* 검색창 컨테이너 */
+.map-search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+  width: 50%;
+}
+
+.map-search-input {
+  flex: 1;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.map-search-button {
+  padding: 8px 20px;
+  font-size: 1rem;
+  background-color: #35669c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.map-search-button:hover {
+  background-color: #2b4f7e;
+}
+
+.map-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* 버튼의 크기를 더 크게 조정해 시각적 강조 */
+  margin-top: -20px; /* 위쪽으로 이동시키기 위해 음수 마진 사용 */
+  margin-right: 5px;
+  position: relative;
+}
+
+.map-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%; /* 추가: 콘텐츠가 가득 차게 */
+  max-width: 1000px; /* 모달 내부에서 지도 최대 너비를 설정 */
+  height: auto;
+}
+
+/* 지도 컨테이너 스타일 추가 */
+.naver-map-container {
+  width: 100%;
+  height: 67vh;
+}
+
+/* 반응형 디자인 적용 */
+@media (max-width: 768px) {
+  .naver-map-container {
+    height: 300px; /* 모바일에서는 지도의 높이를 조금 줄임 */
+  }
+}
+
+@media (max-width: 480px) {
+  .naver-map-container {
+    height: 250px; /* 더 작은 화면에서는 지도의 높이를 더 줄임 */
+  }
+}

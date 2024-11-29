@@ -45,6 +45,7 @@ const LoginPage = ({ setCurrentUser, allUsers, setLogin }) => {
                         alt="ReLife"
                         className="logo-image"
                         style={{width:"100%", height:"auto",padding:"0 1.3rem 0 1.3rem"}}
+                        onClick={() => navigate("/")}
                     />
                     <div className="logo-line"></div>
                     <h2 className="login-title">Welcome Back!</h2>

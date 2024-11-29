@@ -144,6 +144,7 @@ const handleGradeSelect = (type, grade) => {
                         src="/assets/images/logo/mylogo.png"
                         alt="ReLife"
                         className="signup-logo-img"
+                        onClick={() => navigate("/")}
                     />
                 </div>
 
@@ -323,7 +324,7 @@ const handleGradeSelect = (type, grade) => {
                                                 )}
                                             </div>
 
-                                            <div className="grid grid-cols-2 gap-4">
+                                            <div className="grid grid-cols-2 gap-4 max-w-[500px]">
                                                 <div className="relative">
                                                     <div className="absolute left-3 top-3">
                                                         <Ruler className="h-5 w-5 text-gray-400" />
@@ -420,7 +421,7 @@ const handleGradeSelect = (type, grade) => {
                                 <div className="flex flex-col flex-1">
                                 <div className="space-y-4 flex-1">
                                     {/* 장애 유형 선택 */}
-                                    <div className=" whitespace-nowrap flex flex-wrap gap-4 p-4 border rounded-md">
+                                    <div className=" flex flex-wrap gap-4 p-4 border rounded-md">
                                     {disabilityTypes.map((type) => (
                                     <label key={type} className="flex items-center gap-2 min-w-fit">
                                         <input

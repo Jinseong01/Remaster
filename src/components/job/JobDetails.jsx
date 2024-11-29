@@ -1,5 +1,8 @@
 import React from 'react';
-import useJobTable from '../../hook/JobTable.jsx';
+// hook
+import useJobTable from '../../hook/useJobTable.jsx';
+// CSS
+import styles from './JobDetails.module.css';
 
 const JobDetails = ({ job, onNext }) => {
   // 테이블에 필요한 메소드/속성
@@ -7,7 +10,7 @@ const JobDetails = ({ job, onNext }) => {
 
   return (
     <>
-      <table {...getTableProps()} className="job-detail-table">
+      <table {...getTableProps()} className={styles.jobDetailTable}>
         <thead>
           {headerGroups.map((headerGroup, index) => {
             if (index === 0) {
@@ -17,6 +20,7 @@ const JobDetails = ({ job, onNext }) => {
                 </tr>
               );
             }
+            return null; // 추가적인 headerGroup이 있을 경우 처리
           })}
         </thead>
         <tbody {...getTableBodyProps()}>
@@ -24,15 +28,15 @@ const JobDetails = ({ job, onNext }) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()} key={row.id}>
-                <td className="label-cell">{row.cells[0].render('Cell')}</td>
-                <td className="value-cell">{row.cells[1].render('Cell')}</td>
+                <td className={styles.labelCell}>{row.cells[0].render('Cell')}</td>
+                <td className={styles.valueCell}>{row.cells[1].render('Cell')}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
-      <div className="button-container">
-        <button className="next-button" onClick={onNext}>다음</button>
+      <div className={styles.buttonContainer}>
+        <button className={styles.nextButton} onClick={onNext}>다음</button>
       </div>
     </>
   );

@@ -1,0 +1,110 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검은색 배경 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal Content */
+.modalContent {
+  background: white;
+  padding: 40px; /* 패딩을 늘려 여유 있게 설정 */
+  border-radius: 15px;
+  width: 600px; /* 너비를 500px에서 600px로 확장 */
+  height: 500px; /* 높이를 300px에서 400px로 확장 */
+  text-align: center;
+  position: relative;
+  display: flex; /* Flexbox로 배치 */
+  flex-direction: column; /* 세로 방향 배치 */
+  justify-content: space-between;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 애니메이션 효과 */
+}
+
+/* 닫기 버튼 */
+.modalClose {
+  position: absolute;
+  top: 10px; /* 위치를 조금 아래로 조정 */
+  right: 15px;
+  cursor: pointer;
+}
+
+.modalClose button {
+  background: none;
+  border: none;
+  font-size: 40px; /* 버튼 크기 유지 */
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease; /* 색상 전환 애니메이션 */
+}
+
+.modalClose button:hover {
+  color: #dc3545; /* hover 시 빨간색으로 변경 */
+}
+
+/* Modal Header */
+.modalHeader {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.modalHeader h2 {
+  font-size: 28px; /* 첫 번째 스타일의 modalText와 일치 */
+  color: #333;
+}
+
+/* Modal Body */
+.modalBody {
+  padding: 0 20px;
+}
+
+/* Input Group */
+.inputGroup {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.inputGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px; /* 첫 번째 스타일에 맞춰 폰트 크기 증가 */
+  color: #333;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 12px; /* 패딩 증가 */
+  border: 1px solid #ddd;
+  border-radius: 8px; /* border-radius 증가 */
+  font-size: 16px; /* 폰트 크기 증가 */
+  box-sizing: border-box;
+}
+
+/* Modal Footer */
+.modalFooter {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Submit Button */
+.submitBtn {
+  background-color: #007bff; /* 첫 번째 스타일의 confirmButton과 일치 */
+  color: white;
+  padding: 12px 50px; /* 버튼 패딩 조정 */
+  border: none;
+  border-radius: 40px; /* border-radius 증가 */
+  font-size: 20px; /* 버튼 글씨 크기 조정 */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* 애니메이션 효과 */
+}
+
+.submitBtn:hover {
+  background-color: #0056b3; /* hover 시 색상 변경 */
+  transform: scale(1.05); /* 크기 확장 */
+}

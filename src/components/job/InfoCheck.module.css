@@ -1,4 +1,5 @@
-.login-required-container {
+/* 로그인 필요 화면 */
+.loginRequiredContainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +7,7 @@
     background-color: #f5f5f5;
 }
 
-.login-required-content {
+.loginRequiredContent {
     background-color: white;
     padding: 2rem;
     border-radius: 8px;
@@ -16,30 +17,30 @@
     width: 90%;
 }
 
-.login-icon {
+.loginIcon {
     font-size: 3rem;
     color: #3498db;
     margin-bottom: 1rem;
 }
 
-.login-required-content h2 {
+.loginRequiredContent h2 {
     color: #2c3e50;
     margin-bottom: 0.5rem;
 }
 
-.login-required-content p {
+.loginRequiredContent p {
     color: #7f8c8d;
     margin-bottom: 1.5rem;
 }
 
-.login-buttons {
+.loginButtons {
     display: flex;
-    flex-direction: column; /* 버튼을 세로로 정렬 */
-    gap: 1rem; /* 버튼 사이 간격 */
-    margin-top: 1.5rem; /* 상단 여백 추가 */
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
-.login-button, .previous-button {
+.loginButton, .previousButton {
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 4px;
@@ -47,39 +48,40 @@
     transition: background-color 0.3s ease;
 }
 
-.login-button {
+.loginButton {
     background-color: #3498db;
     color: white;
 }
 
-.login-button:hover {
+.loginButton:hover {
     background-color: #2980b9;
 }
 
-.previous-button {
+.previousButton {
     background-color: #ecf0f1;
     color: #34495e;
 }
 
-.previous-button:hover {
+.previousButton:hover {
     background-color: #bdc3c7;
 }
 
-.info-check {
+/* 정보 확인 화면 */
+.infoCheck {
     display: flex;
     flex-direction: column;
     gap: 20px;
     padding: 10px;
 }
 
-.info-check label {
+.infoCheck label {
     font-weight: 500;
     margin-bottom: 5px;
     color: #333;
 }
 
-.info-check input[type="text"],
-.info-check input[type="tel"] {
+.infoCheck input[type="text"],
+.infoCheck input[type="tel"] {
     width: 300px;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -89,18 +91,20 @@
     cursor: not-allowed;
 }
 
-.info-check input[type="text"]:disabled,
-.info-check input[type="tel"]:disabled {
+.infoCheck input[type="text"]:disabled,
+.infoCheck input[type="tel"]:disabled {
     opacity: 0.8;
 }
 
-.info-check-row {
+.infoCheckRow {
     display: flex;
     align-items: center;
     gap: 30px;
+    padding-top: 40px;
+    border-top: 2px solid #0066ff;
 }
 
-.info-check-row input[type="text"] {
+.infoCheckRow input[type="text"] {
     width: 150px;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -110,13 +114,14 @@
     cursor: not-allowed;
 }
 
-.radio-group {
+/* 라디오 버튼 그룹 */
+.radioGroup {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.radio-group label {
+.radioGroup label {
     margin-right: 5px;
     font-weight: normal;
 }
@@ -129,17 +134,58 @@ input[type="radio"] {
     cursor: not-allowed;
 }
 
-.disability-row {
+/* 장애 종류 및 등급 입력 필드 */
+.disabilityRow {
     display: flex;
     align-items: center;
     gap: 10px;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #0066ff;
 }
 
-.disability-row input[type="text"] {
+.disabilityRow input[type="text"] {
     width: 145px;
 }
 
-.disability-row span {
+.disabilityRow span {
     color: #666;
     font-weight: 500;
+}
+
+/* 버튼 컨테이너 */
+.buttonContainer {
+    margin-top: auto; /* 하단에 고정 */
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 20px 0;
+}
+
+/* 버튼 스타일 */
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* 이전 버튼 */
+.previousButton {
+    background-color: #ccc;
+    color: black;
+}
+
+.previousButton:hover {
+    background-color: #999;
+}
+
+/* 지원 버튼 */
+.submitButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
 }

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Job from '../../components/job/Job.jsx';
 import { useNavigate, useLocation } from 'react-router-dom';
-import jobs from '../../data/jobs.js';
-import './JobsPage.css'
+//컴포넌트
 import CompleteModal from '../../components/job/CompleteModal.jsx';
+import Job from '../../components/job/Job.jsx';
+//CSS
+import './JobsPage.css'
+//데이터
+import jobs from '../../data/jobs.js';
 
 const JobsPage = () => {
     const navigate = useNavigate();

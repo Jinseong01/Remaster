@@ -1,7 +1,8 @@
 import React from 'react';
 import Masonry from 'react-masonry-css';
-import './Job.css'
 import { useNavigate } from 'react-router-dom';
+// CSS
+import styles from './Job.module.css';
 
 const Job = ({ jobs }) => {
     // Masonry 레이아웃 설정
@@ -19,28 +20,30 @@ const Job = ({ jobs }) => {
     };
 
     return (
-        <div className="jobs">
+        <div className={styles.jobs}>
             <Masonry
                 breakpointCols={breakpointColumnsObj}
-                className="my-masonry-grid"
-                columnClassName="my-masonry-grid_column"
+                className={styles.myMasonryGrid}
+                columnClassName={styles.myMasonryGridColumn}
             >
                 {/* 각 채용공고 항목 */}
-                {jobs.map( job => (
-                    <div key={job.id} className="job-card" onClick={() => handleCardClick(job.id)}>
+                {jobs.map((job) => (
+                    <div
+                        key={job.id}
+                        className={styles.jobCard}
+                        onClick={() => handleCardClick(job.id)}
+                    >
                         <img src={job.thumbnail_url} alt={job.company} />
                         <h3>{job.company}</h3>
                         <h4>{job.position}</h4>
-                        <p>필수조건</p>
+                        <p>마감기한 : {job.deadline}</p>
                         <ul>
                             {job.requirements.map((requirement, index) => (
                                 <li key={index}>{requirement}</li>
                             ))}
                         </ul>
-                        <p>마감기한 : {job.deadline}</p>
                     </div>
                 ))}
-
             </Masonry>
         </div>
     );

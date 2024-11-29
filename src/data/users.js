@@ -60,8 +60,45 @@ export let users = [
         t_support : [],
         schedule : [],
         job : [],
-        my_menu : [],
-        rest_menu : []
+        my_menu : [
+          { id: "1", name: "프로그램", img: "/assets/images/sidebar/program-icon.png", route: "/program", keywords: ["프로그램", "프로그램으로 이동해주세요", "program"]},
+          { id: "2", name: "활동지원", img: "/assets/images/sidebar/support-icon.png", route: "/activity", keywords: ["활동 지원", "활동지원", "activity"]},
+          { id: "3", name: "공지사항", img: "/assets/images/sidebar/notice-icon.png", route: "/notice", keywords: ["공지 사항", "공지", "notice"]}
+        ],
+        rest_menu : [
+          { id: "4", name: "일정관리", img: "/assets/images/sidebar/calendar-icon.png", route: "/schedule", keywords: ["일정관리", "캘린더", "calendar"]},
+          { id: "5", name: "일자리", img: "/assets/images/sidebar/job-icon.png", route: "/jobs", keywords: ["일자리", "구인", "jobs"]},
+          { id: "6", name: "마이페이지", img: "/assets/images/sidebar/mypage-icon.png", route: "/mypage", keywords: ["마이페이지", "마이 페이지", "mypage"]}
+        ]
       },
-     
+      {
+        id: 'bugi',
+        pw: '1234',
+        name: '부기',
+        gender: '남',
+        address: '서울특별시 성북구 아파트',
+        phone_number: '010-1234-5678',
+        emergency_phone_number: '010-2222-3333',
+        height: 160,
+        weight: 50,
+        disability_type: '청각',
+        disability_grade: 2,
+        before_programs : [],
+        programs : [],
+        l_support : [],
+        t_support : [],
+        schedule : [],
+        job : [],
+        my_menu : [
+          
+        ],
+        rest_menu : [
+          { id: "1", name: "프로그램", img: "/assets/images/sidebar/program-icon.png", route: "/program", keywords: ["프로그램", "프로그램으로 이동해주세요", "program"]},
+          { id: "2", name: "활동지원", img: "/assets/images/sidebar/support-icon.png", route: "/activity", keywords: ["활동 지원", "활동지원", "activity"]},
+          { id: "3", name: "공지사항", img: "/assets/images/sidebar/notice-icon.png", route: "/notice", keywords: ["공지 사항", "공지", "notice"]},
+          { id: "4", name: "일정관리", img: "/assets/images/sidebar/calendar-icon.png", route: "/schedule", keywords: ["일정관리", "캘린더", "calendar"]},
+          { id: "5", name: "일자리", img: "/assets/images/sidebar/job-icon.png", route: "/jobs", keywords: ["일자리", "구인", "jobs"]},
+          { id: "6", name: "마이페이지", img: "/assets/images/sidebar/mypage-icon.png", route: "/mypage", keywords: ["마이페이지", "마이 페이지", "mypage"]}
+        ]
+      },
   ];

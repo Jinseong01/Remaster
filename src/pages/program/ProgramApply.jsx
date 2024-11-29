@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./ProgramApply.css";
+import ProgramImageModal from "../../components/program/ProgramImageModal";
+import ConfirmationDialog from "../../components/program/ConfirmationDialog";
+import CompletionDialog from "../../components/program/CompletionDialog";
+import ChangeConfirmModal from "../../components/ChangeConfirm/ChangeConfirmModal";
 
 function ProgramApply({ currentUser, setCurrentUser }) {
   const [isChecked, setIsChecked] = useState(false); // 체크 박스
   const [isCheckApply, setIsCheckApply] = useState(false);
   const [showCompletionDialog, setShowCompletionDialog] = useState(false); // 신청 완료 다이얼로그 상태
 
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [modalImage, setModalImage] = useState(null); // 클릭한 이미지 저장
+  const [isEditable, setIsEditable] = useState(false); // 텍스트 수정 가능 여부 상태
+
   const navigate = useNavigate(); // 페이지 라우팅을 위해 useNavigate 사용
   const location = useLocation();
   const programInfo = location.state?.program;
+
+  // 이미지 모달창 관련 
+  const openModal = (image) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImage(null);
+  };
 
   const toggleCheckDialog = () => {
     setIsCheckApply(!isCheckApply);
@@ -21,6 +40,7 @@ function ProgramApply({ currentUser, setCurrentUser }) {
   });
 
   const handleChange = (e) => {
+    if (!isEditable) return; // isEditable이 false이면 아무 작업도 하지 않음
     const { name, value } = e.target;
     setUserInfo((prev) => ({
       ...prev,
@@ -179,6 +199,7 @@ function ProgramApply({ currentUser, setCurrentUser }) {
           <img
             src={`${process.env.PUBLIC_URL}/${programInfo.image_url}`}
             alt="프로그램 이미지"
+            onClick={() => openModal(`${process.env.PUBLIC_URL}/${programInfo.image_url}`)} // 클릭하면 모달 열림
           />
           {/* 세로 divider 추가 */}
           <div className="divider-vertical"></div>
@@ -256,58 +277,24 @@ function ProgramApply({ currentUser, setCurrentUser }) {
             신청완료
           </button>
         </div>
-        {isCheckApply && (
-          <div className="check-dialog-overlay" onClick={toggleCheckDialog}>
-            <div
-              className="check-dialog-wrapper"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2>신청하시겠습니까?</h2>
-              <div className="check-dialog-buttons">
-                <button
-                  className="check-dialog-yes"
-                  onClick={() => {
-                    setIsCheckApply(false);
-                    setShowCompletionDialog(true); // 신청 완료 다이얼로그 표시
-                    increaseProgramNowCapacity();
-                    addProgramToUser();
-                  }}
-                >
-                  네
-                </button>
-
-                <button className="check-dialog-no" onClick={toggleCheckDialog}>
-                  아니오
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {showCompletionDialog && (
-          <div className="check-dialog-overlay">
-            <div
-              className="check-dialog-wrapper"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <h2>신청이 완료되었습니다</h2>
-              <div className="check-dialog-buttons">
-                <button
-                  className="check-dialog-confirm"
-                  onClick={() => navigate("/program")}
-                >
-                  확인
-                </button>
-                <button
-                  className="check-dialog-view-history"
-                  onClick={() => navigate("/mypage")}
-                >
-                  신청내역 보기
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        
       </div>
+      <ProgramImageModal isOpen={isModalOpen} onClose={closeModal} image={modalImage} />
+      <ConfirmationDialog
+        isOpen={isCheckApply}
+        onClose={() => setIsCheckApply(false)}
+        onConfirm={() => {
+          setIsCheckApply(false);
+          setShowCompletionDialog(true);
+          increaseProgramNowCapacity();
+          addProgramToUser();
+        }}
+      />
+      <CompletionDialog
+        isOpen={showCompletionDialog}
+        onClose={() => navigate("/program")}
+        onViewHistory={() => navigate("/mypage")}
+      />
     </>
   );
 }

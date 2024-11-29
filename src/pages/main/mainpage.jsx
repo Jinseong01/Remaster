@@ -6,6 +6,7 @@ import {useNavigate } from 'react-router-dom';
 import "./mainpage.css"
 import programs from '../../data/program';
 import jobs from '../../data/jobs';
+import Sidebar from '../../components/side/Sidebar';
 
 import { AlertCircle, Briefcase, Users, Clock, MapPin, Calendar } from 'lucide-react';
 
@@ -50,6 +51,9 @@ const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
 
   return (
     <div className="w-[100%] mx-auto p-4">
+      {currentUser && Object.keys(currentUser).length > 0 && (
+        <Sidebar currentUser={currentUser} />
+      )}
       <Card className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="p-4">
           <div className="flex items-center justify-between mb-2">

@@ -65,7 +65,7 @@ function App() {
         },
         {
           path: "program", // /program
-          element: <Program />,
+          element: <Program currentUser={currentUser}/>,
         },
         {
           path: "apply", // /program

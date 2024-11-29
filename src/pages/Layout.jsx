@@ -49,7 +49,7 @@ function Layout({ loginState, setLogin, currentUser, setCurrentUser }) {
 
             {/* Navigation Links */}
             <div className="nav-links">
-              <Link to="/program?data=123&data2=456" className="nav-link">
+              <Link to="/program" className="nav-link">
                 프로그램
               </Link>
               <Link to="/support" className="nav-link">

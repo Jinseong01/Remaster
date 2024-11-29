@@ -3,6 +3,7 @@ import { ChevronDown, Calendar, User, ChevronLeft, ChevronRight } from 'lucide-r
 import { Card } from '../../components/ui/card';
 import notices from '../../data/notice';
 import { useSearchParams } from 'react-router-dom';
+import Sidebar from '../../components/side/Sidebar';
 
 const NoticePage = () => {
   const [searchParams] = useSearchParams();

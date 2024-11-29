@@ -2,7 +2,9 @@
 let pageInfo = {
   "/": ["/assets/images/layout/mainpage.jpg", "메인 페이지"],
 
-  "/program": ["/assets/images/layout/programpage.jpg", "프로그램 페이지"],
+  "/program": ["/assets/images/layout/programpage.png", "프로그램 페이지"],
+
+  "/apply": ["/assets/images/layout/programpage.png", "프로그램 신청 페이지"],
 
   "/support": ["/assets/images/layout/supportpage.png", "보조 활동 페이지"],
 

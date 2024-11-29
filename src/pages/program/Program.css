@@ -4,9 +4,8 @@
 .program-info {
   display: flex;
   flex-direction: row;
-  background-color: #ddd;
-  padding: 1%;
-  max-height: 500px;
+  background-color: #dde5ec;
+  max-height: 600px;
 }
 
 /* 프로그램 이미지 */
@@ -16,6 +15,8 @@
   height: auto;
   border-radius: 8px;
   object-fit: cover;
+  object-position: top; /* 이미지의 위쪽을 우선적으로 보여줌 */
+  max-width: 900px;
 }
 
 /* 프로그램 텍스트 섹션 */
@@ -46,15 +47,15 @@
 .program-details .address-phone {
   margin-top: 10px;
   font-size: 1rem;
-  background-color: #fff; /* 하얀색 배경 */
   border-radius: 8px; /* 살짝 둥근 모서리 */
 }
 
 .program-details .content {
   margin: 20px auto;
+  padding: 5%;
   font-size: 1rem;
-  background-color: #fff; /* 하얀색 배경 */
   border-radius: 8px; /* 살짝 둥근 모서리 */
+  font-size: 18px;
 }
 
 .date-deadline-button {
@@ -64,10 +65,9 @@
   justify-content: space-between;
 }
 
-.program-details .date-deadline {
+.program-details .program-date-deadline {
   margin-top: 10px;
   font-size: 0.9rem;
-  background-color: #fff; /* 하얀색 배경 */
   border-radius: 8px; /* 살짝 둥근 모서리 */
 }
 
@@ -112,6 +112,7 @@
   width: 100%;
   height: 200px;
   object-fit: cover;
+  object-position: top; /* 이미지의 위쪽을 우선적으로 보여줌 */
   border-radius: 8px 8px 0 0;
 }
 
@@ -120,111 +121,102 @@
   margin: 5px 0;
 }
 
-/* 도움말 버튼 (이미지) */
-.help-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px; /* 버튼 크기 조정 */
-  height: 50px;
-  background-color: transparent; /* 배경 제거 */
-  border: none;
-  border-radius: 50%; /* 버튼을 동그랗게 */
-  cursor: pointer;
-  z-index: 10;
-  padding: 0; /* 기본 여백 제거 */
+/* 반응형 스타일 */
+@media screen and (max-width: 1024px) {
+  .program-info {
+    flex-direction: column; /* 세로 방향으로 배치 */
+    max-height: auto; /* 높이 제한 제거 */
+  }
+
+  .program-info img {
+    max-width: 100%; /* 이미지를 컨테이너 너비에 맞춤 */
+  }
+
+  .program-details {
+    margin-top: 10px;
+  }
+
+  .program-details h2 {
+    font-size: 1.8rem; /* 제목 크기 조정 */
+  }
+
+  .program-details .content {
+    font-size: 16px; /* 텍스트 크기 조정 */
+  }
+
+  .date-deadline-button {
+    flex-direction: column; /* 버튼 섹션을 세로로 배치 */
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .apply-button {
+    width: 100%; /* 버튼 너비를 100%로 설정 */
+  }
+
+  .program-card {
+    max-width: 100%; /* 카드 크기를 컨테이너 너비에 맞춤 */
+  }
 }
 
-.help-button-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* 이미지 비율 유지하며 크기 조정 */
-  transition: transform 0.3s ease; /* 호버 효과 */
+@media screen and (max-width: 768px) {
+  .program-info {
+    padding: 10px;
+  }
+
+  .program-details {
+    padding: 10px;
+  }
+
+  .program-details h2 {
+    font-size: 1.6rem; /* 제목 크기 더 작게 조정 */
+  }
+
+  .program-details .content {
+    font-size: 14px; /* 내용 텍스트 크기 감소 */
+  }
+
+  .program-card img {
+    height: 150px; /* 이미지 높이 감소 */
+  }
+
+  .program-card p {
+    font-size: 0.9rem; /* 텍스트 크기 감소 */
+  }
+
+  .apply-button {
+    height: 40px; /* 버튼 높이 감소 */
+    font-size: 0.9rem; /* 버튼 텍스트 크기 감소 */
+  }
 }
 
-.help-button:hover .help-button-image {
-  transform: scale(1.1); /* 호버 시 확대 */
-}
+@media screen and (max-width: 480px) {
+  .program-info {
+    padding: 5px;
+  }
 
-/*외부 흑백처리*/
-.help-dialog-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 20;
-}
+  .program-details {
+    padding: 5px;
+  }
 
-/*도움말 바깥 배경색*/
-.help-dialog-background {
-  background: #dde5ec;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 1200px;
-  height: 600px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+  .program-details h2 {
+    font-size: 1.4rem; /* 제목 크기 더 작게 조정 */
+  }
 
-.logo-and-h2 {
-  display: flex;
-  flex-direction: row;
-  gap: 10px; /* 로고와 텍스트 사이 간격 */
-}
+  .program-details .content {
+    font-size: 12px; /* 내용 텍스트 크기 감소 */
+  }
 
-/*도움말 바깥 h2*/
-.help-dialog-background h2 {
-  font-size: 24px; /* 텍스트 크기 */
-  font-weight: 700; /* 텍스트 굵기 (700은 굵게) */
-  color: #333; /* 텍스트 색상 (선택 사항) */
-  margin-bottom: 20px; /* 아래 여백 (선택 사항) */
-}
+  .program-card img {
+    height: 120px; /* 이미지 높이 감소 */
+  }
 
-/*도움말 white 부분*/
-.help-dialog {
-  width: 100%;
-  background-color: white;
-  height: 84%;
-  margin-bottom: 10px;
-}
+  .program-card p {
+    font-size: 0.8rem; /* 텍스트 크기 감소 */
+  }
 
-.help-dialog p {
-  margin-bottom: 20px;
-  font-size: 1rem;
-  color: #666;
-}
-
-.close-button {
-  width: 100px;
-  height: 40px;
-  background-color: #e53e3e;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.close-button:hover {
-  background-color: #c53030;
-}
-
-/* dnd css */
-.sidebar-dnd {
-  position: fixed;
-  background-color: #b3e0f2; /* 연한 파란색 배경 */
-  padding: 20px;
-  z-index: 1;
-  border-radius: 15px;
-}
-
-.sidebar-droppable {
-  display: flex;
-  flex-direction: column;
+  .apply-button {
+    height: 35px; /* 버튼 높이 감소 */
+    font-size: 0.8rem; /* 버튼 텍스트 크기 감소 */
+  }
 }

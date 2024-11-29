@@ -20,6 +20,7 @@
   width: 90%;
   max-width: 1000px;
   box-sizing: border-box;
+  height: 80vh;
 }
 
 .map-modal-header {
@@ -49,6 +50,7 @@
   box-sizing: border-box;
 }
 
+.select-location-button,
 .map-search-button {
   padding: 8px 20px;
   font-size: 1rem;
@@ -84,7 +86,7 @@
 }
 
 /* 지도 컨테이너 스타일 추가 */
-.naver-map-container {
+.map-container {
   width: 100%;
   height: 67vh;
 }

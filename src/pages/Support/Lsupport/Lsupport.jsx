@@ -93,7 +93,7 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
         <div className="lsupport-page-form">
           {/* 날짜 선택 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="date-picker">
               날짜
             </label>
@@ -101,69 +101,80 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
               id="date-picker"
-              className="form-input"
+              className="lsupport-form-input-date"
               dateFormat="yyyy/MM/dd"
               placeholderText="날짜를 선택하세요"
             />
           </div>
 
           {/* 시간 선택 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="time">
               시간
             </label>
             <input
               type="time"
               id="time"
-              className="form-input"
+              className="lsupport-form-input-time"
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
             />
           </div>
 
           {/* 출발지 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="address">
               출발지
             </label>
-            <div className="input-with-button inline-input">
-              <input type="text" id="address" className="form-input" />
-              <ChevronDown
-                className="location-icon"
-                size={24}
-                onClick={openStartModal}
+            <div className="lsupport-input-with-button">
+              <input
+                type="text"
+                id="address"
+                className="lsupport-form-input-start"
+                placeholder="출발지를 입력하세요"
               />
+              <div className="lsupport-location-icon" onClick={openStartModal}>
+                <ChevronDown size={16} />
+              </div>
             </div>
           </div>
 
           {/* 신청 사유 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="reason">
               신청 사유
             </label>
-            <input type="text" id="reason" className="form-input" />
+            <input
+              type="text"
+              id="reason"
+              className="lsupport-form-input-reason"
+            />
           </div>
 
           {/* 알레르기 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="allergy">
               알레르기
             </label>
-            <input type="text" id="allergy" className="form-input" />
+            <input
+              type="text"
+              id="allergy"
+              className="lsupport-form-input-allergy"
+            />
           </div>
 
           {/* 애완 동물 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="pet">
               애완 동물
             </label>
-            <input type="text" id="pet" className="form-input" />
+            <input type="text" id="pet" className="lsupport-form-input-pet" />
           </div>
 
           {/* 수화 사용 여부 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label">수화 사용 여부</label>
-            <div className="options-group">
+            <div className="lsupport-options-group">
               <label>
                 <input
                   type="radio"
@@ -188,9 +199,9 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
           </div>
 
           {/* 휠체어 사용 여부 */}
-          <div className="form-group">
+          <div className="lsupport-form-group">
             <label className="lsupport-page-label">휠체어 사용 여부</label>
-            <div className="options-group">
+            <div className="lsupport-options-group">
               <label>
                 <input
                   type="radio"
@@ -216,15 +227,25 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
         </div>
 
         {/* 제출 버튼 */}
-        <div className="form-submit-container">
-          <button className="form-submit-button" onClick={handleSubmit}>
+        <div className="lsupport-form-submit-container">
+          <button
+            className="lsupport-form-submit-button"
+            onClick={handleSubmit}
+          >
             신청
           </button>
         </div>
       </div>
 
       {/* 출발지 모달 */}
-      <MapModal isOpen={isStartModalOpen} onClose={closeStartModal} />
+      <MapModal
+        isOpen={isStartModalOpen}
+        onClose={closeStartModal}
+        onSelectLocation={(address) => {
+          document.getElementById("address").value = address; // 출발지 설정
+          closeStartModal();
+        }}
+      />
     </div>
   );
 };

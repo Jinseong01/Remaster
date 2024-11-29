@@ -8,7 +8,7 @@ let pageInfo = {
 
   "/jobs": ["/assets/images/layout/jobs.png", "일자리 페이지"],
 
-  "/notice": ["/assets/images/layout/noticepage.jpg", "공지사항 페이지"],
+  "/notice": ["/assets/images/layout/noticepage.jpg", "공지사항"],
 
   "/schedule": ["/assets/images/layout/schedule.png", "개인일정 페이지"],
 

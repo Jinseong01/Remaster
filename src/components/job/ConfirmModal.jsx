@@ -1,24 +1,25 @@
 import React from 'react';
-import './ConfirmModal.css';
+// CSS
+import styles from './ConfirmModal.module.css';
 
 const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-close">
+    <div className={styles.modalOverlay}>
+      <div className={styles.modalContent}>
+        <div className={styles.modalClose}>
           <button onClick={onClose}>×</button>
         </div>
-        <div className="modal-icon">
+        <div className={styles.modalIcon}>
           <img src="/assets/images/jobs/click.png" alt="cursor" />
         </div>
-        <div className="modal-text">
+        <div className={styles.modalText}>
           지원하시겠습니까?
         </div>
-        <div className="modal-buttons">
-          <button className="confirm-button" onClick={onConfirm}>예</button>
-          <button className="cancel-button" onClick={onClose}>아니오</button>
+        <div className={styles.modalButtons}>
+          <button className={styles.confirmButton} onClick={onConfirm}>예</button>
+          <button className={styles.cancelButton} onClick={onClose}>아니오</button>
         </div>
       </div>
     </div>

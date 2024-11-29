@@ -1,0 +1,90 @@
+.jobs {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.myMasonryGrid {
+  display: flex;
+  margin-left: -15px; /* gutter size offset */
+  width: auto;
+}
+
+.myMasonryGridColumn {
+  padding-left: 15px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* 개별 카드 스타일 */
+.jobCard {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.jobCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.jobCard img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.jobCard h3 {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.jobCard h4 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.jobCard p {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 10px 0;
+}
+
+.jobCard ul {
+  list-style-type: disc;
+  padding-left: 20px;
+  text-align: left;
+  margin: 10px 0;
+}
+
+.jobCard ul li {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 700px) {
+  .jobCard h3 {
+      font-size: 1rem;
+  }
+
+  .jobCard h4 {
+      font-size: 0.9rem;
+  }
+
+  .jobCard p,
+  .jobCard ul li {
+      font-size: 0.8rem;
+  }
+}

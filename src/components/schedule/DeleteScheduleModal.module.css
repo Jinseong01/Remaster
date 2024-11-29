@@ -1,0 +1,119 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 40px;  /* 패딩을 조금 더 넓혀 여유 있게 설정 */
+  border-radius: 15px;
+  width: 500px;  /* 컨테이너 너비 확장 */
+  height: 410px;  /* 컨테이너 높이 확장 */
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+/* 닫기 버튼 */
+.modalClose {
+  position: absolute;
+  top: 2px;  /* 위치를 조금 아래로 */
+  right: 15px;
+}
+
+.modalClose button {
+  background: none;
+  border: none;
+  font-size: 40px;
+  cursor: pointer;
+  color: #666;
+}
+
+/* 아이콘 */
+.modalIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;  /* 여백 확장 */
+  margin-top: 40px;
+}
+
+.modalIcon img {
+  width: 70px;  /* 아이콘 크기 증가 */
+  height: 70px;
+}
+
+.modalIcon img:hover {
+  transform: scale(1.1);  /* 아이콘 확대 */
+}
+
+/* 지원 문구 */
+.modalText {
+  font-size: 30px;  /* 텍스트 크기 적당히 조정 */
+  margin-bottom: 25px;  /* 여백 확장 */
+}
+
+/* 읽기 전용 필드 */
+.readonlyField {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 14px;
+  width: 70%;
+  margin: 0 auto;
+  border-radius: 10px;
+  font-size: 16px;  /* 기존 상태 유지 */
+  color: #333;
+  text-align: center;
+  margin-bottom: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 예/아니오 버튼 */
+.modalButtons {
+  display: flex;
+  gap: 20px;  /* 버튼 간격을 넓힘 */
+  justify-content: center;
+}
+
+.modalButtons button {
+  padding: 8px 40px;  /* 버튼 크기 확장 */
+  border-radius: 40px;
+  border: none;
+  cursor: pointer;
+  font-size: 25px;  /* 버튼 글씨 크기 조정 */
+  margin-top: 10px; 
+}
+
+.confirmButton {
+  width: 180px;
+  background-color: #dc3545;
+  color: white;
+}
+
+.cancelButton {
+  width: 180px;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.confirmButton:hover {
+  background-color: #9e0414;
+  transform: scale(1.05);
+}
+
+.cancelButton:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.05);
+}

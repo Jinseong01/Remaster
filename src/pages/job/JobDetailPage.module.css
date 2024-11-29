@@ -1,4 +1,4 @@
-.job-detail-container {
+.jobDetailContainer {
   display: flex;
   gap: 40px; /* 간격 늘림 */
   padding: 40px;
@@ -7,17 +7,17 @@
   margin: 0 auto; /* 중앙 정렬 */
 }
 
-.job-detail-image {
+.jobDetailImage {
   flex: 0 0 400px; /* 이미지 영역 너비 고정 */
 }
 
-.job-detail-image img {
+.jobDetailImage img {
   width: 100%;
   height: auto;
   border-radius: 12px;
 }
 
-.job-detail-content {
+.jobDetailContent {
   flex: 0 0 700px; /* 가로 크기 700px로 고정 */
   width: 700px; /* 명시적 가로 크기 설정 */
   height: 800px; /* 세로 크기 800px로 고정 */
@@ -26,12 +26,16 @@
   padding: 30px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   overflow-y: auto; /* 내용이 넘칠 경우 스크롤바 표시 */
 }
 
+.jobDetailContent h1 {
+  font-size: 25px;
+}
+
 /* 테이블 컨테이너 */
-.table-container {
+.tableContainer {
   flex: 1;
   margin-bottom: 20px;
 }
@@ -41,9 +45,9 @@ table {
   margin-bottom: 30px;
 }
 
-table th, table td {
+table th,
+table td {
   border: 1px solid #ccc; /* 경계선 설정 */
-
   padding: 12px 16px;
 }
 
@@ -57,7 +61,7 @@ table tr:nth-child(even) {
 }
 
 /* 정보 입력 폼 컨테이너 */
-.info-check {
+.infoCheck {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -65,25 +69,24 @@ table tr:nth-child(even) {
   padding: 20px 0;
 }
 
-
-.info-check label {
+.infoCheck label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.info-check input {
+.infoCheck input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   width: 100%;
 }
 
-.info-check input[type="date"] {
+.infoCheck input[type="date"] {
   height: 40px;
 }
 
 /* 버튼 컨테이너 위치 고정 */
-.button-container {
+.buttonContainer {
   margin-top: auto; /* 하단에 고정 */
   display: flex;
   justify-content: flex-end;
@@ -99,30 +102,29 @@ button {
   cursor: pointer;
 }
 
-.next-button {
+.nextButton {
   background-color: #007bff;
   color: white;
 }
 
-.next-button:hover {
+.nextButton:hover {
   background-color: #0056b3;
 }
 
-.previous-button {
+.previousButton {
   background-color: #ccc;
   color: black;
 }
 
-.previous-button:hover {
+.previousButton:hover {
   background-color: #999;
 }
 
-.submit-button {
+.submitButton {
   background-color: #007bff;
   color: white;
 }
 
-.submit-button:hover {
+.submitButton:hover {
   background-color: #0056b3;
 }
-

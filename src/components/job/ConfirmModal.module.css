@@ -1,4 +1,4 @@
-.modal-overlay {
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.modal-content {
+.modalContent {
   background: white;
   padding: 30px;
   border-radius: 15px;
@@ -24,13 +24,14 @@
   justify-content: space-between;
 }
 
-  /*닫기 버튼*/
-.modal-close {
+/* 닫기 버튼 */
+.modalClose {
   position: absolute;
   top: 2px;
   right: 15px;
 }
-.modal-close button {
+
+.modalClose button {
   background: none;
   border: none;
   font-size: 40px;
@@ -38,32 +39,34 @@
   color: #666;
 }
 
-/*클릭 아이콘*/
-.modal-icon {
+/* 클릭 아이콘 */
+.modalIcon {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
   margin-top: 40px;
 }
-.modal-icon img {
+
+.modalIcon img {
   width: 50px;
   height: 50px;
 }
 
-/*지원 문구*/
-.modal-text {
+/* 지원 문구 */
+.modalText {
   font-size: 30px;
   margin-bottom: 25px;
 }
 
-/*예/아니오 버튼*/
-.modal-buttons {
+/* 예/아니오 버튼 */
+.modalButtons {
   display: flex;
-  gap: 10px;
+  gap: 20px;
   justify-content: center;
 }
-.modal-buttons button {
+
+.modalButtons button {
   padding: 8px 40px;
   border-radius: 40px;
   border: none;
@@ -71,22 +74,25 @@
   font-size: 25px;
   margin-top: 10px;
 }
-.confirm-button {
+
+.confirmButton {
   width: 180px;
   background-color: #007bff;
   color: white;
 }
-.history-button {
+
+.cancelButton {
   width: 180px;
   background-color: #f0f0f0;
   color: #333;
 }
-.confirm-button:hover {
+
+.confirmButton:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
 
-.history-button:hover {
+.cancelButton:hover {
   background-color: #e0e0e0;
   transform: scale(1.05);
 }

@@ -13,6 +13,7 @@ import JobsPage from "./pages/job/JobsPage";
 import JobDetailPage from "./pages/job/JobDetailPage";
 import Program from "./pages/program/Program";
 import ProgramApply from "./pages/program/ProgramApply";
+import SchedulePage from "./pages/schedule/SchedulePage";
 
 import SupportPage from "./pages/Support/SupportPage";
 // MyPage 관련 import
@@ -96,7 +97,11 @@ function App() {
         },
         {
           path: "schedule",
-          element: <PersonalPage />,
+          element: <SchedulePage 
+            currentUser={currentUser}
+            loginState={login}
+            setCurrentUser={setCurrentUser}
+            />,
         },
         {
           path: "mypage",

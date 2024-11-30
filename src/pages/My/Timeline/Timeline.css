@@ -1,12 +1,33 @@
-/* Timeline.css */
-
 .mypage-timeline {
   position: relative;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
+  padding: 50px 20px; /* 연도와 타임라인 사이 거리 확보 */
+}
+
+.year-dropdown {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  color: #000;
+  text-align: center;
+}
+
+.year-dropdown select {
+  appearance: none;
+  background: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  color: #000;
+  cursor: pointer;
 }
 
 .timeline-line {
@@ -16,19 +37,33 @@
   width: 4px;
   background-color: #000;
   height: 100%;
-  top: 0;
+  top: 50px; /* 연도와 타임라인 선 거리 */
   z-index: -1;
 }
 
 .timeline-entry {
-  position: relative;
   display: flex;
   align-items: center;
+  justify-content: center; /* 이미지를 텍스트와 가까이 배치 */
   margin-bottom: 50px;
+  position: relative;
+  gap: 110px; /* 이미지와 텍스트 간의 간격 설정 */
 }
 
-.timeline-entry.left {
-  flex-direction: row-reverse;
+.timeline-entry.left .program-box {
+  order: 1;
+}
+
+.timeline-entry.right .program-box {
+  order: 3;
+}
+
+.timeline-entry.left .image-box {
+  order: 3;
+}
+
+.timeline-entry.right .image-box {
+  order: 1;
 }
 
 .timeline-point {
@@ -38,35 +73,43 @@
   border-radius: 50%;
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 1;
 }
 
 .program-box {
-  width: 400px;
+  width: 250px; /* 텍스트 상자의 너비를 약간 줄여 조화를 맞춤 */
   background-color: #cbe5ff;
-  padding: 20px;
+  padding: 15px; /* 패딩을 줄여 공간을 최적화 */
   border-radius: 10px;
-}
-
-.program-info {
-  font-size: 18px;
+  text-align: center;
   font-weight: bold;
 }
 
 .image-box {
-  width: 150px;
-  height: 150px;
-  margin: 0 20px;
+  width: 180px; /* 이미지 크기를 조금 줄여 간격을 맞춤 */
+  height: 180px;
   border-radius: 10px;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f0f0f0;
 }
 
 .program-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.no-programs-message {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+}
+
+.no-image-placeholder {
+  font-size: 16px;
+  color: #555;
 }

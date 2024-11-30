@@ -1,39 +1,33 @@
-// src/pages/MyPage/SubResultPage/Program/ProgramResult.jsx
 import React, { useState, useEffect } from "react";
 import "./ProgramResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
+import "../pagenation.css";
 
 const ProgramResult = ({ currentUser, setCurrentUser }) => {
-  // 사용자 신청 프로그램 데이터
   const [userPrograms, setUserPrograms] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+  const itemsPerPage = 5; // 페이지당 표시할 항목 수
 
   useEffect(() => {
     if (currentUser && currentUser.programs) {
-      console.log("Current User Programs:", currentUser.programs);
       setUserPrograms(currentUser.programs);
     }
   }, [currentUser]);
 
-  // 모달 상태 관리
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
 
-  // 모달 열기
   const openModal = (index) => {
     setSelectedItemIndex(index);
     setIsModalOpen(true);
   };
 
-  // 모달 닫기
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedItemIndex(null);
   };
 
-  // 취소 확정 핸들러
   const handleConfirmCancel = () => {
-    console.log(`Item at index ${selectedItemIndex} is canceled.`);
-    // 선택된 프로그램을 제거
     const updatedItems = userPrograms.filter((_, i) => i !== selectedItemIndex);
     setUserPrograms(updatedItems);
     setCurrentUser({
@@ -43,22 +37,38 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
     closeModal();
   };
 
+  const isPastDate = (date) => {
+    const programDate = new Date(date);
+    const today = new Date();
+    return programDate < today;
+  };
+
+  // 페이지네이션 관련 계산
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = userPrograms.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(userPrograms.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="programresult-container">
-      {/* 프로그램 목록 헤더 */}
-      <div className="program-list-header">
-        <div className="program-title">프로그램명</div>
-        <div className="program-deadline">신청 마감일</div>
-        <div className="program-start">시작일</div>
-        <div className="program-capacity">정원</div>
-      </div>
-
-      {/* 프로그램 목록 */}
       <div className="program-list-section">
-        {userPrograms.length === 0 ? (
+        <div className="program-list-header">
+          <div className="program-title">프로그램명</div>
+          <div className="program-deadline">신청 마감일</div>
+          <div className="program-start">시작일</div>
+          <div className="program-capacity">정원</div>
+          <div className="program-remarks">비고</div>
+        </div>
+
+        {/* 프로그램 목록 */}
+        {currentItems.length === 0 ? (
           <div className="no-programs-message">신청된 프로그램이 없습니다.</div>
         ) : (
-          userPrograms.map((item, index) => (
+          currentItems.map((item, index) => (
             <div className="program-item" key={index}>
               <div className="program-title">{item.title}</div>
               <div className="program-deadline">{item.deadline}</div>
@@ -66,23 +76,55 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
               <div className="program-capacity">
                 {item.now_capacity}/{item.max_capacity}
               </div>
-              <button
-                className="program-cancel-button"
-                onClick={() => openModal(index)}
-              >
-                취소
-              </button>
+              <div className="program-remarks">
+                {isPastDate(item.date) ? (
+                  <button className="program-cancel-button disabled" disabled>
+                    취소 불가
+                  </button>
+                ) : (
+                  <button
+                    className="program-cancel-button"
+                    onClick={() => openModal(index + indexOfFirstItem)}
+                  >
+                    취소
+                  </button>
+                )}
+              </div>
             </div>
           ))
         )}
       </div>
 
       {/* 페이지네이션 */}
-      {userPrograms.length > 0 && (
+      {totalPages > 1 && (
         <div className="pagination">
-          <span className="pagination-item">1</span>
-          <span className="pagination-item">2</span>
-          <span className="pagination-item">3</span>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
+          >
+            이전
+          </button>
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => handlePageChange(i + 1)}
+              className={`pagination-item ${
+                currentPage === i + 1 ? "active" : ""
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`pagination-item ${
+              currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            다음
+          </button>
         </div>
       )}
 

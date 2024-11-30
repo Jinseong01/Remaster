@@ -1,60 +1,86 @@
-// src/pages/MyPage/Timeline/Timeline.jsx
 import React, { useEffect, useState } from "react";
 import "./Timeline.css";
 
-const Timeline = ({ userPrograms }) => {
-  // 현재 날짜보다 이전에 시작된 프로그램만 필터링
-  const [pastPrograms, setPastPrograms] = useState([]);
+const Timeline = ({ currentUser }) => {
+  const [programYears, setProgramYears] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [filteredPrograms, setFilteredPrograms] = useState([]);
 
   useEffect(() => {
     const today = new Date();
-    const filteredPrograms = userPrograms.filter((program) => {
-      const programDate = new Date(program.date); // 프로그램의 종료 날짜 기준
-      return programDate < today;
+    const yearsMap = {};
+
+    currentUser?.programs?.forEach((program) => {
+      const programDate = new Date(program.date);
+      if (programDate < today) {
+        const year = programDate.getFullYear();
+        if (!yearsMap[year]) {
+          yearsMap[year] = [];
+        }
+        yearsMap[year].push(program);
+      }
     });
-    setPastPrograms(filteredPrograms);
-  }, [userPrograms]);
+
+    const sortedYears = Object.keys(yearsMap)
+      .map(Number)
+      .sort((a, b) => b - a);
+    setProgramYears(sortedYears);
+    setSelectedYear(sortedYears[0] || null);
+    setFilteredPrograms(yearsMap[sortedYears[0]] || []);
+  }, [currentUser]);
+
+  const handleYearChange = (year) => {
+    setSelectedYear(year);
+    const filtered = currentUser.programs.filter(
+      (program) => new Date(program.date).getFullYear() === year
+    );
+    setFilteredPrograms(filtered);
+  };
 
   return (
     <div className="mypage-timeline">
-      <div className="year-display">2024</div>
+      {/* 연도 선택 드롭다운 */}
+      <div className="year-dropdown">
+        <select
+          value={selectedYear || ""}
+          onChange={(e) => handleYearChange(Number(e.target.value))}
+        >
+          {programYears.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
+
       <div className="timeline-line"></div>
 
-      {/* 프로그램 리스트 표시 */}
-      {pastPrograms.length === 0 ? (
-        <div className="no-programs-message">참여한 프로그램이 없습니다.</div>
+      {/* 선택된 연도의 프로그램 리스트 */}
+      {filteredPrograms.length === 0 ? (
+        <div className="no-programs-message">
+          해당 연도에 참여한 프로그램이 없습니다.
+        </div>
       ) : (
-        pastPrograms.map((program, index) => (
+        filteredPrograms.map((program, index) => (
           <div
             key={index}
-            className={`timeline-entry ${index % 2 === 0 ? "left" : "right"}`}
+            className={`timeline-entry ${index % 2 === 0 ? "right" : "left"}`}
           >
-            {/* 프로그램 정보 표시 */}
             <div className="program-box">
-              <div className="program-info">
-                <strong>{program.title}</strong>
-                <br />
-                <span className="program-description">{program.content}</span>
-                <br />
-                <span className="program-location">{program.location}</span>
-                <br />
-                <span className="program-date">{`날짜: ${program.date}`}</span>
-              </div>
+              <strong>{program.title}</strong>
             </div>
-            {/* 이미지가 있을 경우 이미지 박스 */}
-            {program.image_url && (
-              <div className="image-box">
+            <div className="timeline-point" />
+            <div className="image-box">
+              {program.image_url ? (
                 <img
                   src={program.image_url}
                   alt={program.title}
                   className="program-image"
                 />
-              </div>
-            )}
-            {/* 타임라인 포인트 */}
-            <div
-              className={`timeline-point ${index % 2 === 0 ? "left" : "right"}`}
-            />
+              ) : (
+                <div className="no-image-placeholder">이미지 없음</div>
+              )}
+            </div>
           </div>
         ))
       )}

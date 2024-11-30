@@ -1,6 +1,6 @@
 /* src/components/LoginAlertModal.css */
 
-.modal-overlay {
+.login-alert-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 
-.modal-content {
+.login-alert-modal-content {
   background: white;
   padding: 30px;
   border-radius: 15px;
@@ -26,51 +26,51 @@
 }
 
 /* 클릭 아이콘 */
-.modal-icon {
+.login-alert-modal-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
   margin-top: 20px;
 }
-.modal-icon img {
+.login-alert-modal-icon img {
   width: 50px;
   height: 50px;
 }
 
 /* 지원 문구 */
-.modal-text {
+.login-alert-modal-text {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
 /* 예/아니오 버튼 */
-.modal-buttons {
+.login-alert-modal-buttons {
   display: flex;
   gap: 10px;
   justify-content: center;
 }
-.modal-buttons button {
+.login-alert-modal-buttons button {
   padding: 10px 30px;
   border-radius: 20px;
   border: none;
   cursor: pointer;
   font-size: 18px;
 }
-.confirm-button {
+.login-alert-confirm-button {
   background-color: #007bff;
   color: white;
 }
-.cancel-button {
+.login-alert-cancel-button {
   background-color: #f0f0f0;
   color: #333;
 }
-.confirm-button:hover {
+.login-alert-confirm-button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
-.cancel-button:hover {
+.login-alert-cancel-button:hover {
   background-color: #e0e0e0;
   transform: scale(1.05);
 }

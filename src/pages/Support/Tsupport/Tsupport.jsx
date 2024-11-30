@@ -1,16 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Tsupport.css";
 import MapModal from "../Map/MapModal";
+import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
 import { ChevronDown } from "lucide-react";
 import TsupportData from "../../../data/Tsupport";
 
 const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
   const [isStartModalOpen, setIsStartModalOpen] = useState(false);
   const [isDestinationModalOpen, setIsDestinationModalOpen] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [radioSelections, setRadioSelections] = useState({
     needSignLanguage: "",
     needBathchair: "",
@@ -73,11 +77,21 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
     };
 
     TsupportData.push(newSupport);
-    alert("신청이 완료되었습니다.");
+
     setCurrentUser({
       ...currentUser,
       t_support: [...(currentUser.t_support || []), newSupport],
     });
+
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleViewDetails = () => {
+    navigate("/mypage"); // /mypage로 이동
   };
 
   return (
@@ -244,6 +258,11 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
           document.getElementById("destination").value = location;
           closeDestinationModal();
         }}
+      />
+      <SubConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={handleModalClose}
+        onViewDetails={handleViewDetails}
       />
     </div>
   );

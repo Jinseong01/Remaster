@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./JobResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
 const JobResult = ({ currentUser, setCurrentUser }) => {
+  const navigate = useNavigate();
+
   const [jobList, setJobList] = useState(
     currentUser && currentUser.job ? currentUser.job : []
   );
@@ -58,6 +61,11 @@ const JobResult = ({ currentUser, setCurrentUser }) => {
     setCurrentPage(pageNumber);
   };
 
+  // 일자리 항목 클릭 시 상세 페이지로 이동
+  const handleJobClick = (jobId) => {
+    navigate(`/job/${jobId}`);
+  };
+
   return (
     <div className="jobresult-container">
       <div className="job-list-section">
@@ -72,7 +80,11 @@ const JobResult = ({ currentUser, setCurrentUser }) => {
           <div className="no-jobs-message">신청한 일자리가 없습니다.</div>
         ) : (
           currentItems.map((jobItem, index) => (
-            <div className="job-item" key={index}>
+            <div
+              className="job-item clickable" // 클릭 가능한 스타일 추가
+              key={index}
+              onClick={() => handleJobClick(jobItem.id)} // 상세 페이지로 이동
+            >
               <div className="company">{jobItem.company}</div>
               <div className="working-hours">{jobItem.working_hours}</div>
               <div className="deadline">{jobItem.deadline}</div>
@@ -84,7 +96,10 @@ const JobResult = ({ currentUser, setCurrentUser }) => {
                 ) : (
                   <button
                     className="cancel-button"
-                    onClick={() => openModal(index + indexOfFirstItem)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 행 클릭 이벤트와 충돌 방지
+                      openModal(index + indexOfFirstItem);
+                    }}
                   >
                     취소
                   </button>

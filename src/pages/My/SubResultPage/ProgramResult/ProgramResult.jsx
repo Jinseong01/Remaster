@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+// src/pages/MyPage/SubResultPage/SubResultPage.jsx
+
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProgramResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
@@ -10,19 +12,49 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
+  // 무한 루프 방지를 위한 플래그
+  const hasFilteredRef = useRef(false);
+
   useEffect(() => {
-    console.log("Current User Programs:", currentUser.programs);
     if (currentUser && currentUser.programs) {
       const sortedPrograms = [...currentUser.programs].sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );
-      console.log("Sorted Programs:", sortedPrograms);
       setUserPrograms(sortedPrograms);
     }
   }, [currentUser]);
 
+  useEffect(() => {
+    if (hasFilteredRef.current) return; // 이미 필터링을 수행했으면 중단
+
+    const today = new Date();
+    const pastPrograms = userPrograms.filter(
+      (program) => new Date(program.date) < today
+    );
+
+    if (pastPrograms.length > 0) {
+      const updatedPrograms = userPrograms.filter(
+        (program) => new Date(program.date) >= today
+      );
+
+      setUserPrograms(updatedPrograms);
+      setCurrentUser({
+        ...currentUser,
+        programs: updatedPrograms,
+        before_programs: [
+          ...(currentUser.before_programs || []),
+          ...pastPrograms,
+        ],
+      });
+
+      hasFilteredRef.current = true; // 필터링 완료 플래그 설정
+    }
+  }, [userPrograms, currentUser, setCurrentUser]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState(null);
 
   const openModal = (index) => {
     setSelectedItemIndex(index);
@@ -34,39 +66,25 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
     setSelectedItemIndex(null);
   };
 
-  // 지난 날짜의 프로그램 이동 로직
-  useEffect(() => {
-    const today = new Date();
-    const pastPrograms = userPrograms.filter(
-      (program) => new Date(program.date) < today
-    );
+  const handleConfirmCancel = async () => {
+    try {
+      setIsLoading(true);
 
-    if (pastPrograms.length > 0) {
-      // 현재 프로그램 목록에서 지난 프로그램 제거
-      const updatedPrograms = userPrograms.filter(
-        (program) => new Date(program.date) >= today
+      const updatedItems = userPrograms.filter(
+        (_, i) => i !== selectedItemIndex
       );
-
-      setUserPrograms(updatedPrograms);
+      setUserPrograms(updatedItems);
       setCurrentUser({
         ...currentUser,
-        programs: updatedPrograms,
-        before_programs: [
-          ...(currentUser.before_programs || []), // 기존 before_programs
-          ...pastPrograms, // 지난 프로그램 추가
-        ],
+        programs: updatedItems,
       });
+      setIsLoading(false);
+      closeModal();
+    } catch (error) {
+      console.error("프로그램 취소 실패:", error);
+      setApiError("프로그램 취소에 실패했습니다. 다시 시도해주세요.");
+      setIsLoading(false);
     }
-  }, [userPrograms, currentUser, setCurrentUser]);
-
-  const handleConfirmCancel = () => {
-    const updatedItems = userPrograms.filter((_, i) => i !== selectedItemIndex);
-    setUserPrograms(updatedItems);
-    setCurrentUser({
-      ...currentUser,
-      programs: updatedItems,
-    });
-    closeModal();
   };
 
   const isPastDate = (date) => {
@@ -105,7 +123,7 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
           currentItems.map((item, index) => (
             <div
               className="program-item clickable"
-              key={index}
+              key={item.id || index} // 고유한 키 사용 (가능하면 item.id 사용 권장)
               onClick={() => handleRowClick(item)}
             >
               <div className="program-title">{item.title}</div>
@@ -116,7 +134,11 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
               </div>
               <div className="program-remarks">
                 {isPastDate(item.date) ? (
-                  <button className="program-cancel-button disabled" disabled>
+                  <button
+                    className="program-cancel-button disabled"
+                    disabled
+                    aria-disabled="true"
+                  >
                     취소 불가
                   </button>
                 ) : (
@@ -126,6 +148,7 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
                       e.stopPropagation(); // 행 클릭 이벤트와 충돌 방지
                       openModal(index + indexOfFirstItem);
                     }}
+                    aria-label={`프로그램 ${item.title} 취소`}
                   >
                     취소
                   </button>
@@ -142,6 +165,7 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
+            aria-label="이전 페이지"
           >
             이전
           </button>
@@ -152,6 +176,7 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
               className={`pagination-item ${
                 currentPage === i + 1 ? "active" : ""
               }`}
+              aria-label={`${i + 1} 페이지`}
             >
               {i + 1}
             </button>
@@ -162,11 +187,14 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
             className={`pagination-item ${
               currentPage === totalPages ? "disabled" : ""
             }`}
+            aria-label="다음 페이지"
           >
             다음
           </button>
         </div>
       )}
+
+      {apiError && <div className="error-message">{apiError}</div>}
 
       <CancelConfirmModal
         isOpen={isModalOpen}

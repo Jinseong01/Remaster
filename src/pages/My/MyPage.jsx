@@ -1,102 +1,138 @@
-import React, { useState } from "react";
+// src/pages/My/MyPage.jsx
+import React, { useEffect, useRef } from "react";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import "./MyPage.css";
-import MyPageInfo from "./MyPageInfo/MyPageInfo";
-import Timeline from "./Timeline/Timeline";
-import SubResultPage from "./SubResultPage/SubResultPage";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
-import Sidebar from "../../components/side/Sidebar";
-import HelpDialog from "../../components/side/HelpButton";
 
 const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
-  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const [selectedPage, setSelectedPage] = useState("정보수정");
-  const [isSubDropdownVisible, setIsSubDropdownVisible] = useState(false);
-  const [selectedSubOption, setSelectedSubOption] = useState("프로그램");
-  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // 드롭다운 토글 핸들러
-  const toggleDropdown = (type) => {
+  const [isDropdownVisible, setIsDropdownVisible] = React.useState(false);
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] =
+    React.useState(false);
+  const [isSubDropdownVisible, setIsSubDropdownVisible] = React.useState(false);
+
+  const dropdownRef = useRef(null);
+  const subDropdownRef = useRef(null);
+
+  // 현재 경로를 기반으로 선택된 페이지를 결정
+  const determineSelectedPage = () => {
+    const path = location.pathname;
+    if (path === "/mypage") return "정보수정";
+    if (path.startsWith("/mypage/timeline")) return "타임라인";
+    if (path.startsWith("/mypage/result-page")) return "신청현황";
+    // "프로필"과 "설정" 항목 제거
+    return "정보수정";
+  };
+
+  const selectedPage = determineSelectedPage();
+
+  // 드롭다운 메뉴 토글 핸들러
+  const toggleDropdown = () => {
     if (!loginState) {
-      setIsLoginAlertModalOpen(true); // 로그인이 안 되어 있으면 모달을 띄움
+      setIsLoginAlertModalOpen(true);
       return;
     }
-    if (type === "main") {
-      setIsDropdownVisible((prev) => !prev);
-      setIsSubDropdownVisible(false); // 서브 드롭다운 닫기
-    } else if (type === "sub") {
-      setIsSubDropdownVisible((prev) => !prev);
-      setIsDropdownVisible(false); // 메인 드롭다운 닫기
-    }
+    setIsDropdownVisible((prev) => !prev);
   };
 
   // 드롭다운 항목 선택 핸들러
-  const validPages = ["정보수정", "타임라인", "신청현황"];
   const handleSelect = (page) => {
-    if (validPages.includes(page)) {
-      setSelectedPage(page);
-      setIsDropdownVisible(false);
+    setIsDropdownVisible(false);
+    setIsSubDropdownVisible(false); // 서브 드롭다운 숨기기
+    switch (page) {
+      case "정보수정":
+        navigate("/mypage");
+        break;
+      case "타임라인":
+        navigate("/mypage/timeline");
+        break;
+      case "신청현황":
+        navigate("/mypage/result-page/programresult"); // 기본 서브 경로로 이동
+        break;
+      default:
+        navigate("/mypage");
     }
   };
 
-  // 서브 드롭다운 항목 선택 핸들러
-  const validSubOptions = ["프로그램", "활동보조", "일자리"];
-  const handleSubSelect = (option) => {
-    if (validSubOptions.includes(option)) {
-      setSelectedSubOption(option);
-      setIsSubDropdownVisible(false);
-    }
+  const handleLoginRedirect = () => {
+    navigate("/login");
   };
 
-  // "변경하기" 버튼 클릭 핸들러
-  const handleChangeClick = () => {
+  // 신청현황 서브 드롭다운 토글 핸들러
+  const toggleSubDropdown = () => {
     if (!loginState) {
-      setIsLoginAlertModalOpen(true); // 로그인이 안 되어 있으면 모달을 띄움
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
+    setIsSubDropdownVisible((prev) => !prev);
+  };
+
+  // 신청현황 서브 드롭다운 항목 선택 핸들러
+  const handleSubSelect = (option) => {
+    setIsSubDropdownVisible(false);
+    switch (option) {
+      case "프로그램":
+        navigate("result-page/programresult");
+        break;
+      case "활동보조":
+        navigate("result-page/supportresult");
+        break;
+      case "일자리":
+        navigate("result-page/jobresult");
+        break;
+      default:
+        navigate("result-page/programresult");
     }
   };
 
-  // 렌더링할 컴포넌트를 객체로 매핑
-  const renderContent = {
-    정보수정: (
-      <MyPageInfo
-        loginState={loginState}
-        currentUser={currentUser}
-        handleChangeClick={handleChangeClick} // 변경하기 버튼 클릭 핸들러 전달
-      />
-    ),
-    타임라인: <Timeline currentUser={currentUser} />,
-    신청현황: (
-      <SubResultPage
-        selectedSubOption={selectedSubOption}
-        currentUser={currentUser}
-        setCurrentUser={setCurrentUser}
-      />
-    ),
+  // 클릭 외부 시 드롭다운 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownVisible(false);
+      }
+      if (
+        subDropdownRef.current &&
+        !subDropdownRef.current.contains(event.target)
+      ) {
+        setIsSubDropdownVisible(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // 신청현황 서브 옵션을 결정하는 함수
+  const determineSubOption = () => {
+    const path = window.location.pathname;
+    if (path.endsWith("/programresult")) return "프로그램";
+    if (path.endsWith("/supportresult")) return "활동보조";
+    if (path.endsWith("/jobresult")) return "일자리";
+    return "프로그램";
   };
 
   return (
     <div className="mypage-container">
-      {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
-        <Sidebar currentUser={currentUser} />
-        <HelpDialog />
-        </>
-      )}
       {/* 로그인 여부 확인을 위한 모달 */}
       <LoginAlertModal
         isOpen={isLoginAlertModalOpen}
         onClose={() => setIsLoginAlertModalOpen(false)}
-        onLoginRedirect={() => navigate("/login")}
+        onLoginRedirect={handleLoginRedirect}
       />
 
-      {/* 상단 드롭다운 메뉴 */}
-      <div className="left-dropdown-section">
+      {/* 드롭다운 메뉴 */}
+      <div className="dropdown-container" ref={dropdownRef}>
         <button
           className="mypage-dropdown-button"
-          onClick={() => toggleDropdown("main")} // 드롭다운 클릭 시 로그인 상태 확인
+          onClick={toggleDropdown}
+          aria-haspopup="menu"
+          aria-expanded={isDropdownVisible}
         >
           {selectedPage}
           <ChevronDown
@@ -109,7 +145,7 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
 
         {isDropdownVisible && (
           <div className="mypage-dropdown-menu">
-            {validPages.map((page) => (
+            {["정보수정", "타임라인", "신청현황"].map((page) => (
               <div
                 key={page}
                 className="mypage-dropdown-item"
@@ -122,17 +158,19 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
         )}
       </div>
 
-      {/* 오른쪽 서브 드롭다운 메뉴 - 신청현황이 선택된 경우 표시 */}
+      {/* 신청현황 서브 드롭다운 메뉴 */}
       {selectedPage === "신청현황" && (
-        <div className="right-dropdown-section">
+        <div className="sub-dropdown-container" ref={subDropdownRef}>
           <button
             className="mypage-dropdown-button"
-            onClick={() => toggleDropdown("sub")} // 서브 드롭다운 클릭 시 로그인 상태 확인
+            onClick={toggleSubDropdown}
+            aria-haspopup="menu"
+            aria-expanded={isSubDropdownVisible}
           >
-            {selectedSubOption}
+            {determineSubOption()}
             <ChevronDown
               className={`mypage-dropdown-icon ${
-                isDropdownVisible ? "rotate" : ""
+                isSubDropdownVisible ? "rotate" : ""
               }`}
               size={16}
             />
@@ -140,7 +178,7 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
 
           {isSubDropdownVisible && (
             <div className="mypage-dropdown-menu">
-              {validSubOptions.map((option) => (
+              {["프로그램", "활동보조", "일자리"].map((option) => (
                 <div
                   key={option}
                   className="mypage-dropdown-item"
@@ -154,8 +192,10 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
         </div>
       )}
 
-      {/* 선택된 페이지에 따라 다른 컴포넌트 표시 */}
-      <div className="content-section">{renderContent[selectedPage]}</div>
+      {/* 하위 라우트를 렌더링 */}
+      <div className="content-section">
+        <Outlet />
+      </div>
     </div>
   );
 };

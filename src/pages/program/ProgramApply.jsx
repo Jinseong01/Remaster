@@ -18,7 +18,7 @@ function ProgramApply({ currentUser, setCurrentUser }) {
   const location = useLocation();
   const programInfo = location.state?.program;
 
-  // 이미지 모달창 관련 
+  // 이미지 모달창 관련
   const openModal = (image) => {
     setModalImage(image);
     setIsModalOpen(true);
@@ -119,7 +119,7 @@ function ProgramApply({ currentUser, setCurrentUser }) {
                   name="gender"
                   value={userInfo.gender}
                   onChange={handleChange}
-                  style={{width: "50px"}}
+                  style={{ width: "50px" }}
                   readOnly
                 />
               </div>
@@ -159,26 +159,28 @@ function ProgramApply({ currentUser, setCurrentUser }) {
           </div>
           <div className="divider-vertical"></div>
           <div className="right">
-          <p>장애 정보</p>
+            <p>장애 정보</p>
             <div className="disability-info">
-              {Object.entries(userInfo.disability_grade).map(([type, grade], index) => (
-                <div key={index} className="disability-item">
-                  <input
-                    type="text"
-                    name={`disability_type_${index}`}
-                    value={type}
-                    readOnly
-                  />
-                  <span> - </span>
-                  <input
-                    type="text"
-                    name={`disability_grade_${index}`}
-                    value={`${grade}등급`}
-                    readOnly
-                    style={{width: "100px"}}
-                  />
-                </div>
-              ))}
+              {Object.entries(userInfo.disability_grade).map(
+                ([type, grade], index) => (
+                  <div key={index} className="disability-item">
+                    <input
+                      type="text"
+                      name={`disability_type_${index}`}
+                      value={type}
+                      readOnly
+                    />
+                    <span> - </span>
+                    <input
+                      type="text"
+                      name={`disability_grade_${index}`}
+                      value={`${grade}등급`}
+                      readOnly
+                      style={{ width: "100px" }}
+                    />
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>
@@ -190,8 +192,10 @@ function ProgramApply({ currentUser, setCurrentUser }) {
           <img
             src={`${process.env.PUBLIC_URL}/${programInfo.image_url}`}
             alt="프로그램 이미지"
-            onClick={() => openModal(`${process.env.PUBLIC_URL}/${programInfo.image_url}`)} // 클릭하면 모달 열림
-          />  
+            onClick={() =>
+              openModal(`${process.env.PUBLIC_URL}/${programInfo.image_url}`)
+            } // 클릭하면 모달 열림
+          />
           {/* 세로 divider 추가 */}
           <div className="divider-vertical"></div>
           <div className="program-apply-program-details">
@@ -230,7 +234,7 @@ function ProgramApply({ currentUser, setCurrentUser }) {
               </div>
             </div>
             <div className="program-apply-program-location">
-              <p>장소  </p>
+              <p>장소 </p>
               <input
                 type="text"
                 name="program_location"
@@ -241,7 +245,6 @@ function ProgramApply({ currentUser, setCurrentUser }) {
             </div>
             <p>내용</p>
             <div className="program-apply-program-content">
-            
               <textarea
                 name="program_content"
                 value={programInfo.content}
@@ -276,11 +279,14 @@ function ProgramApply({ currentUser, setCurrentUser }) {
             신청완료
           </button>
         </div>
-        
       </div>
-      <ProgramImageModal isOpen={isModalOpen} onClose={closeModal} image={modalImage} />
-      <ConfirmModal 
-        text={"신청"} 
+      <ProgramImageModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        image={modalImage}
+      />
+      <ConfirmModal
+        text={"신청"}
         isOpen={isCheckApply}
         onClose={() => setIsCheckApply(false)}
         onConfirm={() => {
@@ -290,11 +296,11 @@ function ProgramApply({ currentUser, setCurrentUser }) {
           addProgramToUser();
         }}
       />
-      <CompleteModal 
-        text={"신청"} 
+      <CompleteModal
+        text={"신청"}
         isOpen={showCompletionDialog}
         onClose={() => navigate("/program")}
-        onViewHistory={() => navigate("/mypage")}
+        onViewHistory={() => navigate("/mypage/result-page/programresult")}
       />
     </>
   );

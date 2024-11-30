@@ -104,7 +104,7 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
   const handleModalClose = () => setIsConfirmModalOpen(false);
 
-  const handleViewDetails = () => navigate("/mypage");
+  const handleViewDetails = () => navigate("/mypage/result-page/supportresult");
 
   return (
     <div className="tsupport-page-container">

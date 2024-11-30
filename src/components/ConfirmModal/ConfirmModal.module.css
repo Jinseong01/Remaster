@@ -57,6 +57,7 @@
 .modalText {
   font-size: 30px;
   margin-bottom: 25px;
+  font-weight: bold;
 }
 
 /* 예/아니오 버튼 */

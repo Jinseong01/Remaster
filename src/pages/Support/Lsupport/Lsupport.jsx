@@ -6,6 +6,7 @@ import "./Lsupport.css";
 import MapModal from "../Map/MapModal";
 import { ChevronDown } from "lucide-react";
 import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
+import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
 import LsupportData from "../../../data/Lsupport";
 
 const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
@@ -14,6 +15,7 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const [selectedTime, setSelectedTime] = useState(""); // 시간을 저장하는 상태
   const [isStartModalOpen, setIsStartModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); // 확인 모달 상태
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false); // 로그인 알림 모달 상태
   const [radioSelections, setRadioSelections] = useState({
     needSignLanguage: "",
     needBathchair: "",
@@ -31,7 +33,7 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
   const handleSubmit = () => {
     if (!loginState) {
-      alert("로그인이 필요한 서비스입니다.");
+      setIsLoginAlertOpen(true); // 로그인 상태가 아니면 로그인 알림 모달 표시
       return;
     }
 
@@ -249,6 +251,13 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
         isOpen={isConfirmModalOpen}
         onClose={handleModalClose}
         onViewDetails={handleViewDetails}
+        message="신청이 완료되었습니다!"
+      />
+
+      <LoginAlertModal
+        isOpen={isLoginAlertOpen}
+        onClose={() => setIsLoginAlertOpen(false)} // 로그인 알림 모달 닫기
+        onLoginRedirect={() => navigate("/login")} // 로그인 페이지로 이동
       />
     </div>
   );

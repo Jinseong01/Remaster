@@ -1,7 +1,7 @@
 import React from "react";
 import "./ChangeConfirmModal.css";
 
-const ChangeConfirmModal = ({ isOpen, onClose }) => {
+const ChangeConfirmModal = ({ isOpen, onClose, message }) => {
   if (!isOpen) return null;
 
   return (
@@ -13,7 +13,7 @@ const ChangeConfirmModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* 메시지 */}
-        <div className="modal-text">변경이 완료되었습니다</div>
+        <div className="modal-text">{message}</div>
 
         {/* 확인 버튼 */}
         <div className="modal-buttons">

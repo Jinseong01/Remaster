@@ -66,7 +66,7 @@ function App() {
         },
         {
           path: "program", // /program
-          element: <Program currentUser={currentUser}/>,
+          element: <Program currentUser={currentUser} />,
         },
         {
           path: "apply", // /program
@@ -97,11 +97,13 @@ function App() {
         },
         {
           path: "schedule",
-          element: <SchedulePage 
-            currentUser={currentUser}
-            loginState={login}
-            setCurrentUser={setCurrentUser}
-            />,
+          element: (
+            <SchedulePage
+              currentUser={currentUser}
+              loginState={login}
+              setCurrentUser={setCurrentUser}
+            />
+          ),
         },
         {
           path: "mypage",

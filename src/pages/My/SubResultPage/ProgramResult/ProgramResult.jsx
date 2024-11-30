@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./ProgramResult.css";
+import { useNavigate } from "react-router-dom";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
 const ProgramResult = ({ currentUser, setCurrentUser }) => {
   const [userPrograms, setUserPrograms] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
-  const itemsPerPage = 5; // 페이지당 표시할 항목 수
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser && currentUser.programs) {
@@ -43,7 +45,6 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
     return programDate < today;
   };
 
-  // 페이지네이션 관련 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = userPrograms.slice(indexOfFirstItem, indexOfLastItem);
@@ -51,6 +52,10 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleRowClick = (program) => {
+    navigate(`/program`, { state: { program } }); // Program 페이지로 이동하면서 프로그램 데이터 전달
   };
 
   return (
@@ -64,12 +69,15 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
           <div className="program-remarks">비고</div>
         </div>
 
-        {/* 프로그램 목록 */}
         {currentItems.length === 0 ? (
           <div className="no-programs-message">신청된 프로그램이 없습니다.</div>
         ) : (
           currentItems.map((item, index) => (
-            <div className="program-item" key={index}>
+            <div
+              className="program-item clickable" // 클릭 가능한 스타일 클래스 추가
+              key={index}
+              onClick={() => handleRowClick(item)} // 클릭 이벤트 추가
+            >
               <div className="program-title">{item.title}</div>
               <div className="program-deadline">{item.deadline}</div>
               <div className="program-start">{item.date}</div>
@@ -84,7 +92,10 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
                 ) : (
                   <button
                     className="program-cancel-button"
-                    onClick={() => openModal(index + indexOfFirstItem)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // 행 클릭 이벤트와 충돌 방지
+                      openModal(index + indexOfFirstItem);
+                    }}
                   >
                     취소
                   </button>
@@ -95,7 +106,6 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
         )}
       </div>
 
-      {/* 페이지네이션 */}
       {totalPages > 1 && (
         <div className="pagination">
           <button
@@ -128,7 +138,6 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
         </div>
       )}
 
-      {/* 취소 확인 모달 */}
       <CancelConfirmModal
         isOpen={isModalOpen}
         onClose={closeModal}

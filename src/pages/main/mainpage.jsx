@@ -9,12 +9,21 @@ import jobs from '../../data/jobs';
 import Sidebar from '../../components/side/Sidebar';
 
 import { AlertCircle, Briefcase, Users, Clock, MapPin, Calendar } from 'lucide-react';
-
+import scheduleConverter from "../../converter/scheduleConverter"
+import MyCalendar from '../../components/schedule/Calendar';
 
 
 const MainPage = ({currentUser,loginState}) => {
   
 const navigate = useNavigate();
+
+const originalEvent = loginState ? scheduleConverter({
+  before_programs: currentUser?.before_programs,
+  programs: currentUser?.programs,
+  l_support: currentUser?.l_support,
+  t_support: currentUser?.t_support,
+  schedule: currentUser?.schedule
+  }) : [];
 
     
 //==공지사항 관련==    
@@ -105,15 +114,26 @@ const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
 
       <div className='calenderAndDeadlineNotice'>
             <div className='calenderWrapper'>
-                {
-                    loginState?
-                     (
-                        <p>{currentUser.name}님에 대한 캘린더 정보 보여주기</p>
-                     ) :
-                     (
-                        <p>로그인을 안한 상태의 기본 캘린더 보여주기</p>
-                     )
-                }
+            <div className='calenderWrapper'>
+    {loginState ? (
+        <div style={{ width: '100%', height: '100%' }}>
+            <MyCalendar 
+                events={originalEvent} 
+                editable={false} 
+                onEventChange={()=>{}} 
+                onMonthChange={()=>{}}
+            />
+        </div>
+    ) : (
+        <div style={{ width: '100%', height: '100%' }}>
+            <MyCalendar 
+                editable={false} 
+                onEventChange={()=>{}} 
+                onMonthChange={()=>{}}
+            />
+        </div>
+    )}
+</div>
             </div>
             <div className='deadlineNoticeWrapper'>
             <DeadlineNotice />
@@ -131,6 +151,8 @@ const DeadlineNotice = () => {
     const sortedPrograms = [...programs]
       .sort((a, b) => (a.now_capacity/a.max_capacity) - (b.now_capacity/b.max_capacity))
       .slice(0, 4);
+
+    const navigate = useNavigate();
   
     // 현재 날짜 기준으로 마감일이 가까운 순으로 정렬
     const currentDate = new Date();
@@ -153,7 +175,7 @@ const DeadlineNotice = () => {
                 <div 
                   key={job.id}
                   className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-                  onClick={()=>console.log(`일자리페이지로 이동 아이디 ${job.id}`)}
+                  onClick={() =>{ console.log(`${job.id}`); navigate(`/job/${job.id}`);}}
                 >{/* 이제 여기다가 만든 onclick시 job.id를 넘겨주면서 링크이동!*/}
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium text-sm">{job.company}</span>
@@ -191,7 +213,7 @@ const DeadlineNotice = () => {
                 <div 
                   key={program.id}
                   className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
-                  onClick={()=>console.log(`프로그램페이지로 이동 아이디 ${program.id}`)}
+                  onClick={()=>navigate(`/program`,{state:{program}})}
                 >{/* 이제 여기다가 만든 onclick시 program.id를 넘겨주면서 링크이동!*/}
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-medium text-sm truncate">

@@ -5,7 +5,7 @@ import useSchedule from '../../hook/useSchedule';
 //데이터 컨버터
 import scheduleConverter from '../../converter/scheduleConverter';
 //컴포넌트
-import Calendar from '../../components/schedule/Calendar';
+import MyCalendar from '../../components/schedule/Calendar';
 import Schedule from '../../components/schedule/Schedule';
 import AddScheduleModal from '../../components/schedule/AddScheduleModal';
 import EditScheduleModal from '../../components/schedule/EditScheduleModal';
@@ -74,7 +74,7 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
   // 로그인 상태
   return (
     <div className="page-container">
-      <Calendar events={events} onEventChange={handleEventChange} onMonthChange={handleMonthChange} editable={true}/>
+      <MyCalendar events={events} onEventChange={handleEventChange} onMonthChange={handleMonthChange} editable={true}/>
       <Schedule
         events={events}
         currentDate={currentDate}

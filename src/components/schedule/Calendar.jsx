@@ -6,7 +6,7 @@ import rrulePlugin from '@fullcalendar/rrule';
 // CSS
 import styles from './Calendar.module.css';
 
-const Calendar = ({ events, onEventChange, onMonthChange, editable }) => {
+const MyCalendar = ({ events, onEventChange, onMonthChange, editable }) => {
   return (
     <div className={styles.calendarContainer}>
       <div className={styles.calendar}>
@@ -38,4 +38,4 @@ const Calendar = ({ events, onEventChange, onMonthChange, editable }) => {
   );
 };
 
-export default Calendar;
+export default MyCalendar;

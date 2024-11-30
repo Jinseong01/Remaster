@@ -1,73 +1,91 @@
-// src/pages/MyPage/SubResultPage/JobResult/JobResult.jsx
-
 import React, { useState } from "react";
 import "./JobResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
+import "../pagenation.css";
 
 const JobResult = ({ currentUser, setCurrentUser }) => {
-  // currentUser가 없거나 job 데이터가 없을 경우 기본 값을 설정합니다.
   const [jobList, setJobList] = useState(
     currentUser && currentUser.job ? currentUser.job : []
   );
 
-  // 모달 상태 관리
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJobIndex, setSelectedJobIndex] = useState(null);
 
-  // 모달 열기
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
+  const itemsPerPage = 5; // 페이지당 아이템 개수
+
+  // 현재 페이지에 표시될 데이터 계산
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = jobList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // 총 페이지 수 계산
+  const totalPages = Math.ceil(jobList.length / itemsPerPage);
+
   const openModal = (index) => {
     setSelectedJobIndex(index);
     setIsModalOpen(true);
   };
 
-  // 모달 닫기
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedJobIndex(null);
   };
 
-  // 항목 삭제 핸들러
   const handleConfirmCancel = () => {
-    setJobList((prevJobList) =>
-      prevJobList.filter((_, i) => i !== selectedJobIndex)
-    );
+    const updatedJobs = jobList.filter((_, i) => i !== selectedJobIndex);
+    setJobList(updatedJobs);
 
-    // currentUser의 상태를 업데이트 (예시)
     setCurrentUser({
       ...currentUser,
-      job: jobList.filter((_, i) => i !== selectedJobIndex),
+      job: updatedJobs,
     });
 
     closeModal();
   };
 
+  const isPastDeadline = (deadline) => {
+    const deadlineDate = new Date(deadline);
+    const today = new Date();
+    return deadlineDate < today;
+  };
+
+  // 페이지 변경 핸들러
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="jobresult-container">
-      {/* 일자리 리스트 섹션 */}
       <div className="job-list-section">
-        {/* 헤더 */}
         <div className="job-list-header">
           <div className="company">회사</div>
           <div className="working-hours">근무시간</div>
           <div className="deadline">신청 마감일</div>
+          <div className="remarks">비고</div>
         </div>
 
-        {/* 일자리 항목들 */}
-        {jobList.length === 0 ? (
+        {currentItems.length === 0 ? (
           <div className="no-jobs-message">신청한 일자리가 없습니다.</div>
         ) : (
-          jobList.map((jobItem, index) => (
+          currentItems.map((jobItem, index) => (
             <div className="job-item" key={index}>
               <div className="company">{jobItem.company}</div>
               <div className="working-hours">{jobItem.working_hours}</div>
               <div className="deadline">{jobItem.deadline}</div>
-              <div className="cancel">
-                <button
-                  className="cancel-button"
-                  onClick={() => openModal(index)}
-                >
-                  취소
-                </button>
+              <div className="remarks">
+                {isPastDeadline(jobItem.deadline) ? (
+                  <button className="cancel-button disabled" disabled>
+                    취소 불가
+                  </button>
+                ) : (
+                  <button
+                    className="cancel-button"
+                    onClick={() => openModal(index + indexOfFirstItem)}
+                  >
+                    취소
+                  </button>
+                )}
               </div>
             </div>
           ))
@@ -75,9 +93,43 @@ const JobResult = ({ currentUser, setCurrentUser }) => {
       </div>
 
       {/* 페이지네이션 */}
-      {jobList.length > 0 && <div className="pagination">1 2 3</div>}
+      {totalPages > 1 && (
+        <div className="pagination">
+          {/* 이전 버튼 */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
+          >
+            이전
+          </button>
 
-      {/* 취소 확인 모달 */}
+          {/* 페이지 번호 */}
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={`pagination-item ${
+                currentPage === index + 1 ? "active" : ""
+              }`}
+            >
+              {index + 1}
+            </button>
+          ))}
+
+          {/* 다음 버튼 */}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`pagination-item ${
+              currentPage === totalPages ? "disabled" : ""
+            }`}
+          >
+            다음
+          </button>
+        </div>
+      )}
+
       <CancelConfirmModal
         isOpen={isModalOpen}
         onClose={closeModal}

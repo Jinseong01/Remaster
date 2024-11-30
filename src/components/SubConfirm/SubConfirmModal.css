@@ -1,40 +1,88 @@
-/* ChangeConfirmModal.css */
-.change-confirm-modal-overlay {
+/* 모달 오버레이 */
+.subconfirm-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 1000;
 }
 
-.change-confirm-modal {
+/* 모달 콘텐츠 */
+.subconfirm-modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  width: 500px;
   text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.change-confirm-modal p {
-  margin: 0 0 20px;
-  font-size: 16px;
+/* 아이콘 스타일 */
+.subconfirm-modal-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.subconfirm-modal-icon img {
+  width: 50px;
+  height: 50px;
 }
 
-.confirm-button {
-  background-color: #007bff;
-  color: white;
+/* 텍스트 스타일 */
+.subconfirm-modal-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+/* 버튼 그룹 */
+.subconfirm-modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.subconfirm-modal-buttons button {
+  padding: 10px 40px; /* 동일한 패딩 설정 */
+  border-radius: 20px;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 18px;
+  transition: all 0.2s ease-in-out;
+  min-width: 130px; /* 최소 너비 설정 */
+  height: 50px; /* 버튼 높이 고정 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.confirm-button:hover {
+/* 확인 버튼 */
+.subconfirm-confirm-button {
   background-color: #0056b3;
+  color: white;
+}
+.subconfirm-confirm-button:hover {
+  background-color: #2b4f7e;
+  transform: scale(1.05);
+}
+
+/* 신청내역 보기 버튼 */
+.subconfirm-view-button {
+  background-color: #28a745;
+  color: white;
+}
+.subconfirm-view-button:hover {
+  background-color: #1e7e34;
+  transform: scale(1.05);
 }

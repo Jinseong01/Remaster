@@ -1,11 +1,10 @@
-// src/components/MyPageInfo.jsx
-
 import React, { useState } from "react";
 import "./MyPageInfo.css";
 import PasswordChangeModal from "../../../components/PasswordChange/PasswordChangeModal";
 import ChangeConfirmModal from "../../../components/ChangeConfirm/ChangeConfirmModal";
+import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
 
-const MyPageInfo = ({ currentUser }) => {
+const MyPageInfo = ({ currentUser, loginState }) => {
   const [formValues, setFormValues] = useState({
     id: currentUser.id || "",
     name: currentUser.name || "",
@@ -26,9 +25,14 @@ const MyPageInfo = ({ currentUser }) => {
   });
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
-  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false); // 상태 추가
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false); // 로그인 모달 상태 추가
 
   const handleInputChange = (e) => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true); // 로그인 상태가 아니면 모달 표시
+      return;
+    }
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
@@ -37,6 +41,10 @@ const MyPageInfo = ({ currentUser }) => {
   };
 
   const openPasswordModal = () => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
     setIsPasswordModalOpen(true);
   };
 
@@ -46,15 +54,11 @@ const MyPageInfo = ({ currentUser }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(
-      "Before setting state: isConfirmModalOpen =",
-      isConfirmModalOpen
-    );
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
     setIsConfirmModalOpen(true);
-    console.log(
-      "After setting state: isConfirmModalOpen =",
-      isConfirmModalOpen
-    );
   };
 
   const closeConfirmModal = () => {
@@ -79,7 +83,7 @@ const MyPageInfo = ({ currentUser }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">password</label>
+          <label htmlFor="password">비밀번호</label>
           {/* 비밀번호 변경 버튼 */}
           <button
             type="button"
@@ -193,10 +197,21 @@ const MyPageInfo = ({ currentUser }) => {
       )}
 
       {/* 변경 완료 모달 */}
-      <ChangeConfirmModal
-        isOpen={isConfirmModalOpen}
-        onClose={closeConfirmModal}
-      />
+      {isConfirmModalOpen && (
+        <ChangeConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={closeConfirmModal}
+        />
+      )}
+
+      {/* 로그인 알림 모달 */}
+      {isLoginAlertModalOpen && (
+        <LoginAlertModal
+          isOpen={isLoginAlertModalOpen}
+          onClose={() => setIsLoginAlertModalOpen(false)}
+          onLoginRedirect={() => console.log("Redirect to Login Page")}
+        />
+      )}
     </div>
   );
 };

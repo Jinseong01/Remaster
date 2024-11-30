@@ -128,6 +128,11 @@
   background-color: #bbb;
 }
 
+.cancel-button.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
 .pagination {
   margin-top: 20px;
   text-align: center;

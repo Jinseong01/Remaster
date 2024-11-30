@@ -1,6 +1,4 @@
-// src/pages/MyPage/MyPage.jsx
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./MyPage.css";
@@ -14,18 +12,16 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
   const [selectedPage, setSelectedPage] = useState("정보수정");
   const [isSubDropdownVisible, setIsSubDropdownVisible] = useState(false);
   const [selectedSubOption, setSelectedSubOption] = useState("프로그램");
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false);
 
   const navigate = useNavigate();
 
-  // 로그인 상태 확인
-  useEffect(() => {
-    if (!loginState) {
-      navigate("/login");
-    }
-  }, [loginState, navigate]);
-
   // 드롭다운 토글 핸들러
   const toggleDropdown = (type) => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true); // 로그인이 안 되어 있으면 모달을 띄움
+      return;
+    }
     if (type === "main") {
       setIsDropdownVisible((prev) => !prev);
       setIsSubDropdownVisible(false); // 서브 드롭다운 닫기
@@ -53,9 +49,21 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
     }
   };
 
+  // "변경하기" 버튼 클릭 핸들러
+  const handleChangeClick = () => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true); // 로그인이 안 되어 있으면 모달을 띄움
+    }
+  };
+
   // 렌더링할 컴포넌트를 객체로 매핑
   const renderContent = {
-    정보수정: <MyPageInfo currentUser={currentUser} />,
+    정보수정: (
+      <MyPageInfo
+        currentUser={currentUser}
+        handleChangeClick={handleChangeClick} // 변경하기 버튼 클릭 핸들러 전달
+      />
+    ),
     타임라인: <Timeline currentUser={currentUser} />,
     신청현황: (
       <SubResultPage
@@ -70,15 +78,16 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
     <div className="mypage-container">
       {/* 로그인 여부 확인을 위한 모달 */}
       <LoginAlertModal
-        isOpen={!loginState}
-        onClose={() => navigate("/login")}
+        isOpen={isLoginAlertModalOpen}
+        onClose={() => setIsLoginAlertModalOpen(false)}
+        onLoginRedirect={() => navigate("/login")}
       />
 
       {/* 상단 드롭다운 메뉴 */}
       <div className="left-dropdown-section">
         <button
           className="mypage-dropdown-button"
-          onClick={() => toggleDropdown("main")}
+          onClick={() => toggleDropdown("main")} // 드롭다운 클릭 시 로그인 상태 확인
         >
           {selectedPage}
           <ChevronDown
@@ -89,7 +98,6 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
           />
         </button>
 
-        {/* 드롭다운 메뉴 */}
         {isDropdownVisible && (
           <div className="mypage-dropdown-menu">
             {validPages.map((page) => (
@@ -110,7 +118,7 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
         <div className="right-dropdown-section">
           <button
             className="mypage-dropdown-button"
-            onClick={() => toggleDropdown("sub")}
+            onClick={() => toggleDropdown("sub")} // 서브 드롭다운 클릭 시 로그인 상태 확인
           >
             {selectedSubOption}
             <ChevronDown
@@ -121,7 +129,6 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
             />
           </button>
 
-          {/* 서브 드롭다운 메뉴 */}
           {isSubDropdownVisible && (
             <div className="mypage-dropdown-menu">
               {validSubOptions.map((option) => (

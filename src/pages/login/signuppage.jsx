@@ -85,6 +85,7 @@ let SignUpPage = ({ setallUsers,allUsers }) => {
             const newAllUsers=[...allUsers,finalNewUser]
             setallUsers(newAllUsers)
             console.log(newAllUsers)
+            
             alert("회원가입완료")
             navigate("/login");
         }

@@ -1,21 +1,39 @@
-.calenderAndDeadlineNotice{
+.calenderAndDeadlineNotice {
     margin-top: 30px;
     width: 100%;
     height: 1200px;
     display: flex;
     flex-direction: row;
     gap: 3rem;
-    
 }
 
-.calenderWrapper{
+.calenderWrapper {
     width: 70%;
-    height: 70%;
-    background-color: beige;
+    height: 840px; /* 1200px의 70% */
+    background-color: whitesmoke;
 }
 
-.deadlineNoticeWrapper{
+/* FullCalendar 관련 요소들 스타일링 */
+.calenderWrapper > div,
+.calenderWrapper > div > div {
+    width: 100%;
+    height: 100%;
+}
+
+.calenderWrapper :global(.fc) {
+    width: 100%;
+    height: 100%;
+}
+
+.calenderWrapper :global(.fc-view-harness),
+.calenderWrapper :global(.fc-view),
+.calenderWrapper :global(.fc-daygrid) {
+    width: 100%;
+    height: 100% !important;
+}
+
+.deadlineNoticeWrapper {
     width: 30%;
-    height: 70%;
+    height: 840px; /* 1200px의 70% */
     gap: 3rem;
 }

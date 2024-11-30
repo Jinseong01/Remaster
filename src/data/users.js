@@ -10,8 +10,12 @@ export let users = [
       emergency_phone_number: '010-1111-2222',
       height: 180,
       weight: 75,
-      disability_type: ["시각장애"],
-      disability_grade:  {"시각장애" : "1"},
+      disability_type: ["시각장애", "청각장애"],
+      disability_grade:  {
+        "시각장애" : "1", 
+        "청각장애" : "2",
+        "무슨장애" : "2",
+      },
       before_programs :[
         {
           title: "시각장애인을 위한 요리교실",

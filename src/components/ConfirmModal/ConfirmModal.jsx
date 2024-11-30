@@ -2,7 +2,7 @@ import React from 'react';
 // CSS
 import styles from './ConfirmModal.module.css';
 
-const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
+const ConfirmModal = ({ text, isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
@@ -15,7 +15,7 @@ const ConfirmModal = ({ isOpen, onClose, onConfirm }) => {
           <img src="/assets/images/jobs/click.png" alt="cursor" />
         </div>
         <div className={styles.modalText}>
-          지원하시겠습니까?
+          {`${text}하시겠습니까?`}
         </div>
         <div className={styles.modalButtons}>
           <button className={styles.confirmButton} onClick={onConfirm}>예</button>

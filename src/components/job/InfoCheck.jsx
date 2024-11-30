@@ -1,33 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //컴포넌트
-import ConfirmModal from './ConfirmModal';
+import ConfirmModal from '../ConfirmModal/ConfirmModal';
 //CSS
 import styles from './InfoCheck.module.css'
 
-const InfoCheck = ({ onBack, onOpenModal, isModalOpen, onCloseModal, onConfirm, currentUser, loginState }) => {
-    const navigate = useNavigate();
-
-    if (!loginState) {
-        return (
-            <div className={styles.loginRequiredContainer}>
-                <div className={styles.loginRequiredContent}>
-                    <i className={styles.loginIcon}></i>
-                    <h2>로그인이 필요합니다</h2>
-                    <p>이 서비스를 이용하려면 로그인이 필요합니다.</p>
-                    <div className={styles.loginButtons}>
-                        <button className={styles.loginButton} onClick={() => {navigate(`/login`)}}>
-                            로그인하기
-                        </button>
-                        <div className={styles.buttonContainer}>
-                            <button className={styles.previousButton} onClick={onBack}>이전</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-  
+const InfoCheck = ({ onBack, onOpenModal, isModalOpen, onCloseModal, onConfirm, currentUser, loginState }) => { 
     return (
       <>
           <div className={styles.infoCheck}>
@@ -54,14 +32,16 @@ const InfoCheck = ({ onBack, onOpenModal, isModalOpen, onCloseModal, onConfirm, 
               <label>주소</label>
               <input type="text" value={currentUser.address} disabled/>
   
-              <label>장애종류-장애등급</label>
-              {currentUser.disability_type.map((type, index) => (
-                  <div key={index} className={styles.disabilityRow}>
-                      <input type="text" value={type} disabled/>
-                      <span>-</span>
-                      <input type="text" value={currentUser.disability_grade[type]} disabled/>
-                  </div>
-              ))}
+                <div className={styles.disability}>
+                    <label>장애종류-장애등급</label>
+                    {Object.keys(currentUser.disability_grade).map((type, index) => (
+                        <div key={index} className={styles.disabilityRow}>
+                            <input type="text" value={type} disabled />
+                            <span>-</span>
+                            <input type="text" value={currentUser.disability_grade[type]} disabled />
+                        </div>
+                    ))}
+                </div>
           </div>
   
           <div className={styles.buttonContainer}>
@@ -70,6 +50,7 @@ const InfoCheck = ({ onBack, onOpenModal, isModalOpen, onCloseModal, onConfirm, 
           </div>
           
           <ConfirmModal 
+                text={"지원"}
               isOpen={isModalOpen}
               onClose={onCloseModal}
               onConfirm={onConfirm}

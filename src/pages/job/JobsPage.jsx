@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 //컴포넌트
-import CompleteModal from '../../components/job/CompleteModal.jsx';
+import CompleteModal from '../../components/CompleteModal/CompleteModal.jsx';
 import Job from '../../components/job/Job.jsx';
 //CSS
 import './JobsPage.css'
@@ -82,7 +82,7 @@ const JobsPage = () => {
                 ))}
             </div>
 
-            <CompleteModal isOpen={isCompleteModalOpen} onClose={handleCloseCompleteModal}/> {/* TODO 지원내역 보기 파라미터 넘겨주어야함 */}
+            <CompleteModal text={"지원"} isOpen={isCompleteModalOpen} onClose={handleCloseCompleteModal}/> {/* TODO 지원내역 보기 파라미터 넘겨주어야함 */}
         </div>
         
     );

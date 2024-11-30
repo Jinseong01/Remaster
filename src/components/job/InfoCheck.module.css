@@ -135,12 +135,23 @@ input[type="radio"] {
 }
 
 /* 장애 종류 및 등급 입력 필드 */
+.disability {
+    padding-bottom: 40px;
+    border-bottom: 2px solid #0066ff;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 기존 10px에서 20px로 증가하여 다른 섹션들과 일관된 간격 유지 */
+}
+
+.disability label {
+    margin-bottom: 10px; /* 기존 5px에서 10px로 증가하여 label과 첫 번째 row 간의 간격 확보 */
+}
+
 .disabilityRow {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-bottom: 40px;
-    border-bottom: 2px solid #0066ff;
+    margin-bottom: 10px; /* 각 disabilityRow 간의 간격 */
 }
 
 .disabilityRow input[type="text"] {

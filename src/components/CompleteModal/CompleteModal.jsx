@@ -2,7 +2,7 @@ import React from "react";
 // CSS
 import styles from "./CompleteModal.module.css";
 
-const CompleteModal = ({ isOpen, onClose, onViewHistory }) => {
+const CompleteModal = ({ text, isOpen, onClose, onViewHistory }) => {
   if (!isOpen) return null;
 
   return (
@@ -15,11 +15,11 @@ const CompleteModal = ({ isOpen, onClose, onViewHistory }) => {
           <img src="/assets/images/jobs/check.png" alt="cursor" />
         </div>
         <div className={styles.modalText}>
-          지원이 완료되었습니다
+          {`${text}이 완료되었습니다`}
         </div>
         <div className={styles.modalButtons}>
           <button className={styles.confirmButton} onClick={onClose}>확인</button>
-          <button className={styles.historyButton} onClick={onViewHistory}>지원내역</button>
+          <button className={styles.historyButton} onClick={onViewHistory}>{`${text}내역`}</button>
         </div>
       </div>
     </div>

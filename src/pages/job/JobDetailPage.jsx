@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 // 컴포넌트
 import JobDetails from '../../components/job/JobDetails.jsx';
 import InfoCheck from '../../components/job/InfoCheck.jsx';
+import LoginAlertModal from '../../components/LoginAlert/LoginAlertModal.jsx';
 // CSS
 import styles from './JobDetailPage.module.css';
 // 데이터
@@ -25,8 +26,11 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
 
   const navigate = useNavigate();
 
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(true); // 로그인 모달 상태 추가
+
   // 모달 창
   const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const handleConfirm = () => {
     if (!loginState) {
       alert('로그인이 필요한 서비스입니다.');
@@ -69,15 +73,29 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
         {isDetailsPage ? (
           <JobDetails job={job} onNext={() => handleNext(true)} />
         ) : (
-          <InfoCheck
-            onBack={() => handleNext(false)}
-            onOpenModal={() => setIsModalOpen(true)}
-            isModalOpen={isModalOpen}
-            onCloseModal={() => setIsModalOpen(false)}
-            onConfirm={handleConfirm}
-            currentUser={currentUser}
-            loginState={loginState}
-          />
+          <>
+    {/* 로그인 상태가 false일 때만 모달 띄우기 */}
+    {!loginState && isLoginAlertModalOpen && (
+      <LoginAlertModal
+        isOpen={isLoginAlertModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onLoginRedirect={() => navigate('/login')}
+      />
+    )}
+
+    {/* 로그인 상태일 때만 InfoCheck 컴포넌트 렌더링 */}
+    {loginState && (
+      <InfoCheck
+        onBack={() => handleNext(false)}
+        onOpenModal={() => setIsModalOpen(true)}
+        isModalOpen={isModalOpen}
+        onCloseModal={() => setIsModalOpen(false)}
+        onConfirm={handleConfirm}
+        currentUser={currentUser}
+        loginState={loginState}
+      />
+    )}
+  </>
         )}
       </div>
     </div>

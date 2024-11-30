@@ -8,7 +8,7 @@ import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
 
 import { ChevronDown } from "lucide-react";
 import TsupportData from "../../../data/Tsupport";
-import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
+import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);

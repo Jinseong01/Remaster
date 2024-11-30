@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./MyPageInfo.css";
 import PasswordChangeModal from "../../../components/PasswordChange/PasswordChangeModal";
 import ChangeConfirmModal from "../../../components/ChangeConfirm/ChangeConfirmModal";
-import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
+import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 
 const MyPageInfo = ({ currentUser, loginState }) => {
   const [formValues, setFormValues] = useState({

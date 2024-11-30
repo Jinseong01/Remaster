@@ -46,10 +46,12 @@ const useSchedule = (initialEvents, currentUser, setCurrentUser) => {
             {
                 id: new Date().getTime(), // 새로 추가되는 일정에 고유 ID 부여
                 title : schedule.content,
-                start: new Date(`${schedule.date}T${schedule.time}:00Z`).toISOString(), // 시간 UTC로 설정
+                start: new Date(`${schedule.date}T${schedule.time}`),
                 date: schedule.date,
                 time: schedule.time,
                 type: 'schedule', // 일정 타입
+
+                classNames: ["schedule"]
             }
         ];
 
@@ -83,7 +85,7 @@ const useSchedule = (initialEvents, currentUser, setCurrentUser) => {
                 return {
                     ...event,
                     title: schedule.content,
-                    start: new Date(`${schedule.date}T${schedule.time}:00Z`).toISOString(), // 시간 UTC로 설정
+                    start: new Date(`${schedule.date}T${schedule.time}`),
                     date: schedule.date,
                     time: schedule.time,
                     type: 'schedule', // 일정 타입

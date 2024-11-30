@@ -12,9 +12,11 @@ const scheduleConverter = ({ before_programs, programs, l_support, t_support, sc
         //출력용
         date : program.date, //날짜
         location : program.location, //장소
-        time : program.time, //시간
+        time : program.start_time, //시간
         type : "program", //type 구분
         editable: false, //수정불가
+
+        classNames: ["program"]
     }))
 
     // l_support
@@ -30,6 +32,8 @@ const scheduleConverter = ({ before_programs, programs, l_support, t_support, sc
         time : support.time,
         type: "support", //type 구분
         editable: false, //수정불가
+
+        classNames: ["support"]
     }));
 
     // t_support
@@ -45,6 +49,8 @@ const scheduleConverter = ({ before_programs, programs, l_support, t_support, sc
         location : support.departure_location,
         type: "support", //type 구분
         editable: false, //수정 불가
+
+        classNames: ["support"]
     }));
 
     // schedule
@@ -52,12 +58,14 @@ const scheduleConverter = ({ before_programs, programs, l_support, t_support, sc
         //풀캘린더용
         id : globalIndex++,
         title: schedule.content,
-        start: new Date(`${schedule.date}T${schedule.time}:00Z`).toISOString(), // 풀캘린더를 위한 시간 표현
+        start: new Date(`${schedule.date}T${schedule.time}`), // 풀캘린더를 위한 시간 표현
 
         //출력용
         date: schedule.date,
         time : schedule.time,
         type: "schedule", //type 구분
+
+        classNames: ["schedule"]
     }));
 
     // 다 결합

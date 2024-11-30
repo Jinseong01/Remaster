@@ -11,6 +11,11 @@ npm install react-hook-form
 npm install react-masonry-css
 npm install react-table
 
+npm install @fullcalendar/react
+npm install @fullcalendar/daygrid
+npm install @fullcalendar/interaction
+npm install @fullcalendar/rrule
+
 # shadcn/ui 컴포넌트
 
 # 필수 의존성 설치

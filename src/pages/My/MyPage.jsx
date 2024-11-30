@@ -5,7 +5,7 @@ import "./MyPage.css";
 import MyPageInfo from "./MyPageInfo/MyPageInfo";
 import Timeline from "./Timeline/Timeline";
 import SubResultPage from "./SubResultPage/SubResultPage";
-import LoginAlertModal from "../../components/LoginAlert/LoginAlertModal";
+import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
 
 const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);

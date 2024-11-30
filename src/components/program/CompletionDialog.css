@@ -62,6 +62,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease;
+    min-width: 120px;
 }
 
 .check-dialog-confirm-completion:hover {
@@ -77,6 +78,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: border-color 0.3s ease, color 0.3s ease;
+    min-width: 120px;
 }
 
 .check-dialog-view-history-completion:hover {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -11,6 +10,7 @@ import HelpButton from "../../components/side/HelpButton"
 import ProgramImageModal from "../../components/program/ProgramImageModal";
 import DuplicateApplicationDialog from "../../components/program/DuplicateApplicationDialog";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
+import DuplicateModal from "../../components/common/DuplicateModal/DuplicateModal";
 
 function Program( {currentUser}) {
   const location = useLocation();
@@ -19,7 +19,8 @@ function Program( {currentUser}) {
   // 사이드바 상태 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const programInfo = location.state?.program; // 전달된 프로그램 정보
+  // 선택된 프로그램 상태 관리 
+  const programInfo = location.state?.program; 
   const [selectedProgram, setSelectedProgram] = useState(programInfo || programs[0]);
   
   // 모달 관련 상태
@@ -34,7 +35,7 @@ function Program( {currentUser}) {
     infinite: false,
     speed: 500,
     slidesToShow: 5.2,
-    slidesToScroll: 1,
+    slidesToScroll: 3,
     draggable: true,
   };
 
@@ -88,7 +89,10 @@ function Program( {currentUser}) {
     <div className="App">
       {/* currentUser가 유효한 객체일 때 Sidebar 표시 */}
       {currentUser && Object.keys(currentUser).length > 0 && (
-        <Sidebar currentUser={currentUser} />
+        <>
+          <Sidebar currentUser={currentUser} />
+          <HelpButton currentUser={currentUser}/>
+        </>
       )}
 
 
@@ -110,7 +114,11 @@ function Program( {currentUser}) {
                     <p>담당자: {selectedProgram.phone_number}</p>
                   </div>
                 </div>
+                
+                {/* Divider 추가 */}
+                <div className="program-divider"></div>
 
+                <h3>내용: </h3>
                 <div className="content">
                   <p>{selectedProgram.content}</p>
                 </div>
@@ -150,15 +158,14 @@ function Program( {currentUser}) {
           ))}
         </Slider>
       </div>
-
-      <DuplicateApplicationDialog
+      <DuplicateModal 
+        text={"신청"}
         isOpen={isDuplicateDialogOpen}
         onClose={() => setIsDuplicateDialogOpen(false)}
-        onViewStatus={handleViewStatus}
+        onRedirect={handleViewStatus}
       />
       <ProgramImageModal isOpen={isModalOpen} onClose={closeModal} image={modalImage} />
       <LoginAlertModal isOpen={isLoginAlertOpen} onClose={()=>setIsLoginAlertOpen(false)} onLoginRedirect={handleLoginRedirect}/>
-      <HelpButton currentUser={currentUser}/>
     </div>
   );
 }

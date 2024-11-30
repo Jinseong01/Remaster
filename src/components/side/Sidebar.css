@@ -42,6 +42,11 @@
   width: 300px; /* 확장 시 너비 */
 }
 
+.sidebar-container.collapsed {
+  width: 50px; /* 축소 상태의 너비 */
+  overflow: hidden; /* 내부 콘텐츠 숨김 */
+}
+
 /* 버튼 스타일 */
 .icon-button {
   margin-bottom: 10px;
@@ -77,11 +82,21 @@
   text-align: center;
 }
 
+.minus-plus-toggle-button{
+  display: flex;
+  flex-direction: column;
+}
+
 .toggle-button{
   width: 50px; /* 이미지 크기 */
   height: 50px;
-  margin-top: 130px;
+  margin-top: 90px;
   margin-bottom: 130px;
   left: 30%;
+}
+
+.minus-plus-button{
+  width: 50px;
+  height: 50px;
 }
 

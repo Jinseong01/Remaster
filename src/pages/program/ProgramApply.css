@@ -1,63 +1,92 @@
 .program-apply h2 { /* 프로그램 메인 제목 */
-    font-size: 2rem; 
+    font-size: 2.5rem; /* 크기 키움 */
     font-weight: bold; 
-    color: #333; 
+    color: #2c3e50; /* 차분한 네이비 블루 */
     margin-bottom: 10px; 
 }
 
 .program-apply h3 { /* 프로그램 서브 제목 */
-    font-size: 1.5rem; 
-    font-weight: 600; 
-    color: #555; 
-    margin-bottom: 15px; 
-    margin-left: 5%;
+  font-size: 1.8rem; 
+  font-weight: 600; 
+  color: #34495e; /* 어두운 블루 계열 */
+  margin-bottom: 20px; 
+  margin-left: 5%;
+  border-left: 4px solid #3d5afe; /* 왼쪽 강조선 */
+  padding-left: 10px;
+}
+
+.program-apply-user-information label{
+  font-weight: 600;
+}
+.program-apply-user-information p{
+  font-weight: 600;
+}
+
+.program-apply-program-information p{
+  font-weight: 600;
 }
 
 .program-apply{ /* 전체 위젯 틀 */
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 }
 
-.user-information{ /* 사용자 정보 틀 */
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: 20%;
-    margin-right: 20%;
+.program-apply-user-information{ /* 사용자 정보 틀 */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 15%;
+  margin-right: 15%;
+  background-color: #eef4fc; /* 밝은 파란 배경 */
+  padding: 5%;
+  border-radius: 12px; /* 둥근 모서리로 부드러운 느낌 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  transition: box-shadow 0.3s ease; /* 인터랙션에 부드러운 효과 추가 */
 }
 
-.left > div{ /* 사용자 정보들 텍스트 간격 */
-    margin-bottom: 15px;
+.program-apply-user-information:hover { /* 호버 시 그림자 강조 효과 */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
-.right > div{
-    margin-bottom: 15px;
+.left > div, .right > div{ /* 사용자 정보들 텍스트 간격 */
+    margin-bottom: 30px;
+}
+
+.disability-item{
+  margin-bottom: 10%;
 }
 
 input{ /* 입력 창 스타일 */
-    flex: 1;
-    padding: 2px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    border-radius: 12px;
-    font-size: 1em;
-    margin-left: 12px; /* 라벨과 인풋 간격 */
+  flex: 1;
+  padding: 8px 12px; /* 내부 여백 추가 */
+  border: 1px solid #bdc3c7; /* 부드러운 회색 테두리 */
+  background-color: #ffffff; /* 흰색 배경 */
+  border-radius: 12px; /* 둥근 모서리 */
+  font-size: 1rem;
+  color: #2c3e50;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 5px;
 }
 
-input:focus { 
-    border-color: #aaa; 
-    background-color: #fff; 
-    outline: none; 
+
+.user-information-name-gender{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
 }
 
 .divider-horizontal {
-    height: 1px; /* 두께 */
-    background-color: #ddd; /* 색상 */
-    margin-top: 100px;
-    border: none; /* 기본 경계선 제거 */
+  height: 1px; /* 두께 */
+  background-color: #dcdde1; /* 연한 회색 */
+  margin: 40px 0;
+  border: none; /* 기본 경계선 제거 */
 }
 
-.program-information{
+.program-apply-program-information{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -66,61 +95,80 @@ input:focus {
     margin-right: 10%;
 }
 
-.program-information img{
+.program-apply-program-information img{
     flex: 1;
     width: 100%;
-    height: 500px;
+    height: 800px;
     border-radius: 8px;
     object-fit: cover; /* 지정된 영역에 맞춰 자르기 */
     object-position: top; /* 이미지의 위쪽을 우선적으로 보여줌 */
+    margin-right: 8%;
+    max-width: 700px;
 }
 
 .divider-vertical {
-    width: 1px; /* 세로 구분선의 두께 */
-    background-color: #ddd; /* 구분선 색상 */
-    height: 500px;
+  width: 1px; /* 세로 구분선의 두께 */
+  background-color: #dcdde1; /* 연한 회색 */
+  height: auto; /* 이미지와 텍스트 높이에 맞춤 */
 
 }
 
-.program-details{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.program-apply-program-details{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #eef4fc; /* 밝은 파란 배경 */
+  margin: 5%;
+  padding: 5%;
+  border-radius: 12px; /* 둥근 모서리로 부드러운 느낌 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  transition: box-shadow 0.3s ease; /* 인터랙션에 부드러운 효과 추가 */
 }
 
+.program-apply-program-details:hover { /* 호버 시 그림자 강조 효과 */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
 
-.program-location input{ /* 프로그램 장소 칸만 길이 늘리기 */
-  width: 50%; 
+.program-apply-program-name{
+  margin-bottom: 20px;
+}
+
+.program-apply-program-name input{
+  width: 100%;
+  border-radius: 8px;
+}
+
+.program-apply-program-location input{ /* 프로그램 장소 칸만 길이 늘리기 */
+  width: 100%; 
   border-radius: 8px;
 }
 
 
-.program-content{
+.program-apply-program-content{
     display: flex; /* label과 textarea를 가로로 배치 */
     align-items: flex-start; /* 상단(첫 번째 줄) 정렬 */
     gap: 10px; /* label과 textarea 간의 간격 */
-    margin-left: 22%;
 }
 
 
+.prgram-apply-program-date-and-time{
+  display: flex;
+  flex-direction: row;
+  gap: 5%;
+}
 
 /* 공통 textarea 스타일 */
-textarea {
-    width: 70%; 
+textarea {  
+    width: 100%; 
     padding: 10px; 
-    border: 1px solid #ccc; 
-    background-color: #f9f9f9; 
-    border-radius: 12px; 
-    font-size: 1em; 
-    resize: none; 
+    border: 1px solid #bdc3c7; /* 부드러운 회색 테두리 */
+    background-color: #ffffff; /* 흰색 배경 */
+    border-radius: 12px; /* 둥근 모서리 */
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 5px;
   }
-  
-textarea:focus {
-    border-color: #aaa; /* 포커스 시 테두리 색상 변경 */
-    background-color: #fff; /* 포커스 시 배경을 흰색으로 */
-    outline: none; /* 기본 포커스 아웃라인 제거 */
-}
-
 
 .check {
     display: flex;

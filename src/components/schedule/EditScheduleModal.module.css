@@ -52,6 +52,7 @@
 .modalHeader {
   text-align: center;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .modalHeader h2 {

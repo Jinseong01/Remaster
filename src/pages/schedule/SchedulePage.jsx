@@ -10,6 +10,7 @@ import Schedule from '../../components/schedule/Schedule';
 import AddScheduleModal from '../../components/schedule/AddScheduleModal';
 import EditScheduleModal from '../../components/schedule/EditScheduleModal';
 import DeleteScheduleModal from '../../components/schedule/DeleteScheduleModal';
+import LoginAlertModal from '../../components/LoginAlert/LoginAlertModal';
 //CSS
 import './SchedulePage.css'
 
@@ -50,39 +51,37 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
     setShowDeleteModal(true);
   }
 
+
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false); // 로그인 모달 상태 추가
+
+  const checkLogin = () => {
+    if(!loginState) {
+      setIsLoginAlertModalOpen(true);
+    }
+    else {
+      setShowAddModal(true);
+    }
+  }
+
   // events가 
   const { events, handleEventChange, addSchedule, editSchedule, deleteSchedule } = useSchedule(originalEvent, currentUser, setCurrentUser);
-
-  // 비로그인 상태
-  if (!loginState) {
-    return (
-        <div className="login-required-container">
-            <div className="login-required-content">
-                <i className="fas fa-lock login-icon"></i> {/* Font Awesome 아이콘 사용 */}
-                <h2>로그인이 필요합니다</h2>
-                <p>이 서비스를 이용하려면 로그인이 필요합니다.</p>
-                <div className="login-buttons">
-                    <button className="login-button" onClick={() => {navigate(`/login`)}}>
-                        로그인하기
-                    </button>
-                </div>
-            </div>
-        </div>
-    );
-  }
 
   // 로그인 상태
   return (
     <div className="page-container">
+      {loginState?
       <MyCalendar events={events} onEventChange={handleEventChange} onMonthChange={handleMonthChange} editable={true}/>
+      : <MyCalendar editable={false} onEventChange={()=>{}} onMonthChange={()=>{}}/>}
+      
       <Schedule
         events={events}
         currentDate={currentDate}
-        onAddOpen={() => setShowAddModal(true)}
+        onAddOpen={() => checkLogin()}
         onEditOpen={controlEditModal}
         onDeleteOpen={controlDeleteModal}
       />
 
+      <LoginAlertModal isOpen={isLoginAlertModalOpen} onClose={() => setIsLoginAlertModalOpen(false)} onLoginRedirect={() => navigate('/login')}/>
       <AddScheduleModal isOpen={showAddModal} onClose={() => setShowAddModal(false)} addSchedule={addSchedule}/>
       <EditScheduleModal isOpen={showEditModal} onClose={() => setShowEditModal(false)} editSchedule={editSchedule} selectedEvent={selectedEvent}/>
       <DeleteScheduleModal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)} deleteSchedule={deleteSchedule} selectedEvent={selectedEvent}/>

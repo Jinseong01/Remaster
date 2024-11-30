@@ -78,7 +78,7 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
     {!loginState && isLoginAlertModalOpen && (
       <LoginAlertModal
         isOpen={isLoginAlertModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={() => setIsLoginAlertModalOpen(false)}
         onLoginRedirect={() => navigate('/login')}
       />
     )}

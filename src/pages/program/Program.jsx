@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -10,26 +10,25 @@ import Sidebar from "../../components/side/Sidebar"
 import HelpButton from "../../components/side/HelpButton"
 import ProgramImageModal from "../../components/program/ProgramImageModal";
 import DuplicateApplicationDialog from "../../components/program/DuplicateApplicationDialog";
+import LoginAlertModal from "../../components/LoginAlert/LoginAlertModal";
 
-function Program( {currentUser, program}) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [selectedProgram, setSelectedProgram] = useState(programs[0]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
-  const [modalImage, setModalImage] = useState(null); // 클릭한 이미지 저장
-  const [isDuplicateDialogOpen, setIsDuplicateDialogOpen] = useState(false);
-
+function Program( {currentUser}) {
+  const location = useLocation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // program 파라미터가 있으면 해당 프로그램을 default로 설정
-    if (program) {
-      const defaultProgram = programs.find((p) => p.id === program.id);
-      if (defaultProgram) {
-        setSelectedProgram(defaultProgram);
-      }
-    }
-  }, [program]); // program 파라미터가 변경되면 실행
+  // 사이드바 상태 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const programInfo = location.state?.program; // 전달된 프로그램 정보
+  const [selectedProgram, setSelectedProgram] = useState(programInfo || programs[0]);
+  
+  // 모달 관련 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [modalImage, setModalImage] = useState(null); // 클릭한 이미지 저장
+  const [isDuplicateDialogOpen, setIsDuplicateDialogOpen] = useState(false); // 중복 신청 모달 상태
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false); // 로그인 알림 모달 상태
+
+  // 프로그램 카드 슬라이더 세팅 
   const sliderSettings = {
     dots: false,
     infinite: false,
@@ -39,6 +38,13 @@ function Program( {currentUser, program}) {
     draggable: true,
   };
 
+  // 로그인 모달창 로그인하기 처리 콜백 함수
+  const handleLoginRedirect = () => {
+    setIsLoginAlertOpen(false); // 모달 닫기
+    navigate("/login"); // 로그인 페이지로 이동
+  };
+
+  // 이미지 상세 보기 
   const openModal = (image) => {
     setModalImage(image);
     setIsModalOpen(true);
@@ -49,10 +55,11 @@ function Program( {currentUser, program}) {
     setModalImage(null);
   };
 
+  // 신청하기 버튼 처리 
   const handleApplyButtonClick = () => {
     if (!currentUser || Object.keys(currentUser).length === 0) {
-      // 로그인 상태가 아니면 로그인 페이지로 이동
-      navigate('/login');
+       // 로그인 상태가 아니면 모달 열기
+      setIsLoginAlertOpen(true);
       return;
     }
   
@@ -71,6 +78,7 @@ function Program( {currentUser, program}) {
     navigate('/apply', { state: { program: selectedProgram } });
   };
 
+  // 중복 신청시 신청내역 이동 
   const handleViewStatus = () => {
     setIsDuplicateDialogOpen(false);
     navigate("/mypage"); // 신청현황 페이지로 이동
@@ -149,6 +157,7 @@ function Program( {currentUser, program}) {
         onViewStatus={handleViewStatus}
       />
       <ProgramImageModal isOpen={isModalOpen} onClose={closeModal} image={modalImage} />
+      <LoginAlertModal isOpen={isLoginAlertOpen} onClose={()=>setIsLoginAlertOpen(false)} onLoginRedirect={handleLoginRedirect}/>
       <HelpButton currentUser={currentUser}/>
     </div>
   );

@@ -3,7 +3,7 @@ import "./SupportResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
-const SupportResult = ({ currentUser }) => {
+const SupportResult = ({ currentUser, setCurrentUser }) => {
   const getCombinedSupport = () => {
     if (!currentUser) return [];
     return [
@@ -22,11 +22,11 @@ const SupportResult = ({ currentUser }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSupportIndex, setSelectedSupportIndex] = useState(null);
+  const [selectedSupportIndex, setSelectedSupportIndex] = useState(null); // 선택된 항목 관리
   const [expandedIndex, setExpandedIndex] = useState(null); // 확장된 항목 관리
 
-  const openModal = (index) => {
-    setSelectedSupportIndex(index);
+  const openModal = (item) => {
+    setSelectedSupportIndex(item); // `item` 객체를 직접 설정
     setIsModalOpen(true);
   };
 
@@ -36,13 +36,12 @@ const SupportResult = ({ currentUser }) => {
   };
 
   const handleConfirmCancel = () => {
-    const selectedSupport = combinedSupport[selectedSupportIndex];
+    if (!selectedSupportIndex) return;
 
-    // 불변성을 유지하며 currentUser 업데이트
+    const selectedSupport = selectedSupportIndex;
+
     let updatedLSupport = [...currentUser.l_support];
     let updatedTSupport = [...currentUser.t_support];
-    console.log(updatedLSupport);
-    console.log(updatedTSupport);
 
     if (selectedSupport.category === "생활지원") {
       updatedLSupport = updatedLSupport.filter(
@@ -65,18 +64,16 @@ const SupportResult = ({ currentUser }) => {
           )
       );
     }
-    console.log(updatedLSupport);
-    console.log(updatedTSupport);
 
-    // currentUser 상태 업데이트
     const updatedUser = {
       ...currentUser,
       l_support: updatedLSupport,
       t_support: updatedTSupport,
     };
-    console.log(updatedUser);
 
-    // combinedSupport 다시 생성
+    setCurrentUser(updatedUser); // 부모 컴포넌트로 업데이트 전달
+
+    // combinedSupport도 업데이트
     const updatedCombinedSupport = [
       ...updatedUser.l_support.map((item) => ({
         ...item,
@@ -88,10 +85,8 @@ const SupportResult = ({ currentUser }) => {
       })),
     ];
 
-    // 상태 업데이트
     setCombinedSupport(updatedCombinedSupport);
     setSelectedSupportIndex(null);
-    console.log(updatedCombinedSupport);
     setIsModalOpen(false);
   };
 
@@ -144,9 +139,7 @@ const SupportResult = ({ currentUser }) => {
                   ) : (
                     <button
                       className="cancel-button"
-                      onClick={() =>
-                        openModal(index + (currentPage - 1) * itemsPerPage)
-                      }
+                      onClick={() => openModal(item)}
                     >
                       취소
                     </button>
@@ -175,41 +168,6 @@ const SupportResult = ({ currentUser }) => {
                         {item.destination || "정보 없음"}
                       </p>
                       <p>
-                        <strong>목적:</strong> {item.purpose || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>이동 수단:</strong>{" "}
-                        {item.vehicle || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>수화 사용 여부:</strong>{" "}
-                        {item.need_sign_language ? "예" : "아니오"}
-                      </p>
-                      <p>
-                        <strong>휠체어 사용 여부:</strong>{" "}
-                        {item.need_bathchair ? "예" : "아니오"}
-                      </p>
-                      <p>
-                        <strong>복귀 여부:</strong>{" "}
-                        {item.need_for_return ? "예" : "아니오"}
-                      </p>
-                    </>
-                  ) : item.category === "생활지원" ? (
-                    <>
-                      <p>
-                        <strong>장소:</strong> {item.location || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>목적:</strong> {item.purpose || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>알레르기:</strong>{" "}
-                        {item.alleleugi || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>애완 동물:</strong> {item.pet || "정보 없음"}
-                      </p>
-                      <p>
                         <strong>수화 사용 여부:</strong>{" "}
                         {item.need_sign_language ? "예" : "아니오"}
                       </p>
@@ -219,7 +177,22 @@ const SupportResult = ({ currentUser }) => {
                       </p>
                     </>
                   ) : (
-                    <p>지원 상세 정보가 없습니다.</p>
+                    <>
+                      <p>
+                        <strong>장소:</strong> {item.location || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>목적:</strong> {item.purpose || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>수화 사용 여부:</strong>{" "}
+                        {item.need_sign_language ? "예" : "아니오"}
+                      </p>
+                      <p>
+                        <strong>휠체어 사용 여부:</strong>{" "}
+                        {item.need_bathchair ? "예" : "아니오"}
+                      </p>
+                    </>
                   )}
                 </div>
               )}
@@ -233,7 +206,6 @@ const SupportResult = ({ currentUser }) => {
           <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
-            className={`pagination-item ${currentPage === 1 ? "disabled" : ""}`}
           >
             이전
           </button>
@@ -251,19 +223,18 @@ const SupportResult = ({ currentUser }) => {
           <button
             onClick={() => handlePageChange(currentPage + 1)}
             disabled={currentPage === totalPages}
-            className={`pagination-item ${
-              currentPage === totalPages ? "disabled" : ""
-            }`}
           >
             다음
           </button>
         </div>
       )}
 
+      {/* 모달 */}
       <CancelConfirmModal
         isOpen={isModalOpen}
         onClose={closeModal}
         onConfirm={handleConfirmCancel}
+        text="지원 내역을 정말 취소하시겠습니까?"
       />
     </div>
   );

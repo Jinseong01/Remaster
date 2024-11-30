@@ -1,26 +1,22 @@
-// src/pages/MyPage/SubResultPage/SubResultPage.jsx
-
 import React from "react";
+import { Outlet } from "react-router-dom";
 import "./SubResultPage.css";
-import ProgramResult from "./ProgramResult/ProgramResult";
-import SupportResult from "./SupportResult/SupportResult";
-import JobResult from "./JobResult/JobResult";
+import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 
-const SubResultPage = ({ selectedSubOption, currentUser, setCurrentUser }) => {
+const SubResultPage = () => {
   return (
     <div className="subresult-page-container">
-      {selectedSubOption === "프로그램" && (
-        <ProgramResult
-          currentUser={currentUser}
-          setCurrentUser={setCurrentUser}
-        />
-      )}
-      {selectedSubOption === "활동보조" && (
-        <SupportResult currentUser={currentUser} />
-      )}
-      {selectedSubOption === "일자리" && (
-        <JobResult currentUser={currentUser} setCurrentUser={setCurrentUser} />
-      )}
+      {/* 로그인 여부 확인을 위한 모달 */}
+      <LoginAlertModal
+        isOpen={false} // 항상 false로 설정 (여기서는 로그인 확인 로직 필요 없음)
+        onClose={() => {}}
+        onLoginRedirect={() => {}}
+      />
+
+      {/* 하위 라우트를 렌더링 */}
+      <div className="subresult-content-section">
+        <Outlet />
+      </div>
     </div>
   );
 };

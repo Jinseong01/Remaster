@@ -23,6 +23,8 @@ import SubResultPage from "./pages/My/SubResultPage/SubResultPage";
 import ProgramResult from "./pages/My/SubResultPage/ProgramResult/ProgramResult";
 import SupportResult from "./pages/My/SubResultPage/SupportResult/SupportResult";
 import JobResult from "./pages/My/SubResultPage/JobResult/JobResult";
+import MyPageInfo from "./pages/My/MyPageInfo/MyPageInfo";
+import Timeline from "./pages/My/Timeline/Timeline";
 
 //router
 //아래 코드를 제대로 이해할 필요가 있다.
@@ -78,7 +80,7 @@ function App() {
         },
         {
           path: "jobs",
-          element: <JobsPage currentUser={currentUser}/>,
+          element: <JobsPage currentUser={currentUser} />,
         },
         {
           path: "support",
@@ -92,7 +94,7 @@ function App() {
         },
         {
           path: "notice",
-          element: <NoticePage currentUser={currentUser}/>,
+          element: <NoticePage currentUser={currentUser} />,
         },
         {
           path: "schedule",
@@ -105,11 +107,10 @@ function App() {
           ),
         },
         {
-          path: "/mypage",
+          path: "mypage",
           element: (
-            <OnlyNavLayout
+            <MyPage
               loginState={login}
-              setLogin={setLogin}
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
             />
@@ -118,15 +119,15 @@ function App() {
             {
               index: true,
               element: (
-                <MyPage
-                  loginState={login}
-                  currentUser={currentUser}
-                  setCurrentUser={setCurrentUser}
-                />
-              ), // 기본 `/mypage`로 접속했을 때
+                <MyPageInfo currentUser={currentUser} loginState={login} />
+              ),
             },
             {
-              path: "result-page", // /mypage/result-page
+              path: "timeline",
+              element: <Timeline currentUser={currentUser} />,
+            },
+            {
+              path: "result-page",
               element: <SubResultPage />,
               children: [
                 {

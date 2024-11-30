@@ -65,7 +65,7 @@
 }
 
 /* 콘텐츠 섹션 스타일 */
-.content-section {
+.subresult-content-section {
   width: 100%;
   margin-top: 20px; /* 콘텐츠와 드롭다운 사이의 간격 추가 */
 }

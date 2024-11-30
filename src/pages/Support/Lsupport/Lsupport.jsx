@@ -107,7 +107,7 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
   };
 
   const handleViewDetails = () => {
-    navigate("/mypage"); // /mypage로 이동
+    navigate("/mypage/result-page/supportresult"); // /mypage로 이동
   };
 
   return (

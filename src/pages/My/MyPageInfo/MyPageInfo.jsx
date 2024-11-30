@@ -201,6 +201,7 @@ const MyPageInfo = ({ currentUser, loginState }) => {
         <ChangeConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={closeConfirmModal}
+          message="변경이 완료되었습니다."
         />
       )}
 

@@ -1,11 +1,10 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Sidebar.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { matchRoutes, useNavigate } from "react-router-dom";
 import { users } from "../../data/users"; // users 데이터 import
 
-const Sidebar= ({currentUser})=>{
-
+const Sidebar = ({ currentUser }) => {
   const [myMenu, setMyMenu] = useState(currentUser?.my_menu || []); // 현재 사용자의 메뉴
   const [restMenu, setRestMenu] = useState(currentUser?.rest_menu || []); // 현재 사용자의 확장 메뉴
 
@@ -22,7 +21,8 @@ const Sidebar= ({currentUser})=>{
 
   useEffect(() => {
     // SpeechRecognition 초기화
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    const recognition = new (window.SpeechRecognition ||
+      window.webkitSpeechRecognition)();
     recognition.lang = "ko-KR"; // 한국어 설정
     recognition.interimResults = false;
     recognition.continuous = true;
@@ -35,8 +35,8 @@ const Sidebar= ({currentUser})=>{
       setTranscript((prev) => prev + currentTranscript);
 
       // 음성 명령 매핑
-      const matchedIcon = myMenu.find((icon) =>
-        icon.keywords.some((keyword) => keyword === currentTranscript) // 키워드 배열과 비교
+      const matchedIcon = myMenu.find(
+        (icon) => icon.keywords.some((keyword) => keyword === currentTranscript) // 키워드 배열과 비교
       );
 
       if (matchedIcon) {
@@ -44,7 +44,6 @@ const Sidebar= ({currentUser})=>{
         setMatchedRoute(matchedIcon.route); // 경로 상태에 저장
       }
     };
-
 
     // 녹음 종료 이벤트
     recognition.onend = () => {
@@ -68,7 +67,7 @@ const Sidebar= ({currentUser})=>{
     }
   }, [matchedRoute, isRecording, navigate]);
 
-    // 드래그가 끝났을 때 호출되는 함수
+  // 드래그가 끝났을 때 호출되는 함수
   const handleOnDragEnd = (result) => {
     const { source, destination } = result;
 
@@ -110,26 +109,27 @@ const Sidebar= ({currentUser})=>{
 
     // 상태가 바로 업데이트 되지 않음
     console.log("handlerOnDragEnd: 상태 업데이트 후 myMenu 값 체크", myMenu);
-    console.log("handlerOnDragEnd: 상태 업데이트 후 restMenu 값 체크", restMenu);
+    console.log(
+      "handlerOnDragEnd: 상태 업데이트 후 restMenu 값 체크",
+      restMenu
+    );
 
     changeMenuToUser(newMyMenu, newRestMenu);
   };
 
   // 사용자 데이터를 업데이트하고 users 배열을 수정
-  const changeMenuToUser = (newMyMenu={newMyMenu}, newRestMenu={newRestMenu})=>{
-
-    // 해당하는 유저 index 찾기 
-    const userIndex=users.findIndex((user)=> user.id===userInfo.id);
+  const changeMenuToUser = (
+    newMyMenu = { newMyMenu },
+    newRestMenu = { newRestMenu }
+  ) => {
+    // 해당하는 유저 index 찾기
+    // const userIndex = users.findIndex((user) => user.id === userInfo.id);
 
     // 그 유저 메뉴 수정
-    if (userIndex !== -1) {
-      users[userIndex].my_menu=newMyMenu;
-      users[userIndex].rest_menu=newRestMenu;
-
-    } else {
-        console.error("사용자를 찾을 수 없습니다.");
-    }
-  }
+    currentUser.my_menu = newMyMenu;
+    currentUser.rest_menu = newRestMenu;
+    console.error("사용자를 찾을 수 없습니다.");
+  };
 
   const startRecording = () => {
     if (recognitionRef.current && !isRecording) {
@@ -142,7 +142,7 @@ const Sidebar= ({currentUser})=>{
   const stopRecording = () => {
     if (recognitionRef.current && isRecording) {
       recognitionRef.current.stop();
-      console.log("stopRecording ")
+      console.log("stopRecording ");
       if (matchedRoute) {
         console.log("Navigating to:", matchedRoute); // 디버깅 메시지
         navigate(matchedRoute); // 저장된 경로로 이동
@@ -173,33 +173,35 @@ const Sidebar= ({currentUser})=>{
   }, [isRecording]);
 
   return (
-    <div className="record-status"> {/* 단순 컬럼 */}
+    <div className="record-status">
+      {" "}
+      {/* 단순 컬럼 */}
       <div className="transcription">
         {isRecording ? (
-        // 녹음 중이면 record.png 이미지 표시
-        <>
-        <img 
-          src={`${process.env.PUBLIC_URL}/assets/images/sidebar/record.png`} 
-          alt="녹음 중" 
-          className="record-icon"
-        />
-        <p className="transcription-text">{transcript}</p>
-        </>
-      ) : (
-      <p></p>
-      )}
+          // 녹음 중이면 record.png 이미지 표시
+          <>
+            <img
+              src={`${process.env.PUBLIC_URL}/assets/images/sidebar/record.png`}
+              alt="녹음 중"
+              className="record-icon"
+            />
+            <p className="transcription-text">{transcript}</p>
+          </>
+        ) : (
+          <p></p>
+        )}
       </div>
-
-    <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>  {/* flex: row */}
+      <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>
+        {" "}
+        {/* flex: row */}
         <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="myMenu"> 
-            {(provided) => ( 
+          <Droppable droppableId="myMenu">
+            {(provided) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
-                className='sidebar-droppable' 
+                className="sidebar-droppable"
               >
-                
                 {myMenu.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided) => (
@@ -207,10 +209,14 @@ const Sidebar= ({currentUser})=>{
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                        className='icon-button'
+                        className="icon-button"
                         onClick={() => navigate(item.route)} // 클릭 시 라우팅 처리
                       >
-                        <img src={item.img} alt="아이콘1" className="icon-image" />
+                        <img
+                          src={item.img}
+                          alt="아이콘1"
+                          className="icon-image"
+                        />
                         {item.name}
                       </div>
                     )}
@@ -220,7 +226,7 @@ const Sidebar= ({currentUser})=>{
               </div>
             )}
           </Droppable>
-          
+
           <img
             src={
               isExpanded
@@ -233,40 +239,47 @@ const Sidebar= ({currentUser})=>{
           />
 
           {/* 추가 아이콘 Droppable (확장 시에만 표시) */}
-        {isExpanded && (
-          <Droppable droppableId="restMenu">
-            {(provided) => (
-              <div
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-                className="sidebar-droppable"
-              >
-                {restMenu.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="icon-button"
-                        onClick={() => navigate(item.route)} // 클릭 시 라우팅 처리
-                      >
-                        <img src={item.img} alt={item.name} className="icon-image" />
-                        {item.name}
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        )}
+          {isExpanded && (
+            <Droppable droppableId="restMenu">
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="sidebar-droppable"
+                >
+                  {restMenu.map((item, index) => (
+                    <Draggable
+                      key={item.id}
+                      draggableId={item.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="icon-button"
+                          onClick={() => navigate(item.route)} // 클릭 시 라우팅 처리
+                        >
+                          <img
+                            src={item.img}
+                            alt={item.name}
+                            className="icon-image"
+                          />
+                          {item.name}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          )}
         </DragDropContext>
-        
       </div>
-      </div>
+    </div>
   );
-}
+};
 
 export default Sidebar;

@@ -5,9 +5,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Tsupport.css";
 import MapModal from "../Map/MapModal";
 import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
+
 import { ChevronDown } from "lucide-react";
 import TsupportData from "../../../data/Tsupport";
-
+import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
 const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
@@ -15,6 +16,7 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const [isStartModalOpen, setIsStartModalOpen] = useState(false);
   const [isDestinationModalOpen, setIsDestinationModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false); // 로그인 알림 모달 상태 추가
   const [radioSelections, setRadioSelections] = useState({
     needSignLanguage: "",
     needBathchair: "",
@@ -36,7 +38,7 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
   const handleSubmit = () => {
     if (!loginState) {
-      alert("로그인이 필요한 서비스입니다.");
+      setIsLoginAlertOpen(true); // 로그인 상태가 아니면 로그인 알림 모달 표시
       return;
     }
 
@@ -263,6 +265,12 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
         isOpen={isConfirmModalOpen}
         onClose={handleModalClose}
         onViewDetails={handleViewDetails}
+        message="신청이 완료되었습니다!"
+      />
+      <LoginAlertModal
+        isOpen={isLoginAlertOpen}
+        onClose={() => setIsLoginAlertOpen(false)} // 로그인 알림 모달 닫기
+        onLoginRedirect={() => navigate("/login")} // 로그인 페이지로 이동
       />
     </div>
   );

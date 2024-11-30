@@ -5,9 +5,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Lsupport.css";
 import MapModal from "../Map/MapModal";
 import { ChevronDown } from "lucide-react";
-import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
 import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
-import LsupportData from "../../../data/Lsupport";
+import CompleteModal from "../../../components/common/CompleteModal/CompleteModal";
 
 const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -57,35 +56,50 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
       return;
     }
 
-    const localDate = selectedDate
-      .toLocaleDateString("ko-KR", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .replace(/\. /g, "/")
-      .replace(/\./, "");
+    // 현재 날짜와 시간 확인
+    const currentDate = new Date();
+    const selectedDateTime = new Date(selectedDate);
+    const [hours, minutes] = selectedTime.split(":").map(Number);
+    selectedDateTime.setHours(hours, minutes, 0, 0);
+
+    // 과거 날짜 및 시간 확인
+    if (selectedDateTime < currentDate) {
+      alert("선택한 날짜와 시간이 현재 시간보다 과거일 수 없습니다.");
+      return;
+    }
 
     const newSupport = {
-      start,
-      date: localDate,
+      location: start,
+      date: selectedDate
+        .toLocaleDateString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .replace(/\. /g, "-") // 포맷 변경 (YYYY-MM-DD)
+        .replace(/\.$/, ""),
       time: selectedTime,
       purpose: reason,
-      allergy,
-      pet,
+      alleleugi: allergy,
+      pet: pet,
       need_sign_language: radioSelections.needSignLanguage === "yes",
       need_bathchair: radioSelections.needBathchair === "yes",
     };
 
-    LsupportData.push(newSupport);
-
-    // 확인 모달 열기
-    setIsConfirmModalOpen(true);
-
+    // currentUser의 l_support에 데이터 추가
     setCurrentUser({
       ...currentUser,
       l_support: [...(currentUser.l_support || []), newSupport],
     });
+
+    // 확인 모달 열기
+    setIsConfirmModalOpen(true);
+
+    console.log("New Support Data:", newSupport);
+    console.log("Updated l_support:", [
+      ...(currentUser.l_support || []),
+      newSupport,
+    ]);
   };
 
   const handleModalClose = () => {
@@ -131,14 +145,14 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
           <div className="lsupport-form-group">
             <label className="lsupport-page-label" htmlFor="address">
-              출발지
+              장소
             </label>
             <div className="lsupport-input-with-button">
               <input
                 type="text"
                 id="address"
                 className="lsupport-form-input-start"
-                placeholder="출발지를 입력하세요"
+                placeholder="장소를 입력하세요"
               />
               <div className="lsupport-location-icon" onClick={openStartModal}>
                 <ChevronDown size={16} />
@@ -247,17 +261,17 @@ const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {
         }}
       />
 
-      <SubConfirmModal
+      <CompleteModal
         isOpen={isConfirmModalOpen}
         onClose={handleModalClose}
-        onViewDetails={handleViewDetails}
-        message="신청이 완료되었습니다!"
+        onViewHistory={handleViewDetails}
+        text="신청"
       />
 
       <LoginAlertModal
         isOpen={isLoginAlertOpen}
-        onClose={() => setIsLoginAlertOpen(false)} // 로그인 알림 모달 닫기
-        onLoginRedirect={() => navigate("/login")} // 로그인 페이지로 이동
+        onClose={() => setIsLoginAlertOpen(false)}
+        onLoginRedirect={() => navigate("/login")}
       />
     </div>
   );

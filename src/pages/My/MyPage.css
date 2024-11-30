@@ -26,14 +26,17 @@
 
 /* 드롭다운 버튼 */
 .mypage-dropdown-button {
-  background-color: #f2f2f7;
-  border: none;
+  background-color: #f9fafc;
+  border: 1px solid #ddd;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   align-items: center;
+  transition: background-color 0.3s ease;
+  width: auto; /* 버튼 크기를 텍스트에 맞게 조정 */
+  min-width: 120px; /* 최소 크기 설정 (필요 시) */
 }
 
 /* 드롭다운 아이콘 */
@@ -51,19 +54,30 @@
   position: absolute;
   top: calc(100% + 5px);
   left: 0;
-  width: 200px;
-  background-color: #ffffff;
-  border-radius: 10px;
+  background-color: #f9fafc;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   overflow: hidden;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  width: auto; /* 버튼 크기에 맞춰 드롭다운 메뉴 조정 */
+  min-width: 100%; /* 버튼 크기보다 작아지지 않도록 설정 */
 }
 
 /* 드롭다운 항목 */
 .mypage-dropdown-item {
-  padding: 10px 15px;
+  padding: 12px 15px;
   cursor: pointer;
   font-size: 16px;
   color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 100%; /* 드롭다운 메뉴 너비와 동일 */
+  box-sizing: border-box;
+  text-align: left;
+  width: 100%;
 }
 
 .mypage-dropdown-item:hover {

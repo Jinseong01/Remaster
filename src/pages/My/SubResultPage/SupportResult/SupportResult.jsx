@@ -37,27 +37,62 @@ const SupportResult = ({ currentUser }) => {
 
   const handleConfirmCancel = () => {
     const selectedSupport = combinedSupport[selectedSupportIndex];
+
+    // 불변성을 유지하며 currentUser 업데이트
+    let updatedLSupport = [...currentUser.l_support];
+    let updatedTSupport = [...currentUser.t_support];
+    console.log(updatedLSupport);
+    console.log(updatedTSupport);
+
     if (selectedSupport.category === "생활지원") {
-      currentUser.l_support = currentUser.l_support.filter(
-        (item) => item !== selectedSupport
+      updatedLSupport = updatedLSupport.filter(
+        (item) =>
+          !(
+            item.location === selectedSupport.location &&
+            item.date === selectedSupport.date &&
+            item.time === selectedSupport.time &&
+            item.purpose === selectedSupport.purpose
+          )
       );
     } else if (selectedSupport.category === "이동지원") {
-      currentUser.t_support = currentUser.t_support.filter(
-        (item) => item !== selectedSupport
+      updatedTSupport = updatedTSupport.filter(
+        (item) =>
+          !(
+            item.departure_location === selectedSupport.departure_location &&
+            item.destination === selectedSupport.destination &&
+            item.date === selectedSupport.date &&
+            item.time === selectedSupport.time
+          )
       );
     }
+    console.log(updatedLSupport);
+    console.log(updatedTSupport);
+
+    // currentUser 상태 업데이트
+    const updatedUser = {
+      ...currentUser,
+      l_support: updatedLSupport,
+      t_support: updatedTSupport,
+    };
+    console.log(updatedUser);
+
+    // combinedSupport 다시 생성
     const updatedCombinedSupport = [
-      ...currentUser.l_support.map((item) => ({
+      ...updatedUser.l_support.map((item) => ({
         ...item,
         category: "생활지원",
       })),
-      ...currentUser.t_support.map((item) => ({
+      ...updatedUser.t_support.map((item) => ({
         ...item,
         category: "이동지원",
       })),
     ];
+
+    // 상태 업데이트
     setCombinedSupport(updatedCombinedSupport);
-    closeModal();
+    setSelectedSupportIndex(null);
+    console.log(updatedCombinedSupport);
+    setIsModalOpen(false);
   };
 
   const isPastDate = (date) => {
@@ -129,25 +164,63 @@ const SupportResult = ({ currentUser }) => {
 
               {expandedIndex === index && (
                 <div className="support-details">
-                  <p>
-                    <strong>출발지:</strong>{" "}
-                    {item.departure_location || "정보 없음"}
-                  </p>
-                  <p>
-                    <strong>목적지:</strong> {item.destination || "정보 없음"}
-                  </p>
-                  <p>
-                    <strong>수화 사용 여부:</strong>{" "}
-                    {item.need_sign_language ? "예" : "아니오"}
-                  </p>
-                  <p>
-                    <strong>휠체어 사용 여부:</strong>{" "}
-                    {item.need_bathchair ? "예" : "아니오"}
-                  </p>
-                  <p>
-                    <strong>복귀 여부:</strong>{" "}
-                    {item.need_for_return ? "예" : "아니오"}
-                  </p>
+                  {item.category === "이동지원" ? (
+                    <>
+                      <p>
+                        <strong>출발지:</strong>{" "}
+                        {item.departure_location || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>목적지:</strong>{" "}
+                        {item.destination || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>목적:</strong> {item.purpose || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>이동 수단:</strong>{" "}
+                        {item.vehicle || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>수화 사용 여부:</strong>{" "}
+                        {item.need_sign_language ? "예" : "아니오"}
+                      </p>
+                      <p>
+                        <strong>휠체어 사용 여부:</strong>{" "}
+                        {item.need_bathchair ? "예" : "아니오"}
+                      </p>
+                      <p>
+                        <strong>복귀 여부:</strong>{" "}
+                        {item.need_for_return ? "예" : "아니오"}
+                      </p>
+                    </>
+                  ) : item.category === "생활지원" ? (
+                    <>
+                      <p>
+                        <strong>장소:</strong> {item.location || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>목적:</strong> {item.purpose || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>알레르기:</strong>{" "}
+                        {item.alleleugi || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>애완 동물:</strong> {item.pet || "정보 없음"}
+                      </p>
+                      <p>
+                        <strong>수화 사용 여부:</strong>{" "}
+                        {item.need_sign_language ? "예" : "아니오"}
+                      </p>
+                      <p>
+                        <strong>휠체어 사용 여부:</strong>{" "}
+                        {item.need_bathchair ? "예" : "아니오"}
+                      </p>
+                    </>
+                  ) : (
+                    <p>지원 상세 정보가 없습니다.</p>
+                  )}
                 </div>
               )}
             </React.Fragment>

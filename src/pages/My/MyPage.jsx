@@ -60,6 +60,7 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
   const renderContent = {
     정보수정: (
       <MyPageInfo
+        loginState={loginState}
         currentUser={currentUser}
         handleChangeClick={handleChangeClick} // 변경하기 버튼 클릭 핸들러 전달
       />
@@ -123,7 +124,7 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
             {selectedSubOption}
             <ChevronDown
               className={`mypage-dropdown-icon ${
-                isSubDropdownVisible ? "rotate" : ""
+                isDropdownVisible ? "rotate" : ""
               }`}
               size={16}
             />

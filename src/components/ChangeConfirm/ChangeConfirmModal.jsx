@@ -9,7 +9,7 @@ const ChangeConfirmModal = ({ isOpen, onClose, message }) => {
       <div className="modal-content">
         {/* 모달 아이콘 */}
         <div className="modal-icon">
-          <img src="/assets/images/jobs/check.png" alt="Check Icon" />
+          <img src="/assets/images/common/check.png" alt="Check Icon" />
         </div>
 
         {/* 메시지 */}

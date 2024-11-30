@@ -4,19 +4,21 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Tsupport.css";
 import MapModal from "../Map/MapModal";
-import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
-
 import { ChevronDown } from "lucide-react";
-import TsupportData from "../../../data/Tsupport";
+import CompleteModal from "../../../components/common/CompleteModal/CompleteModal";
 import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState("");
-  const [isStartModalOpen, setIsStartModalOpen] = useState(false);
-  const [isDestinationModalOpen, setIsDestinationModalOpen] = useState(false);
+  const [purpose, setPurpose] = useState(""); // 목적 상태 추가
+  const [startLocation, setStartLocation] = useState(""); // 출발지 상태 추가
+  const [destination, setDestination] = useState(""); // 목적지 상태 추가
+  const [transportation, setTransportation] = useState(""); // 이동 수단 상태 추가
+  const [isStartModalOpen, setIsStartModalOpen] = useState(false); // 출발지 모달 상태
+  const [isDestinationModalOpen, setIsDestinationModalOpen] = useState(false); // 목적지 모달 상태
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false); // 로그인 알림 모달 상태 추가
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [radioSelections, setRadioSelections] = useState({
     needSignLanguage: "",
     needBathchair: "",
@@ -38,30 +40,42 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
 
   const handleSubmit = () => {
     if (!loginState) {
-      setIsLoginAlertOpen(true); // 로그인 상태가 아니면 로그인 알림 모달 표시
+      setIsLoginAlertOpen(true);
       return;
     }
 
-    const startElement = document.getElementById("start");
-    const destinationElement = document.getElementById("destination");
-    const transportationElement = document.getElementById("transportation");
+    // 현재 날짜와 시간 가져오기
+    const currentDate = new Date();
+    const selectedDateTime = new Date(selectedDate);
 
-    if (!startElement || !destinationElement || !transportationElement) {
+    // 시간 추가
+    if (selectedTime) {
+      const [hours, minutes] = selectedTime.split(":").map(Number);
+      selectedDateTime.setHours(hours, minutes, 0, 0);
+    }
+
+    // 과거 시간 체크
+    if (selectedDateTime < currentDate) {
+      alert("선택한 날짜와 시간이 현재 시간보다 과거일 수 없습니다.");
+      return;
+    }
+
+    // 필수값 확인
+    if (
+      !purpose ||
+      !startLocation ||
+      !destination ||
+      !transportation ||
+      !selectedDate ||
+      !selectedTime
+    ) {
       alert("모든 필수 항목을 입력해주세요.");
       return;
     }
 
-    const start = startElement.value;
-    const destination = destinationElement.value;
-    const transportation = transportationElement.value;
-
-    if (!selectedDate || !selectedTime) {
-      alert("날짜와 시간을 모두 선택해주세요.");
-      return;
-    }
-
+    // 새로운 이동 지원 데이터 생성
     const newSupport = {
-      departure_location: start,
+      departure_location: startLocation,
       destination: destination,
       date: selectedDate
         .toLocaleDateString("ko-KR", {
@@ -69,17 +83,17 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
           month: "2-digit",
           day: "2-digit",
         })
-        .replace(/\. /g, "/")
-        .replace(/\./, ""),
+        .replace(/\. /g, "-") // 포맷 변경 (YYYY-MM-DD)
+        .replace(/\.$/, ""),
       time: selectedTime,
+      purpose: purpose,
       vehicle: transportation,
       need_for_return: radioSelections.needReturn === "yes",
       need_sign_language: radioSelections.needSignLanguage === "yes",
       need_bathchair: radioSelections.needBathchair === "yes",
     };
 
-    TsupportData.push(newSupport);
-
+    // currentUser의 t_support 업데이트
     setCurrentUser({
       ...currentUser,
       t_support: [...(currentUser.t_support || []), newSupport],
@@ -88,13 +102,9 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
     setIsConfirmModalOpen(true);
   };
 
-  const handleModalClose = () => {
-    setIsConfirmModalOpen(false);
-  };
+  const handleModalClose = () => setIsConfirmModalOpen(false);
 
-  const handleViewDetails = () => {
-    navigate("/mypage"); // /mypage로 이동
-  };
+  const handleViewDetails = () => navigate("/mypage");
 
   return (
     <div className="tsupport-page-container">
@@ -125,7 +135,8 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
             <div className="tsupport-input-with-button">
               <input
                 type="text"
-                id="start"
+                value={startLocation}
+                onChange={(e) => setStartLocation(e.target.value)}
                 className="tsupport-form-input"
                 placeholder="출발지를 입력하세요"
               />
@@ -139,7 +150,8 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
             <div className="tsupport-input-with-button">
               <input
                 type="text"
-                id="destination"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
                 className="tsupport-form-input"
                 placeholder="목적지를 입력하세요"
               />
@@ -152,10 +164,21 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
             </div>
           </div>
           <div className="tsupport-form-group">
+            <label className="tsupport-page-label">목적</label>
+            <input
+              type="text"
+              value={purpose}
+              onChange={(e) => setPurpose(e.target.value)}
+              className="tsupport-form-input"
+              placeholder="목적을 입력하세요"
+            />
+          </div>
+          <div className="tsupport-form-group">
             <label className="tsupport-page-label">이동 수단</label>
             <input
               type="text"
-              id="transportation"
+              value={transportation}
+              onChange={(e) => setTransportation(e.target.value)}
               className="tsupport-form-input"
               placeholder="이동 수단을 입력하세요"
             />
@@ -249,7 +272,7 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
         isOpen={isStartModalOpen}
         onClose={closeStartModal}
         onSelectLocation={(location) => {
-          document.getElementById("start").value = location;
+          setStartLocation(location);
           closeStartModal();
         }}
       />
@@ -257,20 +280,20 @@ const Tsupport = ({ currentUser, loginState, setCurrentUser }) => {
         isOpen={isDestinationModalOpen}
         onClose={closeDestinationModal}
         onSelectLocation={(location) => {
-          document.getElementById("destination").value = location;
+          setDestination(location);
           closeDestinationModal();
         }}
       />
-      <SubConfirmModal
+      <CompleteModal
         isOpen={isConfirmModalOpen}
         onClose={handleModalClose}
-        onViewDetails={handleViewDetails}
-        message="신청이 완료되었습니다!"
+        onViewHistory={handleViewDetails}
+        text="신청"
       />
       <LoginAlertModal
         isOpen={isLoginAlertOpen}
-        onClose={() => setIsLoginAlertOpen(false)} // 로그인 알림 모달 닫기
-        onLoginRedirect={() => navigate("/login")} // 로그인 페이지로 이동
+        onClose={() => setIsLoginAlertOpen(false)}
+        onLoginRedirect={() => navigate("/login")}
       />
     </div>
   );

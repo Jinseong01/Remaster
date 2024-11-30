@@ -1,36 +1,59 @@
-import React, { useState } from "react";
+// src/pages/My/MyPageInfo/MyPageInfo.jsx
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MyPageInfo.css";
 import PasswordChangeModal from "../../../components/PasswordChange/PasswordChangeModal";
 import ChangeConfirmModal from "../../../components/ChangeConfirm/ChangeConfirmModal";
 import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 
 const MyPageInfo = ({ currentUser, loginState }) => {
+  const navigate = useNavigate();
+
+  // 초기 상태 설정
   const [formValues, setFormValues] = useState({
-    id: currentUser.id || "",
-    name: currentUser.name || "",
-    gender: currentUser.gender || "",
-    address: currentUser.address || "",
-    contact: currentUser.phone_number || "",
-    emergencyContact: currentUser.emergency_phone_number || "",
-    heightWeight:
-      currentUser.height && currentUser.weight
-        ? `${currentUser.height}, ${currentUser.weight}`
-        : "",
-    disabilityType: currentUser.disability_type
-      ? currentUser.disability_type.join(", ")
-      : "",
-    grade: currentUser.disability_grade
-      ? Object.values(currentUser.disability_grade).join(", ")
-      : "",
+    id: "",
+    name: "",
+    gender: "",
+    address: "",
+    contact: "",
+    emergencyContact: "",
+    disabilityType: "",
   });
+
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
 
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false); // 로그인 모달 상태 추가
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false);
+
+  // `currentUser`가 업데이트될 때마다 폼 값 업데이트
+  useEffect(() => {
+    if (currentUser) {
+      setFormValues({
+        id: currentUser.id || "",
+        name: currentUser.name || "",
+        gender: currentUser.gender || "",
+        address: currentUser.address || "",
+        contact: currentUser.phone_number || "",
+        emergencyContact: currentUser.emergency_phone_number || "",
+        disabilityType: currentUser.disability_type
+          ? currentUser.disability_type
+              .map(
+                (type) =>
+                  `${type}: ${currentUser.disability_grade[type] || "N/A"}급`
+              )
+              .join(", ")
+          : "",
+      });
+      setHeight(currentUser.height || "");
+      setWeight(currentUser.weight || "");
+    }
+  }, [currentUser]);
 
   const handleInputChange = (e) => {
     if (!loginState) {
-      setIsLoginAlertModalOpen(true); // 로그인 상태가 아니면 모달 표시
+      setIsLoginAlertModalOpen(true);
       return;
     }
     const { name, value } = e.target;
@@ -38,6 +61,26 @@ const MyPageInfo = ({ currentUser, loginState }) => {
       ...formValues,
       [name]: value,
     });
+  };
+
+  const handleLoginRedirect = () => {
+    navigate("/login");
+  };
+
+  const handleHeightChange = (e) => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
+    setHeight(e.target.value);
+  };
+
+  const handleWeightChange = (e) => {
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
+    setWeight(e.target.value);
   };
 
   const openPasswordModal = () => {
@@ -59,6 +102,13 @@ const MyPageInfo = ({ currentUser, loginState }) => {
       return;
     }
     setIsConfirmModalOpen(true);
+
+    // 데이터 저장 로직 추가
+    console.log({
+      ...formValues,
+      height,
+      weight,
+    });
   };
 
   const closeConfirmModal = () => {
@@ -150,14 +200,25 @@ const MyPageInfo = ({ currentUser, loginState }) => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="heightWeight">키, 몸무게</label>
+          <label htmlFor="height">키</label>
           <input
             type="text"
-            id="heightWeight"
-            name="heightWeight"
-            value={formValues.heightWeight}
-            onChange={handleInputChange}
-            placeholder="키와 몸무게를 입력하세요"
+            id="height"
+            name="height"
+            value={height}
+            onChange={handleHeightChange}
+            placeholder="키를 입력하세요 (cm)"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="weight">몸무게</label>
+          <input
+            type="text"
+            id="weight"
+            name="weight"
+            value={weight}
+            onChange={handleWeightChange}
+            placeholder="몸무게를 입력하세요 (kg)"
           />
         </div>
         <div className="form-group">
@@ -169,17 +230,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             value={formValues.disabilityType}
             onChange={handleInputChange}
             placeholder="장애 유형을 입력하세요"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="grade">등급</label>
-          <input
-            type="text"
-            id="grade"
-            name="grade"
-            value={formValues.grade}
-            onChange={handleInputChange}
-            placeholder="등급을 입력하세요"
           />
         </div>
       </form>
@@ -210,7 +260,7 @@ const MyPageInfo = ({ currentUser, loginState }) => {
         <LoginAlertModal
           isOpen={isLoginAlertModalOpen}
           onClose={() => setIsLoginAlertModalOpen(false)}
-          onLoginRedirect={() => console.log("Redirect to Login Page")}
+          onLoginRedirect={handleLoginRedirect}
         />
       )}
     </div>

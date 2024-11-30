@@ -19,7 +19,7 @@ const SubResultPage = ({ selectedSubOption, currentUser, setCurrentUser }) => {
         <SupportResult currentUser={currentUser} />
       )}
       {selectedSubOption === "일자리" && (
-        <JobResult currentUser={currentUser} />
+        <JobResult currentUser={currentUser} setCurrentUser={setCurrentUser} />
       )}
     </div>
   );

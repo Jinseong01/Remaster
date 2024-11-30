@@ -133,7 +133,7 @@
 .hero-content h1 {
   font-size: 3.5rem;
   font-weight: 700;
-  font-family: 'Pretendard', sans-serif;
+  font-family: "Pretendard", sans-serif;
   color: white;
   text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 강화 */
   margin: 0;
@@ -144,19 +144,19 @@
   letter-spacing: -0.02em; /* 자간 조정 */
 }
 
-
 .hero-content h1::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -8px; /* 위치 약간 조정 */
   left: 50%;
   transform: translateX(-50%);
   width: 70%; /* 너비 증가 */
   height: 2px; /* 높이 감소 */
-  background: linear-gradient(90deg, 
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,1) 50%, /* 불투명도 증가 */
-    rgba(255,255,255,0) 100%
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    /* 불투명도 증가 */ rgba(255, 255, 255, 0) 100%
   );
 }
 

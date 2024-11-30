@@ -17,9 +17,8 @@ import SchedulePage from "./pages/schedule/SchedulePage";
 
 import SupportPage from "./pages/Support/SupportPage";
 // MyPage 관련 import
+import { Navigate } from "react-router-dom";
 import MyPage from "./pages/My/MyPage";
-import MyPageInfo from "./pages/My/MyPageInfo/MyPageInfo";
-import Timeline from "./pages/My/Timeline/Timeline";
 import SubResultPage from "./pages/My/SubResultPage/SubResultPage";
 import ProgramResult from "./pages/My/SubResultPage/ProgramResult/ProgramResult";
 import SupportResult from "./pages/My/SubResultPage/SupportResult/SupportResult";
@@ -106,14 +105,64 @@ function App() {
           ),
         },
         {
-          path: "mypage",
+          path: "/mypage",
           element: (
-            <MyPage
-              currentUser={currentUser}
+            <OnlyNavLayout
               loginState={login}
+              setLogin={setLogin}
+              currentUser={currentUser}
               setCurrentUser={setCurrentUser}
             />
           ),
+          children: [
+            {
+              index: true,
+              element: (
+                <MyPage
+                  loginState={login}
+                  currentUser={currentUser}
+                  setCurrentUser={setCurrentUser}
+                />
+              ), // 기본 `/mypage`로 접속했을 때
+            },
+            {
+              path: "result-page", // /mypage/result-page
+              element: <SubResultPage />,
+              children: [
+                {
+                  index: true,
+                  element: <Navigate to="programresult" replace />,
+                },
+                {
+                  path: "programresult",
+                  element: (
+                    <ProgramResult
+                      currentUser={currentUser}
+                      setCurrentUser={setCurrentUser}
+                    />
+                  ),
+                },
+                {
+                  path: "supportresult",
+                  element: (
+                    <SupportResult
+                      currentUser={currentUser}
+                      setCurrentUser={setCurrentUser}
+                    />
+                  ),
+                },
+                {
+                  path: "jobresult",
+                  element: (
+                    <JobResult
+                      currentUser={currentUser}
+                      setCurrentUser={setCurrentUser}
+                    />
+                  ),
+                },
+              ],
+            },
+          ],
         },
       ],
     },

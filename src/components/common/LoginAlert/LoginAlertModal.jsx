@@ -2,15 +2,12 @@
 
 import React from "react";
 import "./LoginAlertModal.css";
-import { useNavigate } from "react-router-dom";
 
 const LoginAlertModal = ({ isOpen, onClose, onLoginRedirect }) => {
-  const navigate = useNavigate();
   if (!isOpen) return null;
 
   const handleClose = () => {
-    onClose(); // 기존에 닫는 기능도 수행하고
-    navigate("/"); // 메인 페이지로 이동
+    onClose();
   };
 
   return (

@@ -11,7 +11,7 @@ const CancelConfirmModal = ({ isOpen, onClose, onConfirm }) => {
       <div className="modal-content">
         {/* 모달 아이콘 */}
         <div className="modal-icon">
-          <img src="/assets/images/jobs/click.png" alt="Confirm Icon" />
+          <img src="/assets/images/common/click.png" alt="Confirm Icon" />
         </div>
 
         {/* 지원 문구 */}

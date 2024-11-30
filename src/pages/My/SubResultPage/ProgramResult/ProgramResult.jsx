@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./ProgramResult.css";
 import { useNavigate } from "react-router-dom";
+import "./ProgramResult.css";
 import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
@@ -11,8 +11,13 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("Current User Programs:", currentUser.programs);
     if (currentUser && currentUser.programs) {
-      setUserPrograms(currentUser.programs);
+      const sortedPrograms = [...currentUser.programs].sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      console.log("Sorted Programs:", sortedPrograms);
+      setUserPrograms(sortedPrograms);
     }
   }, [currentUser]);
 
@@ -28,6 +33,31 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
     setIsModalOpen(false);
     setSelectedItemIndex(null);
   };
+
+  // 지난 날짜의 프로그램 이동 로직
+  useEffect(() => {
+    const today = new Date();
+    const pastPrograms = userPrograms.filter(
+      (program) => new Date(program.date) < today
+    );
+
+    if (pastPrograms.length > 0) {
+      // 현재 프로그램 목록에서 지난 프로그램 제거
+      const updatedPrograms = userPrograms.filter(
+        (program) => new Date(program.date) >= today
+      );
+
+      setUserPrograms(updatedPrograms);
+      setCurrentUser({
+        ...currentUser,
+        programs: updatedPrograms,
+        before_programs: [
+          ...(currentUser.before_programs || []), // 기존 before_programs
+          ...pastPrograms, // 지난 프로그램 추가
+        ],
+      });
+    }
+  }, [userPrograms, currentUser, setCurrentUser]);
 
   const handleConfirmCancel = () => {
     const updatedItems = userPrograms.filter((_, i) => i !== selectedItemIndex);
@@ -55,7 +85,7 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
   };
 
   const handleRowClick = (program) => {
-    navigate(`/program`, { state: { program } }); // Program 페이지로 이동하면서 프로그램 데이터 전달
+    navigate(`/program`, { state: { program } });
   };
 
   return (
@@ -74,9 +104,9 @@ const ProgramResult = ({ currentUser, setCurrentUser }) => {
         ) : (
           currentItems.map((item, index) => (
             <div
-              className="program-item clickable" // 클릭 가능한 스타일 클래스 추가
+              className="program-item clickable"
               key={index}
-              onClick={() => handleRowClick(item)} // 클릭 이벤트 추가
+              onClick={() => handleRowClick(item)}
             >
               <div className="program-title">{item.title}</div>
               <div className="program-deadline">{item.deadline}</div>

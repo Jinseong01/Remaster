@@ -33,7 +33,10 @@ const JobResult = ({ currentUser, setCurrentUser }) => {
   };
 
   const handleConfirmCancel = () => {
-    const updatedJobs = jobList.filter((_, i) => i !== selectedJobIndex);
+    const selectedJob = jobList[selectedJobIndex];
+
+    const updatedJobs = jobList.filter((item) => item !== selectedJob);
+
     setJobList(updatedJobs);
 
     setCurrentUser({

@@ -97,7 +97,7 @@
   top: 90px;
   left: 2rem; /* 왼쪽 여백 */
   right: 2rem; /* 오른쪽 여백 */
-  height: 40vh;
+  height: 45vh;
   z-index: 1;
 }
 .hero-image-container {
@@ -120,26 +120,44 @@
 }
 
 .hero-content {
-  position: relative;
+  position: absolute; /* relative에서 absolute로 변경 */
+  width: 100%; /* 너비 100%로 설정 */
+  top: 50%; /* 수직 중앙 정렬을 위해 추가 */
+  left: 50%; /* 수평 중앙 정렬을 위해 추가 */
+  transform: translate(-50%, -50%); /* 정확한 중앙 정렬을 위한 변환 */
   z-index: 2;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  padding: 0; /* 불필요한 패딩 제거 */
 }
 
 .hero-content h1 {
-  color: #1e3a8a;
-  font-size: 3rem;
-  font-weight: 800;
-  text-align: center;
-  padding: 0 20px;
-  font-family: "Spoqa Han Sans Neo", sans-serif;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 4.5rem;
+  font-weight: 700;
+  font-family: 'Pretendard', sans-serif;
+  color: white;
+  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.5); /* 그림자 강화 */
+  margin: 0;
+  padding: 0.5rem 1.5rem; /* 패딩 조정 */
+  position: relative;
+  display: inline-block;
+  transition: all 0.3s ease;
+  letter-spacing: -0.02em; /* 자간 조정 */
+}
+
+
+.hero-content h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; /* 위치 약간 조정 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%; /* 너비 증가 */
+  height: 2px; /* 높이 감소 */
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,1) 50%, /* 불투명도 증가 */
+    rgba(255,255,255,0) 100%
+  );
 }
 
 .parallax-hero {
@@ -166,7 +184,13 @@
 
 @media (max-width: 768px) {
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 3rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .hero-content h1:hover {
+    transform: scale(1.02);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
   }
 
   .outlet-container {

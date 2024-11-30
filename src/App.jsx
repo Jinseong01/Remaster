@@ -78,7 +78,7 @@ function App() {
         },
         {
           path: "jobs",
-          element: <JobsPage />,
+          element: <JobsPage currentUser={currentUser}/>,
         },
         {
           path: "support",
@@ -92,7 +92,7 @@ function App() {
         },
         {
           path: "notice",
-          element: <NoticePage />,
+          element: <NoticePage currentUser={currentUser}/>,
         },
         {
           path: "schedule",

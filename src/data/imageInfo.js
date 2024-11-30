@@ -4,7 +4,11 @@ let pageInfo = {
 
   "/program": ["/assets/images/layout/programpage.png", "프로그램 페이지"],
 
+  "/apply": ["/assets/images/layout/programpage.png", "프로그램 신청 페이지"],
+
   "/support": ["/assets/images/layout/supportpage.png", "활동 보조 페이지"],
+
+  "/support": ["/assets/images/layout/supportpage.png", "보조 활동 페이지"],
 
   "/jobs": ["/assets/images/layout/jobs.png", "일자리 페이지"],
 

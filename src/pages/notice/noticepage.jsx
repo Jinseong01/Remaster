@@ -4,8 +4,9 @@ import { Card } from '../../components/ui/card';
 import notices from '../../data/notice';
 import { useSearchParams } from 'react-router-dom';
 import Sidebar from '../../components/side/Sidebar';
+import HelpDialog from '../../components/side/HelpButton';
 
-const NoticePage = () => {
+const NoticePage = ({currentUser}) => {
   const [searchParams] = useSearchParams();
   const noticeId = searchParams.get('id') ?? -1; //   /program?id=4
   const [expandedId, setExpandedId] = useState(noticeId !== -1 ? parseInt(noticeId) : null); //펼쳐져있는 공지사항의 notice id!!
@@ -40,7 +41,12 @@ const NoticePage = () => {
           <div className="text-5xl font-bold text-indigo-100">Notice</div>
         </div>
       </div>
-
+      {currentUser && Object.keys(currentUser).length > 0 && (
+        <>
+        <Sidebar currentUser={currentUser} />
+        <HelpDialog />
+        </>
+      )}
       {/* 공지사항 리스트 */}
       <div className="space-y-4">
         {currentNotices.map((notice) => (

@@ -6,6 +6,8 @@ import MyPageInfo from "./MyPageInfo/MyPageInfo";
 import Timeline from "./Timeline/Timeline";
 import SubResultPage from "./SubResultPage/SubResultPage";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
+import Sidebar from "../../components/side/Sidebar";
+import HelpDialog from "../../components/side/HelpButton";
 
 const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -77,6 +79,12 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
 
   return (
     <div className="mypage-container">
+      {currentUser && Object.keys(currentUser).length > 0 && (
+        <>
+        <Sidebar currentUser={currentUser} />
+        <HelpDialog />
+        </>
+      )}
       {/* 로그인 여부 확인을 위한 모달 */}
       <LoginAlertModal
         isOpen={isLoginAlertModalOpen}

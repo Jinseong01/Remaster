@@ -9,6 +9,8 @@ const Sidebar = ({ currentUser }) => {
   const [restMenu, setRestMenu] = useState(currentUser?.rest_menu || []); // 현재 사용자의 확장 메뉴
 
   const [isExpanded, setIsExpanded] = useState(false); // 사이드바 확장 상태
+  const [isVisible, setIsVisible] = useState(true); // 사이드바 가시성 상태
+
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [matchedRoute, setMatchedRoute] = useState(null); // 매칭된 경로 상태
@@ -122,13 +124,9 @@ const Sidebar = ({ currentUser }) => {
     newMyMenu = { newMyMenu },
     newRestMenu = { newRestMenu }
   ) => {
-    // 해당하는 유저 index 찾기
-    // const userIndex = users.findIndex((user) => user.id === userInfo.id);
-
-    // 그 유저 메뉴 수정
+    // 유저 메뉴 수정
     currentUser.my_menu = newMyMenu;
     currentUser.rest_menu = newRestMenu;
-    console.error("사용자를 찾을 수 없습니다.");
   };
 
   const startRecording = () => {
@@ -143,6 +141,7 @@ const Sidebar = ({ currentUser }) => {
     if (recognitionRef.current && isRecording) {
       recognitionRef.current.stop();
       console.log("stopRecording ");
+      setTranscript(""); // 녹음 중지 시 항상 텍스트 초기화
       if (matchedRoute) {
         console.log("Navigating to:", matchedRoute); // 디버깅 메시지
         navigate(matchedRoute); // 저장된 경로로 이동
@@ -165,6 +164,10 @@ const Sidebar = ({ currentUser }) => {
     setIsExpanded(!isExpanded);
   };
 
+  const toggleSidebarVisibility = () => {
+    setIsVisible(!isVisible); // 가시성 토글
+  };
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
@@ -174,8 +177,6 @@ const Sidebar = ({ currentUser }) => {
 
   return (
     <div className="record-status">
-      {" "}
-      {/* 단순 컬럼 */}
       <div className="transcription">
         {isRecording ? (
           // 녹음 중이면 record.png 이미지 표시
@@ -191,6 +192,17 @@ const Sidebar = ({ currentUser }) => {
           <p></p>
         )}
       </div>
+      <img
+        src={
+          isVisible
+            ? `${process.env.PUBLIC_URL}/assets/images/sidebar/minus.png` // 사이드바가 보이는 상태에서는 minus 아이콘
+            : `${process.env.PUBLIC_URL}/assets/images/sidebar/plus.png`  // 사이드바가 숨겨진 상태에서는 plus 아이콘
+        }
+        alt="Toggle Sidebar Visibility"
+        className="minus-plus-button"
+        onClick={toggleSidebarVisibility} // 가시성 토글
+      />
+      {isVisible && (
       <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>
         {" "}
         {/* flex: row */}
@@ -227,16 +239,16 @@ const Sidebar = ({ currentUser }) => {
             )}
           </Droppable>
 
-          <img
-            src={
-              isExpanded
-                ? `${process.env.PUBLIC_URL}/assets/images/sidebar/reduce.png` // 축소 아이콘 이미지 경로
-                : `${process.env.PUBLIC_URL}/assets/images/sidebar/expand.png` // 확장 아이콘 이미지 경로
-            }
-            alt="Toggle Sidebar"
-            className="toggle-button"
-            onClick={toggleSidebar}
-          />
+            <img
+              src={
+                isExpanded
+                  ? `${process.env.PUBLIC_URL}/assets/images/sidebar/reduce.png` // 축소 아이콘 이미지 경로
+                  : `${process.env.PUBLIC_URL}/assets/images/sidebar/expand.png` // 확장 아이콘 이미지 경로
+              }
+              alt="Toggle Sidebar"
+              className="toggle-button"
+              onClick={toggleSidebar}
+            />
 
           {/* 추가 아이콘 Droppable (확장 시에만 표시) */}
           {isExpanded && (
@@ -278,6 +290,7 @@ const Sidebar = ({ currentUser }) => {
           )}
         </DragDropContext>
       </div>
+      )}
     </div>
   );
 };

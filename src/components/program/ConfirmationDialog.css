@@ -45,7 +45,7 @@
 /* 네 버튼 */
 .check-dialog-yes-confirmation {
     flex: 1; /* 버튼 균등 크기 */
-    margin-left: 20%;
+    margin-left: 100px;
     background-color: #3D76B5; /* 기본 파란색 */
     color: #fff;
     border: none;
@@ -62,7 +62,7 @@
 /* 아니오 버튼 */
 .check-dialog-no-confirmation {
     flex: 1; /* 버튼 균등 크기 */
-    margin-right: 20%;
+    margin-right: 100px;
     background-color: transparent; /* 투명 배경 */
     color: #3D76B5;
     border: 2px solid #3D76B5; /* 파란색 테두리 */

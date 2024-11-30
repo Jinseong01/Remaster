@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./ProgramApply.css";
 import ProgramImageModal from "../../components/program/ProgramImageModal";
-import ConfirmationDialog from "../../components/program/ConfirmationDialog";
-import CompletionDialog from "../../components/program/CompletionDialog";
-import ChangeConfirmModal from "../../components/ChangeConfirm/ChangeConfirmModal";
+import ConfirmModal from "../../components/common/ConfirmModal/ConfirmModal";
+import CompleteModal from "../../components/common/CompleteModal/CompleteModal";
 
 function ProgramApply({ currentUser, setCurrentUser }) {
   const [isChecked, setIsChecked] = useState(false); // 체크 박스
@@ -99,156 +98,156 @@ function ProgramApply({ currentUser, setCurrentUser }) {
         {/*신청 전체 화면*/}
         <h2>프로그램 신청 양식</h2>
         <h3>사용자 정보 확인</h3>
-        <div className="user-information">
-          {" "}
+        <div className="program-apply-user-information">
           {/* 사용자 정보 확인 flex: row*/}
           <div className="left">
-            <div>
-              <label>이름: </label>
-              <input
-                type="text"
-                name="name"
-                value={userInfo.name}
-                onChange={handleChange}
-              />
+            <div className="user-information-name-gender">
+              <div>
+                <label>이름 </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={userInfo.name}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
+              <div className="gender">
+                <label>성별 </label>
+                <input
+                  type="text"
+                  name="gender"
+                  value={userInfo.gender}
+                  onChange={handleChange}
+                  style={{width: "50px"}}
+                  readOnly
+                />
+              </div>
             </div>
-
             <div>
-              <label>핸드폰 번호: </label>
+              <p>핸드폰 번호 </p>
               <input
                 type="text"
                 name="phone_number"
                 value={userInfo.phone_number}
                 onChange={handleChange}
+                readOnly
               />
             </div>
 
             <div>
-              <label>긴급 번호: </label>
+              <p>긴급 번호 </p>
               <input
                 type="text"
                 name="emergency_phone_number"
                 value={userInfo.emergency_phone_number}
                 onChange={handleChange}
+                readOnly
               />
             </div>
 
             <div>
-              <label>주소: </label>
+              <p>주소 </p>
               <input
                 type="text"
                 name="address"
                 value={userInfo.address}
                 onChange={handleChange}
+                readOnly
               />
             </div>
           </div>
+          <div className="divider-vertical"></div>
           <div className="right">
-            <div className="gender">
-              <label>성별: </label>
-              <input
-                type="text"
-                name="gender"
-                value={userInfo.gender}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="weight">
-              <label>몸무게: </label>
-              <input
-                type="text"
-                name="weight"
-                value={userInfo.weight}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="hiehgt">
-              <label>키: </label>
-              <input
-                type="text"
-                name="height"
-                value={userInfo.height}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="disability-type">
-              <label>장애종류: </label>
-              <input
-                type="text"
-                name="disability_type"
-                value={userInfo.disability_type}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="disability-grade">
-              <label>장애등급: </label>
-              <input
-                type="text"
-                name="disability_grade"
-                value={userInfo.disability_grade}
-                onChange={handleChange}
-              />
+          <p>장애 정보</p>
+            <div className="disability-info">
+              {Object.entries(userInfo.disability_grade).map(([type, grade], index) => (
+                <div key={index} className="disability-item">
+                  <input
+                    type="text"
+                    name={`disability_type_${index}`}
+                    value={type}
+                    readOnly
+                  />
+                  <span> - </span>
+                  <input
+                    type="text"
+                    name={`disability_grade_${index}`}
+                    value={`${grade}등급`}
+                    readOnly
+                    style={{width: "100px"}}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
         <div className="divider-horizontal"></div> {/* 구분선 */}
         <h3>프로그램 신청정보</h3>
-        <div className="program-information">
+        <div className="program-apply-program-information">
           {" "}
           {/* 프로그램 정보 확인 flex: row*/}
           <img
             src={`${process.env.PUBLIC_URL}/${programInfo.image_url}`}
             alt="프로그램 이미지"
             onClick={() => openModal(`${process.env.PUBLIC_URL}/${programInfo.image_url}`)} // 클릭하면 모달 열림
-          />
+          />  
           {/* 세로 divider 추가 */}
           <div className="divider-vertical"></div>
-          <div className="program-details">
+          <div className="program-apply-program-details">
             {" "}
             {/* 프로그램 텍스트 정보 flex: column*/}
-            <div className="program-name">
-              <label>프로그램 이름: </label>
+            <div className="program-apply-program-name">
+              <p>프로그램 이름 </p>
               <input
                 type="text"
                 name="program_name"
                 value={programInfo.title}
                 onChange={handleChange}
+                readOnly
               />
             </div>
-            <div className="program-date">
-              <label>일정: </label>
-              <input
-                type="text"
-                name="program_date"
-                value={programInfo.date}
-                onChange={handleChange}
-              />
+            <div className="prgram-apply-program-date-and-time">
+              <div className="program-apply-program-date">
+                <p>일정 </p>
+                <input
+                  type="text"
+                  name="program_date"
+                  value={programInfo.date}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
+              <div className="program-apply-program-time">
+                <p>시간 </p>
+                <input
+                  type="text"
+                  name="program_time"
+                  value={`${programInfo.start_time}~${programInfo.end_time}`}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
             </div>
-            <div className="program-time">
-              <label>시간: </label>
-              <input
-                type="text"
-                name="program_time"
-                value={programInfo.time}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="program-location">
-              <label>장소: </label>
+            <div className="program-apply-program-location">
+              <p>장소  </p>
               <input
                 type="text"
                 name="program_location"
                 value={programInfo.location}
                 onChange={handleChange}
+                readOnly
               />
             </div>
-            <div className="program-content">
-              <label>내용: </label>
+            <p>내용</p>
+            <div className="program-apply-program-content">
+            
               <textarea
                 name="program_content"
                 value={programInfo.content}
                 onChange={handleChange}
-                rows="5" /* 3줄로 고정 */
+                rows="10" /* 3줄로 고정 */
+                readOnly
               ></textarea>
             </div>
           </div>
@@ -280,7 +279,8 @@ function ProgramApply({ currentUser, setCurrentUser }) {
         
       </div>
       <ProgramImageModal isOpen={isModalOpen} onClose={closeModal} image={modalImage} />
-      <ConfirmationDialog
+      <ConfirmModal 
+        text={"신청"} 
         isOpen={isCheckApply}
         onClose={() => setIsCheckApply(false)}
         onConfirm={() => {
@@ -290,7 +290,8 @@ function ProgramApply({ currentUser, setCurrentUser }) {
           addProgramToUser();
         }}
       />
-      <CompletionDialog
+      <CompleteModal 
+        text={"신청"} 
         isOpen={showCompletionDialog}
         onClose={() => navigate("/program")}
         onViewHistory={() => navigate("/mypage")}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 //컴포넌트
-import ConfirmModal from '../ConfirmModal/ConfirmModal';
+import ConfirmModal from '../common/ConfirmModal/ConfirmModal';
 //CSS
 import styles from './InfoCheck.module.css'
 

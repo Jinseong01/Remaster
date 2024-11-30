@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 //컴포넌트
-import CompleteModal from '../../components/CompleteModal/CompleteModal.jsx';
+import CompleteModal from '../../components/common/CompleteModal/CompleteModal.jsx';
 import Job from '../../components/job/Job.jsx';
 //CSS
 import './JobsPage.css'
@@ -18,6 +18,7 @@ const JobsPage = () => {
     // 현재 페이지 상태는 URL의 page 파라미터와 동기화
     const [currentPage, setCurrentPage] = useState(1);
 
+    // URL 정리
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         let pageFromUrl = parseInt(params.get("page"));
@@ -52,15 +53,13 @@ const JobsPage = () => {
     }, [currentPage]);
 
 
-    // 상태에 따라서 완료 모달창 띄우기
+    // 완료 모달창
     const [isCompleteModalOpen, setIsCompleteModalOpen] = useState(false);
-
     useEffect(() => {
       if (location.state?.completed) {
         setIsCompleteModalOpen(true);
       }
     }, [location.state]);
-  
     const handleCloseCompleteModal = () => {
       setIsCompleteModalOpen(false);
     };
@@ -82,9 +81,8 @@ const JobsPage = () => {
                 ))}
             </div>
 
-            <CompleteModal text={"지원"} isOpen={isCompleteModalOpen} onClose={handleCloseCompleteModal}/> {/* TODO 지원내역 보기 파라미터 넘겨주어야함 */}
+            <CompleteModal text={"지원"} isOpen={isCompleteModalOpen} onClose={handleCloseCompleteModal} onViewHistory={() => {navigate('/mypage')}}  /> 
         </div>
-        
     );
 };
 

@@ -10,7 +10,7 @@ import Sidebar from "../../components/side/Sidebar"
 import HelpButton from "../../components/side/HelpButton"
 import ProgramImageModal from "../../components/program/ProgramImageModal";
 import DuplicateApplicationDialog from "../../components/program/DuplicateApplicationDialog";
-import LoginAlertModal from "../../components/LoginAlert/LoginAlertModal";
+import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
 
 function Program( {currentUser}) {
   const location = useLocation();

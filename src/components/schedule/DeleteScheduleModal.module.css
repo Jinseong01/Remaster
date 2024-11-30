@@ -49,8 +49,8 @@
 }
 
 .modalIcon img {
-  width: 70px;  /* 아이콘 크기 증가 */
-  height: 70px;
+  width: 60px;  /* 아이콘 크기 증가 */
+  height: 60px;
 }
 
 .modalIcon img:hover {

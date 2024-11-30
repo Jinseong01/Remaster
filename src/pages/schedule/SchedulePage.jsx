@@ -10,7 +10,7 @@ import Schedule from '../../components/schedule/Schedule';
 import AddScheduleModal from '../../components/schedule/AddScheduleModal';
 import EditScheduleModal from '../../components/schedule/EditScheduleModal';
 import DeleteScheduleModal from '../../components/schedule/DeleteScheduleModal';
-import LoginAlertModal from '../../components/LoginAlert/LoginAlertModal';
+import LoginAlertModal from '../../components/common/LoginAlert/LoginAlertModal';
 //CSS
 import './SchedulePage.css'
 
@@ -31,6 +31,7 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
   const [showAddModal, setShowAddModal] = useState(false); // 추가 모달창
   const [showEditModal, setShowEditModal] = useState(false); // 수정 모달창
   const [showDeleteModal, setShowDeleteModal] = useState(false); // 삭제 모달창
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false); // 로그인 모달창
   const [selectedEvent, setSelectedEvent] = useState(null); // 선택된 이벤트
   const [currentDate, setCurrentDate] = useState(new Date()); // 월 변경에 대한 상태변수
 
@@ -51,9 +52,7 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
     setShowDeleteModal(true);
   }
 
-
-  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false); // 로그인 모달 상태 추가
-
+  // 로그인 상태
   const checkLogin = () => {
     if(!loginState) {
       setIsLoginAlertModalOpen(true);
@@ -63,7 +62,6 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
     }
   }
 
-  // events가 
   const { events, handleEventChange, addSchedule, editSchedule, deleteSchedule } = useSchedule(originalEvent, currentUser, setCurrentUser);
 
   // 로그인 상태

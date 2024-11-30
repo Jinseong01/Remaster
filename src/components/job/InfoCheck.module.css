@@ -101,7 +101,7 @@
     align-items: center;
     gap: 30px;
     padding-top: 40px;
-    border-top: 2px solid #0066ff;
+    border-top: 2px solid #ddd;
 }
 
 .infoCheckRow input[type="text"] {
@@ -137,7 +137,7 @@ input[type="radio"] {
 /* 장애 종류 및 등급 입력 필드 */
 .disability {
     padding-bottom: 40px;
-    border-bottom: 2px solid #0066ff;
+    border-bottom: 2px solid #ddd;
     display: flex;
     flex-direction: column;
     gap: 20px; /* 기존 10px에서 20px로 증가하여 다른 섹션들과 일관된 간격 유지 */

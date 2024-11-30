@@ -11,6 +11,7 @@ const MyCalendar = ({ events, onEventChange, onMonthChange, editable }) => {
     <div className={styles.calendarContainer}>
       <div className={styles.calendar}>
         <FullCalendar
+          timeZone='Asia/Seoul'
           plugins={[dayGridPlugin, interactionPlugin, rrulePlugin]}
           initialView="dayGridMonth"
           headerToolbar={{
@@ -18,6 +19,7 @@ const MyCalendar = ({ events, onEventChange, onMonthChange, editable }) => {
             center: 'title',
             right: 'today'
           }}
+          
           locale="ko"
           height="auto"
           dayMaxEvents={true}

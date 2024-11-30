@@ -6,7 +6,7 @@ import "./Lsupport.css";
 import MapModal from "../Map/MapModal";
 import { ChevronDown } from "lucide-react";
 import SubConfirmModal from "../../../components/SubConfirm/SubConfirmModal";
-import LoginAlertModal from "../../../components/LoginAlert/LoginAlertModal";
+import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 import LsupportData from "../../../data/Lsupport";
 
 const Lsupport = ({ currentUser, loginState, setCurrentUser }) => {

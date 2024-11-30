@@ -88,3 +88,30 @@
   padding: 0 5px;
   font-size: 12px;
 }
+
+/* program 타입 일정 */
+:global(.program) {
+  background-color: #66BB6A !important; /* 밝은 초록색 */
+  color: #FFFFFF !important; /* 흰색 */
+  border: 1px solid #388E3C !important; /* 진한 초록색 */
+}
+
+/* support 타입 일정 */
+:global(.support) {
+  background-color: #FF7043 !important; /* 붉은 오렌지색 */
+  color: #FFFFFF !important; /* 흰색 */
+  border: 1px solid #D84315 !important; /* 짙은 오렌지색 */
+}
+
+/* schedule 타입 일정 */
+:global(.schedule) {
+  background-color: #81D4FA !important; /* 연한 파란색 */
+  color: #FFFFFF !important; /* 흰색 */
+  border: 1px solid #039BE5 !important; /* 짙은 파란색 */
+}
+
+:global(.program),
+:global(.support),
+:global(.schedule) {
+  border-radius: 7px;
+}

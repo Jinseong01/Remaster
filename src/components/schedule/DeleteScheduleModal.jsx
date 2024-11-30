@@ -17,7 +17,7 @@ const DeleteScheduleModal = ({ isOpen, onClose, deleteSchedule, selectedEvent })
                     <button onClick={onClose}>×</button>
                 </div>
                 <div className={styles.modalIcon}>
-                    <img src="/assets/images/schedule/warning.png" alt="cursor" />
+                    <img src="/assets/images/common/warning.png" alt="cursor" />
                 </div>
                 <input 
                     type="text"

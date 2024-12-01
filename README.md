@@ -16,6 +16,10 @@ npm install @fullcalendar/daygrid
 npm install @fullcalendar/interaction
 npm install @fullcalendar/rrule
 
+npm install react-beautiful-dnd
+npm install react-slick
+npm install slick-carousel
+
 # shadcn/ui 컴포넌트
 
 # 필수 의존성 설치

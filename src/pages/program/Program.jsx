@@ -8,7 +8,6 @@ import programs from "../../data/program";
 import Sidebar from "../../components/side/Sidebar";
 import HelpButton from "../../components/side/HelpButton";
 import ProgramImageModal from "../../components/program/ProgramImageModal";
-import DuplicateApplicationDialog from "../../components/program/DuplicateApplicationDialog";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
 import DuplicateModal from "../../components/common/DuplicateModal/DuplicateModal";
 

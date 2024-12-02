@@ -8,11 +8,11 @@ let pageInfo = {
 
   "/support": ["/assets/images/layout/supportpage.png", "활동 보조 페이지"],
 
-  "/jobs": ["/assets/images/layout/jobs.png", "일자리 페이지"],
+  "/jobs": ["/assets/images/layout/jobspage.png", "일자리 페이지"],
 
   "/notice": ["/assets/images/layout/noticepage.png", "공지사항 페이지"],
 
-  "/schedule": ["/assets/images/layout/schedule.png", "개인일정 페이지"],
+  "/schedule": ["/assets/images/layout/schedulepage.png", "개인일정 페이지"],
 
   "/mypage": ["/assets/images/layout/mypage.png", "마이 페이지"],
 

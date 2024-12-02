@@ -24,7 +24,7 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
   };
 
   // 로그인 모달 창
-  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(true);
+  const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false);
   // 지원 모달 창
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   // 중복 모달 창
@@ -68,6 +68,15 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
     }
   };
 
+  const checkLogin = () => {
+    if(!loginState) {
+      setIsLoginAlertModalOpen(true);
+    }
+    else {
+      handleNext(true)
+    }
+  }
+
   return (
     <div className={styles.jobDetailContainer}>
       {/* 이미지 */}
@@ -77,20 +86,16 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
       <div className={styles.jobDetailContent}>
         <h1>{isDetailsPage ? "채용 공고" : "정보 확인"}</h1>
         {isDetailsPage ? (
-          <JobDetails job={job} onNext={() => handleNext(true)} />
+          <>
+            <JobDetails job={job} onNext={() => checkLogin()} />
+            <LoginAlertModal
+            isOpen={isLoginAlertModalOpen}
+            onClose={() => setIsLoginAlertModalOpen(false)}
+            onLoginRedirect={() => navigate("/login")}
+          />
+          </>
         ) : (
           <>
-            {/* 비로그인 */}
-            {!loginState && (
-              <LoginAlertModal
-                isOpen={isLoginAlertModalOpen}
-                onClose={() => setIsLoginAlertModalOpen(false)}
-                onLoginRedirect={() => navigate("/login")}
-              />
-            )}
-
-            {/* 로그인 상태 */}
-            {loginState && (
               <InfoCheck
                 onBack={() => handleNext(false)}
                 onOpenModal={() => checkDuplicate()}
@@ -100,8 +105,6 @@ const JobDetailPage = ({ currentUser, loginState, setCurrentUser }) => {
                 currentUser={currentUser}
                 loginState={loginState}
               />
-            )}
-
             {/* 중복지원일 때 */}
             <DuplicateModal
               text={"지원"}

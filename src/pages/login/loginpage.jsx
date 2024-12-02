@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Card, CardContent } from "../../components/ui/card";
+import { Button } from "../../components/login/button";
+import { Input } from "../../components/login/input";
+import { Card, CardContent } from "../../components/login/card";
 import { User, Lock } from "lucide-react";
 import "./loginpage.css";
 

@@ -5,7 +5,7 @@ import useSchedule from '../../hook/useSchedule';
 //데이터 컨버터
 import scheduleConverter from '../../converter/scheduleConverter';
 //컴포넌트
-import MyCalendar from '../../components/schedule/Calendar';
+import MyCalendar from '../../components/schedule/MyCalendar';
 import Schedule from '../../components/schedule/Schedule';
 import AddScheduleModal from '../../components/schedule/AddScheduleModal';
 import EditScheduleModal from '../../components/schedule/EditScheduleModal';

@@ -2,9 +2,9 @@ import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import React from "react";
 import "./signup.css";
-import { Button } from "../../components/ui/button";
-import { Input } from "../../components/ui/input";
-import { Card, CardContent } from "../../components/ui/card";
+import { Button } from "../../components/login/button";
+import { Input } from "../../components/login/input";
+import { Card, CardContent } from "../../components/login/card";
 import { useNavigate } from "react-router-dom";
 import {
   User,
@@ -18,7 +18,7 @@ import {
   Phone,
   PhoneCall,
 } from "lucide-react";
-import ChangeConfirmModal from "../../components/ChangeConfirm/ChangeConfirmModal";
+import ChangeConfirmModal from "../../components/common/ChangeConfirm/ChangeConfirmModal";
 
 let SignUpPage = ({ setallUsers, allUsers }) => {
   const navigate = useNavigate();

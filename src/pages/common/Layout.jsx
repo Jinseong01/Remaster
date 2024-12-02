@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import "./Layout.css";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { LogIn, LogOut } from "lucide-react";
-import pageInfo from "../data/imageInfo";
+import pageInfo from "../../data/imageInfo";
 import ParallaxLayout from "./parallaxLayout";
 function Layout({ loginState, setLogin, currentUser, setCurrentUser }) {
   //useNavigate 훅을 사용하여 리액트의 내비게이션 기능을 통해 페이지 이동

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./SupportResult.css";
-import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
+import CancelConfirmModal from "../../../../components/mypage/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
 const SupportResult = ({ currentUser, setCurrentUser }) => {

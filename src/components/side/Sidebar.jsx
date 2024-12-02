@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Sidebar.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { matchRoutes, useNavigate } from "react-router-dom";
 import { users } from "../../data/users"; // users 데이터 import
 
-const Sidebar = ({ currentUser }) => {
+const Sidebar = ({ currentUser }) => { // currentUser.menu_visible
   const [myMenu, setMyMenu] = useState(currentUser?.my_menu || []); // 현재 사용자의 메뉴
   const [restMenu, setRestMenu] = useState(currentUser?.rest_menu || []); // 현재 사용자의 확장 메뉴
 
   const [isExpanded, setIsExpanded] = useState(false); // 사이드바 확장 상태
-  const [isVisible, setIsVisible] = useState(true); // 사이드바 가시성 상태
+  const [isVisible, setIsVisible] = useState(currentUser?.menu_visible ?? true);
 
   const [isRecording, setIsRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
@@ -129,8 +129,18 @@ const Sidebar = ({ currentUser }) => {
     currentUser.rest_menu = newRestMenu;
   };
 
+  // 사이드바 isVisible 변경
+  const changeIsVisibleToUser=()=>{
+    currentUser.menu_visible=isVisible;
+  }
+
+  useEffect(() => {
+    changeIsVisibleToUser();
+  }, [isVisible]);
+  
+
   const startRecording = () => {
-    if (recognitionRef.current && !isRecording) {
+    if (recognitionRef.current && !isRecording && isVisible) {
       recognitionRef.current.start();
       setIsRecording(true);
       setMatchedRoute(null); // 녹음 시작 시 이전 경로 초기화
@@ -149,23 +159,34 @@ const Sidebar = ({ currentUser }) => {
     }
   };
 
-  const handleKeyDown = (event) => {
-    if (event.code === "Space") {
-      event.preventDefault(); // 스페이스바의 기본 스크롤 방지
-      if (isRecording) {
-        stopRecording();
-      } else {
-        startRecording();
+  const handleKeyDown = useCallback((event) => {
+    if (isVisible) {
+      if (event.code === "Space") {
+        event.preventDefault();
+        if (isRecording) {
+          stopRecording();
+        } else {
+          startRecording();
+        }
       }
     }
-  };
+  }, [isVisible, isRecording]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
+  // 사이드 바 축소/확대 시 토글 
   const toggleSidebarVisibility = () => {
-    setIsVisible(!isVisible); // 가시성 토글
+    setIsVisible(!isVisible); 
+    changeIsVisibleToUser(isVisible); // 상태 변경 로직 
   };
 
   useEffect(() => {
@@ -178,6 +199,20 @@ const Sidebar = ({ currentUser }) => {
   return (
     <div className="record-status">
       <div className="transcription">
+        
+      </div>
+      <img
+        src={
+          isVisible
+            ? `${process.env.PUBLIC_URL}/assets/images/sidebar/minus.png` // 사이드바가 보이는 상태에서는 minus 아이콘
+            : `${process.env.PUBLIC_URL}/assets/images/sidebar/plus.png`  // 사이드바가 숨겨진 상태에서는 plus 아이콘
+        }
+        alt="Toggle Sidebar Visibility"
+        className="minus-plus-button"
+        onClick={toggleSidebarVisibility} // 가시성 토글
+      />
+      {isVisible && (
+        <>
         {isRecording ? (
           // 녹음 중이면 record.png 이미지 표시
           <>
@@ -191,18 +226,6 @@ const Sidebar = ({ currentUser }) => {
         ) : (
           <p></p>
         )}
-      </div>
-      <img
-        src={
-          isVisible
-            ? `${process.env.PUBLIC_URL}/assets/images/sidebar/minus.png` // 사이드바가 보이는 상태에서는 minus 아이콘
-            : `${process.env.PUBLIC_URL}/assets/images/sidebar/plus.png`  // 사이드바가 숨겨진 상태에서는 plus 아이콘
-        }
-        alt="Toggle Sidebar Visibility"
-        className="minus-plus-button"
-        onClick={toggleSidebarVisibility} // 가시성 토글
-      />
-      {isVisible && (
       <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>
         {" "}
         {/* flex: row */}
@@ -290,6 +313,7 @@ const Sidebar = ({ currentUser }) => {
           )}
         </DragDropContext>
       </div>
+      </>
       )}
     </div>
   );

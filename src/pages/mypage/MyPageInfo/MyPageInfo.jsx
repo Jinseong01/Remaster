@@ -249,6 +249,7 @@ const MyPageInfo = ({ currentUser, loginState, setCurrentUser }) => {
         <LoginAlertModal
           isOpen={isLoginAlertModalOpen}
           onClose={() => setIsLoginAlertModalOpen(false)}
+          onLoginRedirect={() => navigate("/login")}
         />
       )}
     </div>

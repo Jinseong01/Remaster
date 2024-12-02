@@ -5,22 +5,35 @@ npm install react-scripts
 ## install description
 
 npm install react-router-dom
+
 npm install lucide-react
+
 npm install react-hook-form
 
+
 npm install react-masonry-css
+
 npm install react-table
 
+
 npm install @fullcalendar/react
+
 npm install @fullcalendar/daygrid
+
 npm install @fullcalendar/interaction
+
 npm install @fullcalendar/rrule
 
+
 npm install react-beautiful-dnd
+
 npm install react-slick
+
 npm install slick-carousel
 
+
 npm install @react-google-maps/api
+
 npm install react-datepicker
 
 # shadcn/ui 컴포넌트

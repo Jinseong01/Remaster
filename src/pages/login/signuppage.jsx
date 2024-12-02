@@ -566,7 +566,7 @@ let SignUpPage = ({ setallUsers, allUsers }) => {
                                     <option value="">등급 선택</option>
                                     {[1, 2, 3, 4, 5, 6].map((grade) => (
                                       <option key={grade} value={grade}>
-                                        {grade}등급
+                                        {grade}급
                                       </option>
                                     ))}
                                   </select>

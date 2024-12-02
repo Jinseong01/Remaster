@@ -21,6 +21,7 @@ npm install react-slick
 npm install slick-carousel
 
 npm install @react-google-maps/api
+npm install react-datepicker
 
 # shadcn/ui 컴포넌트
 

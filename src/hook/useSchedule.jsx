@@ -46,7 +46,7 @@ const useSchedule = (initialEvents, currentUser, setCurrentUser) => {
             {
                 id: new Date().getTime(), // 새로 추가되는 일정에 고유 ID 부여
                 title : schedule.content,
-                start: new Date(`${schedule.date}T${schedule.time}`),
+                start: `${schedule.date}T${schedule.time}`,
                 date: schedule.date,
                 time: schedule.time,
                 type: 'schedule', // 일정 타입
@@ -54,6 +54,7 @@ const useSchedule = (initialEvents, currentUser, setCurrentUser) => {
                 classNames: ["schedule"]
             }
         ];
+        console.log(updatedEvents);
 
         // 업데이트 적용
         setEvents(updatedEvents);
@@ -85,7 +86,7 @@ const useSchedule = (initialEvents, currentUser, setCurrentUser) => {
                 return {
                     ...event,
                     title: schedule.content,
-                    start: new Date(`${schedule.date}T${schedule.time}`),
+                    start: `${schedule.date}T${schedule.time}`,
                     date: schedule.date,
                     time: schedule.time,
                     type: 'schedule', // 일정 타입

@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyPageInfo.css";
-import PasswordChangeModal from "../../../components/PasswordChange/PasswordChangeModal";
-import ChangeConfirmModal from "../../../components/ChangeConfirm/ChangeConfirmModal";
+import ChangeConfirmModal from "../../../components/common/ChangeConfirm/ChangeConfirmModal";
+import PasswordChangeModal from "../../../components/mypage/PasswordChange/PasswordChangeModal";
 import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 
 const MyPageInfo = ({ currentUser, loginState }) => {
@@ -37,14 +37,9 @@ const MyPageInfo = ({ currentUser, loginState }) => {
         address: currentUser.address || "",
         contact: currentUser.phone_number || "",
         emergencyContact: currentUser.emergency_phone_number || "",
-        disabilityType: currentUser.disability_type
-          ? currentUser.disability_type
-              .map(
-                (type) =>
-                  `${type}: ${currentUser.disability_grade[type] || "N/A"}급`
-              )
-              .join(", ")
-          : "",
+        disabilityType: Object.entries(currentUser.disability_grade || {})
+          .map(([type, grade]) => `${type}: ${grade}급`)
+          .join(", "),
       });
       setHeight(currentUser.height || "");
       setWeight(currentUser.weight || "");

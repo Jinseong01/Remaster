@@ -1,12 +1,11 @@
 // App.jsx (라우터 설정)
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Layout from "./pages/Layout";
-import { PersonalPage } from "./pages/Pages";
+import Layout from "./pages/common/Layout";
+import OnlyNavLayout from "./pages/common/onlyNavLayout";
 import { useState } from "react";
 import LoginPage from "./pages/login/loginpage";
 import SignUpPage from "./pages/login/signuppage";
 import { users } from "./data/users";
-import OnlyNavLayout from "./pages/onlyNavLayout";
 import MainPage from "./pages/main/mainpage";
 import NoticePage from "./pages/notice/noticepage";
 import JobsPage from "./pages/job/JobsPage";
@@ -15,16 +14,16 @@ import Program from "./pages/program/Program";
 import ProgramApply from "./pages/program/ProgramApply";
 import SchedulePage from "./pages/schedule/SchedulePage";
 
-import SupportPage from "./pages/Support/SupportPage";
+import SupportPage from "./pages/support/SupportPage";
 // MyPage 관련 import
 import { Navigate } from "react-router-dom";
-import MyPage from "./pages/My/MyPage";
-import SubResultPage from "./pages/My/SubResultPage/SubResultPage";
-import ProgramResult from "./pages/My/SubResultPage/ProgramResult/ProgramResult";
-import SupportResult from "./pages/My/SubResultPage/SupportResult/SupportResult";
-import JobResult from "./pages/My/SubResultPage/JobResult/JobResult";
-import MyPageInfo from "./pages/My/MyPageInfo/MyPageInfo";
-import Timeline from "./pages/My/Timeline/Timeline";
+import MyPage from "./pages/mypage/MyPage";
+import SubResultPage from "./pages/mypage/SubResultPage/SubResultPage";
+import ProgramResult from "./pages/mypage/SubResultPage/ProgramResult/ProgramResult";
+import SupportResult from "./pages/mypage/SubResultPage/SupportResult/SupportResult";
+import JobResult from "./pages/mypage/SubResultPage/JobResult/JobResult";
+import MyPageInfo from "./pages/mypage/MyPageInfo/MyPageInfo";
+import Timeline from "./pages/mypage/Timeline/Timeline";
 
 //router
 //아래 코드를 제대로 이해할 필요가 있다.
@@ -119,7 +118,7 @@ function App() {
             {
               index: true,
               element: (
-                <MyPageInfo currentUser={currentUser} loginState={login} />
+                <MyPageInfo currentUser={currentUser} loginState={login} setCurrentUser={setCurrentUser}/>
               ),
             },
             {

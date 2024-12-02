@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProgramResult.css";
-import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
+import CancelConfirmModal from "../../../../components/mypage/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
 const ProgramResult = ({ currentUser, setCurrentUser }) => {

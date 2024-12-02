@@ -58,8 +58,7 @@ const scheduleConverter = ({ before_programs, programs, l_support, t_support, sc
         //풀캘린더용
         id : globalIndex++,
         title: schedule.content,
-        start: new Date(`${schedule.date}T${schedule.time}`), // 풀캘린더를 위한 시간 표현
-
+        start : `${schedule.date}T${schedule.time}`,
         //출력용
         date: schedule.date,
         time : schedule.time,

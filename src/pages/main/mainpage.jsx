@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Bell } from "lucide-react";
-import { Card } from "../../components/ui/card";
+import { Card } from "../../components/login/card";
 import notices from "../../data/notice";
 import { useNavigate } from "react-router-dom";
 import "./mainpage.css";
@@ -18,7 +18,7 @@ import {
   Calendar,
 } from "lucide-react";
 import scheduleConverter from "../../converter/scheduleConverter";
-import MyCalendar from "../../components/schedule/Calendar";
+import MyCalendar from "../../components/schedule/MyCalendar";
 
 const MainPage = ({ currentUser, loginState }) => {
   const navigate = useNavigate();

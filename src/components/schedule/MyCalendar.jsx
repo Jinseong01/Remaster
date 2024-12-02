@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import rrulePlugin from '@fullcalendar/rrule';
 // CSS
-import styles from './Calendar.module.css';
+import styles from './MyCalendar.module.css';
 
 const MyCalendar = ({ events, onEventChange, onMonthChange, editable }) => {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Calendar, User, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Card } from '../../components/ui/card';
+import { Card } from '../../components/login/card';
 import notices from '../../data/notice';
 import { useSearchParams } from 'react-router-dom';
 import Sidebar from '../../components/side/Sidebar';

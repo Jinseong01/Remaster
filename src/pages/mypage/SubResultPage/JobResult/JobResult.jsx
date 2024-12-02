@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./JobResult.css";
-import CancelConfirmModal from "../../../../components/CancelConfirm/CancelConfirmModal";
+import CancelConfirmModal from "../../../../components/mypage/CancelConfirm/CancelConfirmModal";
 import "../pagenation.css";
 
 const JobResult = ({ currentUser, setCurrentUser }) => {

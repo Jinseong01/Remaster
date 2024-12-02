@@ -14,11 +14,21 @@ function Layout({ loginState, setLogin, currentUser, setCurrentUser }) {
   // 현재 렌더링된 pathname을 찾아서, 해당하는 이미지와 텍스트 가져오기
   const getCurrentComponent = () => {
     const currentPath = location.pathname;
-    let findPagesInfo = Object.keys(pageInfo).reduce((find, info) => {
-      return info === currentPath ? pageInfo[info] : find;
-    }, []);
-    console.log(`getCurrentComponent호출 결과 ${findPagesInfo}`);
-    return findPagesInfo;
+  
+    const findPagesInfo = Object.keys(pageInfo).find((info) => 
+      // 정확히 일치하는 경로 처리
+      info === currentPath || 
+      (
+        // 동적 경로 처리
+        info.includes("/:") &&
+        currentPath.startsWith(info.split("/:")[0]) && // '/job'로 시작
+        currentPath.split("/").length === info.split("/").length // 경로 깊이 일치
+      )
+    );
+  
+    const result = pageInfo[findPagesInfo];
+    console.log(`getCurrentComponent 호출 결과 ${result}`);
+    return result;
   };
 
   const [imageSrc, title] = getCurrentComponent();

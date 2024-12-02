@@ -1,5 +1,6 @@
+/* 캘린더 컨테이너 */
 .calendarContainer {
-  height: 800px;
+  height: 820px;
   width: 60%;
   margin: auto;
   border: 1px solid #e3e3e3;
@@ -13,13 +14,13 @@
   padding: 5px;
 }
 
-/* 글로벌 클래스에 스타일 적용 */
+/* 달력 기본 레이아웃 */
 :global(.fc .fc-view-harness) {
-  height: calc(100% - 50px);
+  height: calc(100% - 30px) !important;
 }
 
 :global(.fc-daygrid-body) {
-  height: 100%;
+  height: 100% !important;
 }
 
 :global(.fc-daygrid-body-balanced) {
@@ -31,8 +32,14 @@
 }
 
 :global(.fc-daygrid-day-frame) {
-  min-height: 0;
-  height: 100%;
+  min-height: 110px !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 :global(.fc-day-top) {
@@ -43,28 +50,41 @@
   overflow: hidden;
 }
 
-/* 일정 텍스트 오버플로우 문제 해결 */
+/* 헤더 스타일링 */
+:global(.fc-col-header) {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 30px !important;
+}
+
+:global(.fc-scrollgrid-sync-table) {
+  margin: 0 !important;
+  border-spacing: 0 !important;
+  height: 100% !important;
+}
+
+/* 이벤트 스타일링 */
 :global(.fc-event) {
-  white-space: normal; /* 여러 줄 허용 */
-  overflow: visible; /* 넘치는 텍스트 표시 */
-  text-overflow: unset; /* 말줄임표 제거 */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
   display: block;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-/* 달력 셀 내부 간격 조정 */
-:global(.fc-daygrid-day-frame) {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  height: 100%;
-  overflow: hidden;
-  box-sizing: border-box;
+:global(.fc-event-title-container) {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* '더 보기' 버튼 스타일 */
+:global(.fc-event .fc-event-title) {
+  padding: 0 5px;
+  font-size: 12px;
+}
+
+/* 더보기 버튼 */
 :global(.fc-more) {
   white-space: nowrap;
   overflow: hidden;
@@ -76,38 +96,23 @@
   cursor: pointer;
 }
 
-/* 긴 제목의 줄 바꿈 허용 */
-:global(.fc-event-title-container) {
-  white-space: normal; /* 여러 줄 허용 */
-  word-wrap: break-word; /* 단어 단위 줄 바꿈 */
-  overflow-wrap: break-word; /* 단어 줄바꿈 보완 */
-}
-
-/* 일정 텍스트 여백 조정 */
-:global(.fc-event .fc-event-title) {
-  padding: 0 5px;
-  font-size: 12px;
-}
-
-/* program 타입 일정 */
+/* 이벤트 타입별 스타일 */
 :global(.program) {
-  background-color: #66BB6A !important; /* 밝은 초록색 */
-  color: #FFFFFF !important; /* 흰색 */
-  border: 1px solid #388E3C !important; /* 진한 초록색 */
+  background-color: #66BB6A !important;
+  color: #FFFFFF !important;
+  border: 1px solid #388E3C !important;
 }
 
-/* support 타입 일정 */
 :global(.support) {
-  background-color: #FF7043 !important; /* 붉은 오렌지색 */
-  color: #FFFFFF !important; /* 흰색 */
-  border: 1px solid #D84315 !important; /* 짙은 오렌지색 */
+  background-color: #FF7043 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #D84315 !important;
 }
 
-/* schedule 타입 일정 */
 :global(.schedule) {
-  background-color: #81D4FA !important; /* 연한 파란색 */
-  color: #FFFFFF !important; /* 흰색 */
-  border: 1px solid #039BE5 !important; /* 짙은 파란색 */
+  background-color: #81D4FA !important;
+  color: #FFFFFF !important;
+  border: 1px solid #039BE5 !important;
 }
 
 :global(.program),

@@ -20,6 +20,8 @@ npm install react-beautiful-dnd
 npm install react-slick
 npm install slick-carousel
 
+npm install @react-google-maps/api
+
 # shadcn/ui 컴포넌트
 
 # 필수 의존성 설치

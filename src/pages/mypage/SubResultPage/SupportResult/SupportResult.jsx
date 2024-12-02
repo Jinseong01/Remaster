@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./SupportResult.css";
 import CancelConfirmModal from "../../../../components/mypage/CancelConfirm/CancelConfirmModal";
-import "../pagenation.css";
 
 const SupportResult = ({ currentUser, setCurrentUser }) => {
   const getCombinedSupport = () => {
@@ -22,11 +21,11 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedSupportIndex, setSelectedSupportIndex] = useState(null); // 선택된 항목 관리
-  const [expandedIndex, setExpandedIndex] = useState(null); // 확장된 항목 관리
+  const [selectedSupportIndex, setSelectedSupportIndex] = useState(null);
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
   const openModal = (item) => {
-    setSelectedSupportIndex(item); // `item` 객체를 직접 설정
+    setSelectedSupportIndex(item);
     setIsModalOpen(true);
   };
 
@@ -71,9 +70,8 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
       t_support: updatedTSupport,
     };
 
-    setCurrentUser(updatedUser); // 부모 컴포넌트로 업데이트 전달
+    setCurrentUser(updatedUser);
 
-    // combinedSupport도 업데이트
     const updatedCombinedSupport = [
       ...updatedUser.l_support.map((item) => ({
         ...item,
@@ -157,43 +155,22 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
 
               {expandedIndex === index && (
                 <div className="support-details">
-                  {item.category === "이동지원" ? (
-                    <>
-                      <p>
-                        <strong>출발지:</strong>{" "}
-                        {item.departure_location || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>목적지:</strong>{" "}
-                        {item.destination || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>수화 사용 여부:</strong>{" "}
-                        {item.need_sign_language ? "예" : "아니오"}
-                      </p>
-                      <p>
-                        <strong>휠체어 사용 여부:</strong>{" "}
-                        {item.need_bathchair ? "예" : "아니오"}
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        <strong>장소:</strong> {item.location || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>목적:</strong> {item.purpose || "정보 없음"}
-                      </p>
-                      <p>
-                        <strong>수화 사용 여부:</strong>{" "}
-                        {item.need_sign_language ? "예" : "아니오"}
-                      </p>
-                      <p>
-                        <strong>휠체어 사용 여부:</strong>{" "}
-                        {item.need_bathchair ? "예" : "아니오"}
-                      </p>
-                    </>
-                  )}
+                  <p>
+                    <strong>장소:</strong>{" "}
+                    {item.location || item.departure_location || "정보 없음"}
+                  </p>
+                  <p>
+                    <strong>목적:</strong>{" "}
+                    {item.purpose || item.destination || "정보 없음"}
+                  </p>
+                  <p>
+                    <strong>수화 사용 여부:</strong>{" "}
+                    {item.need_sign_language ? "예" : "아니오"}
+                  </p>
+                  <p>
+                    <strong>휠체어 사용 여부:</strong>{" "}
+                    {item.need_bathchair ? "예" : "아니오"}
+                  </p>
                 </div>
               )}
             </React.Fragment>
@@ -229,7 +206,6 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
         </div>
       )}
 
-      {/* 모달 */}
       <CancelConfirmModal
         isOpen={isModalOpen}
         onClose={closeModal}

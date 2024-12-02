@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import "./Sidebar.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { matchRoutes, useNavigate } from "react-router-dom";
-import { users } from "../../data/users"; // users 데이터 import
+import HelpButton from "../../components/side/HelpButton";
 
 const Sidebar = ({ currentUser }) => { // currentUser.menu_visible
   const [myMenu, setMyMenu] = useState(currentUser?.my_menu || []); // 현재 사용자의 메뉴
@@ -198,9 +198,7 @@ const Sidebar = ({ currentUser }) => { // currentUser.menu_visible
 
   return (
     <div className="record-status">
-      <div className="transcription">
-        
-      </div>
+      <HelpButton />
       <img
         src={
           isVisible
@@ -215,17 +213,18 @@ const Sidebar = ({ currentUser }) => { // currentUser.menu_visible
         <>
         {isRecording ? (
           // 녹음 중이면 record.png 이미지 표시
-          <>
+          <div className="record-status-img-and-text">
             <img
               src={`${process.env.PUBLIC_URL}/assets/images/sidebar/record.png`}
               alt="녹음 중"
               className="record-icon"
             />
             <p className="transcription-text">{transcript}</p>
-          </>
+          </div>
         ) : (
           <p></p>
         )}
+
       <div className={`sidebar ${isExpanded ? "expanded" : ""}`}>
         {" "}
         {/* flex: row */}

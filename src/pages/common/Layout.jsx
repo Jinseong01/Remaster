@@ -4,6 +4,8 @@ import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { LogIn, LogOut } from "lucide-react";
 import pageInfo from "../../data/imageInfo";
 import ParallaxLayout from "./parallaxLayout";
+import Sidebar from "../../components/side/Sidebar";
+
 function Layout({ loginState, setLogin, currentUser, setCurrentUser }) {
   //useNavigate 훅을 사용하여 리액트의 내비게이션 기능을 통해 페이지 이동
   const navigate = useNavigate();
@@ -108,6 +110,9 @@ function Layout({ loginState, setLogin, currentUser, setCurrentUser }) {
 
       {/* Main Content */}
       <main className="main-content">
+        {currentUser && Object.keys(currentUser).length > 0 && (
+            <Sidebar currentUser={currentUser} />
+        )}
         <ParallaxLayout backgroundImage={imageSrc} heroTitle={title} />
         <div className="content-section">
           <div className="outlet-container">

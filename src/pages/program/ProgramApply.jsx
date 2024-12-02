@@ -4,8 +4,6 @@ import "./ProgramApply.css";
 import ProgramImageModal from "../../components/program/ProgramImageModal";
 import ConfirmModal from "../../components/common/ConfirmModal/ConfirmModal";
 import CompleteModal from "../../components/common/CompleteModal/CompleteModal";
-import Sidebar from "../../components/side/Sidebar";
-import HelpButton from "../../components/side/HelpButton";
 
 function ProgramApply({ currentUser, setCurrentUser }) {
   const [isChecked, setIsChecked] = useState(false); // 체크 박스
@@ -96,12 +94,6 @@ function ProgramApply({ currentUser, setCurrentUser }) {
   return (
     <>
       <div className="program-apply">
-        {currentUser && Object.keys(currentUser).length > 0 && (
-          <>
-            <Sidebar currentUser={currentUser} />
-            <HelpButton currentUser={currentUser} />
-          </>
-        )}
         {" "}
         {/*신청 전체 화면*/}
         <h2>프로그램 신청 양식</h2>

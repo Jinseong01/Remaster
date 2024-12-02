@@ -11,8 +11,6 @@ import AddScheduleModal from '../../components/schedule/AddScheduleModal';
 import EditScheduleModal from '../../components/schedule/EditScheduleModal';
 import DeleteScheduleModal from '../../components/schedule/DeleteScheduleModal';
 import LoginAlertModal from '../../components/common/LoginAlert/LoginAlertModal';
-import Sidebar from '../../components/side/Sidebar';
-import HelpDialog from '../../components/side/HelpButton';
 //CSS
 import './SchedulePage.css'
 
@@ -69,12 +67,6 @@ const SchedulePage = ( {currentUser, loginState, setCurrentUser} ) => {
   // 로그인 상태
   return (
     <div className="page-container">
-      {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
-        <Sidebar currentUser={currentUser} />
-        <HelpDialog />
-        </>
-      )}
       {loginState?
       <MyCalendar events={events} onEventChange={handleEventChange} onMonthChange={handleMonthChange} editable={true}/>
       : <MyCalendar editable={false} onEventChange={()=>{}} onMonthChange={()=>{}}/>}

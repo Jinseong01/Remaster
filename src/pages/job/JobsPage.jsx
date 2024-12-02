@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 //컴포넌트
 import CompleteModal from "../../components/common/CompleteModal/CompleteModal.jsx";
 import Job from "../../components/job/Job.jsx";
-import Sidebar from "../../components/side/Sidebar.jsx";
-import HelpDialog from "../../components/side/HelpButton.jsx";
 //CSS
 import "./JobsPage.css";
 //데이터
@@ -70,12 +68,6 @@ const JobsPage = ({ currentUser }) => {
 
   return (
     <div>
-      {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
-          <Sidebar currentUser={currentUser} />
-          <HelpDialog />
-        </>
-      )}
       {/* 채용공고 항목 */}
       <Job jobs={currentJobs} />
       {/* 페이지 번호 */}

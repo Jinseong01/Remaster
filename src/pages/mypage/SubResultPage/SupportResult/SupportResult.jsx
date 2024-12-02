@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import "./SupportResult.css";
 import CancelConfirmModal from "../../../../components/mypage/CancelConfirm/CancelConfirmModal";
 
-const SupportResult = ({ currentUser, setCurrentUser }) => {
+const SupportResult = ({
+  currentUser = { l_support: [], t_support: [] },
+  setCurrentUser,
+}) => {
+  // 안전하게 데이터를 병합
   const getCombinedSupport = () => {
-    if (!currentUser) return [];
+    if (
+      !currentUser ||
+      !Array.isArray(currentUser.l_support) ||
+      !Array.isArray(currentUser.t_support)
+    ) {
+      return [];
+    }
     return [
       ...currentUser.l_support.map((item) => ({
         ...item,
@@ -17,7 +27,9 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
     ];
   };
 
-  const [combinedSupport, setCombinedSupport] = useState(getCombinedSupport);
+  const [combinedSupport, setCombinedSupport] = useState(() =>
+    getCombinedSupport()
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,6 +46,7 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
     setSelectedSupportIndex(null);
   };
 
+  // 지원 항목 취소 처리
   const handleConfirmCancel = () => {
     if (!selectedSupportIndex) return;
 
@@ -123,7 +136,12 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
         ) : (
           currentItems.map((item, index) => (
             <React.Fragment key={index}>
-              <div className="support-item">
+              <div
+                className={`support-item ${
+                  expandedIndex === index ? "expanded" : ""
+                }`}
+                onClick={() => toggleExpand(index)}
+              >
                 <div className="purpose">
                   {item.purpose || item.destination}
                 </div>
@@ -137,7 +155,10 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
                   ) : (
                     <button
                       className="cancel-button"
-                      onClick={() => openModal(item)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        openModal(item);
+                      }}
                     >
                       취소
                     </button>
@@ -146,7 +167,10 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
                 <div className="details">
                   <button
                     className="details-button"
-                    onClick={() => toggleExpand(index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleExpand(index);
+                    }}
                   >
                     {expandedIndex === index ? "접기" : "보기"}
                   </button>
@@ -210,7 +234,7 @@ const SupportResult = ({ currentUser, setCurrentUser }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         onConfirm={handleConfirmCancel}
-        text="지원 내역을 정말 취소하시겠습니까?"
+        text="지원 내역을 취소하시겠습니까?"
       />
     </div>
   );

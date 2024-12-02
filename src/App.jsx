@@ -82,6 +82,16 @@ function App() {
           element: <JobsPage currentUser={currentUser} />,
         },
         {
+          path: "job/:id", // /job/{id} 로  url이 되는것!!
+          element: (
+            <JobDetailPage
+              currentUser={currentUser}
+              loginState={login}
+              setCurrentUser={setCurrentUser}
+            />
+          ),
+        },
+        {
           path: "support",
           element: (
             <SupportPage

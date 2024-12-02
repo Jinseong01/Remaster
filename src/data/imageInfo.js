@@ -10,6 +10,8 @@ let pageInfo = {
 
   "/jobs": ["/assets/images/layout/jobspage.png", "일자리 페이지"],
 
+  "/job/:id": ["/assets/images/layout/jobspage.png", "일자리 신청 페이지"],
+
   "/notice": ["/assets/images/layout/noticepage.png", "공지사항 페이지"],
 
   "/schedule": ["/assets/images/layout/schedulepage.png", "개인일정 페이지"],

@@ -1,15 +1,13 @@
-// src/pages/My/MyPageInfo/MyPageInfo.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./MyPageInfo.css";
-import ChangeConfirmModal from "../../../components/common/ChangeConfirm/ChangeConfirmModal";
 import PasswordChangeModal from "../../../components/mypage/PasswordChange/PasswordChangeModal";
+import ChangeConfirmModal from "../../../components/common/ChangeConfirm/ChangeConfirmModal";
 import LoginAlertModal from "../../../components/common/LoginAlert/LoginAlertModal";
 
-const MyPageInfo = ({ currentUser, loginState }) => {
+const MyPageInfo = ({ currentUser, loginState, setCurrentUser }) => {
   const navigate = useNavigate();
 
-  // 초기 상태 설정
   const [formValues, setFormValues] = useState({
     id: "",
     name: "",
@@ -27,7 +25,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isLoginAlertModalOpen, setIsLoginAlertModalOpen] = useState(false);
 
-  // `currentUser`가 업데이트될 때마다 폼 값 업데이트
   useEffect(() => {
     if (currentUser) {
       setFormValues({
@@ -52,14 +49,26 @@ const MyPageInfo = ({ currentUser, loginState }) => {
       return;
     }
     const { name, value } = e.target;
+
+    if (name === "disabilityType") {
+      const updatedGrades = value
+        .split(",")
+        .map((item) => item.trim().split(":"))
+        .reduce((acc, [type, grade]) => {
+          acc[type] = grade.replace("급", "").trim();
+          return acc;
+        }, {});
+      setFormValues({
+        ...formValues,
+        disability_grade: updatedGrades,
+      });
+      return;
+    }
+
     setFormValues({
       ...formValues,
       [name]: value,
     });
-  };
-
-  const handleLoginRedirect = () => {
-    navigate("/login");
   };
 
   const handleHeightChange = (e) => {
@@ -78,6 +87,34 @@ const MyPageInfo = ({ currentUser, loginState }) => {
     setWeight(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!loginState) {
+      setIsLoginAlertModalOpen(true);
+      return;
+    }
+
+    const updatedUser = {
+      ...currentUser,
+      name: formValues.name,
+      gender: formValues.gender,
+      address: formValues.address,
+      phone_number: formValues.contact,
+      emergency_phone_number: formValues.emergencyContact,
+      disability_grade:
+        formValues.disability_grade || currentUser.disability_grade,
+      height,
+      weight,
+    };
+
+    setCurrentUser(updatedUser); // 상위 상태 업데이트
+    setIsConfirmModalOpen(true);
+  };
+
+  const closeConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
   const openPasswordModal = () => {
     if (!loginState) {
       setIsLoginAlertModalOpen(true);
@@ -90,29 +127,8 @@ const MyPageInfo = ({ currentUser, loginState }) => {
     setIsPasswordModalOpen(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!loginState) {
-      setIsLoginAlertModalOpen(true);
-      return;
-    }
-    setIsConfirmModalOpen(true);
-
-    // 데이터 저장 로직 추가
-    console.log({
-      ...formValues,
-      height,
-      weight,
-    });
-  };
-
-  const closeConfirmModal = () => {
-    setIsConfirmModalOpen(false);
-  };
-
   return (
     <div className="mypage-info-container">
-      {/* 입력 필드들 */}
       <form className="info-form">
         <div className="form-group">
           <label htmlFor="id">ID</label>
@@ -121,15 +137,12 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             id="id"
             name="id"
             value={formValues.id}
-            onChange={handleInputChange}
             placeholder="ID를 입력하세요"
-            disabled // ID는 수정할 수 없도록 설정
+            disabled
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="password">비밀번호</label>
-          {/* 비밀번호 변경 버튼 */}
           <button
             type="button"
             className="change-password-button"
@@ -138,7 +151,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             비밀번호 변경
           </button>
         </div>
-
         <div className="form-group">
           <label htmlFor="name">이름</label>
           <input
@@ -147,7 +159,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="name"
             value={formValues.name}
             onChange={handleInputChange}
-            placeholder="이름을 입력하세요"
           />
         </div>
         <div className="form-group">
@@ -158,7 +169,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="gender"
             value={formValues.gender}
             onChange={handleInputChange}
-            placeholder="성별을 입력하세요"
           />
         </div>
         <div className="form-group">
@@ -169,7 +179,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="address"
             value={formValues.address}
             onChange={handleInputChange}
-            placeholder="주소를 입력하세요"
           />
         </div>
         <div className="form-group">
@@ -180,7 +189,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="contact"
             value={formValues.contact}
             onChange={handleInputChange}
-            placeholder="연락처를 입력하세요"
           />
         </div>
         <div className="form-group">
@@ -191,7 +199,6 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="emergencyContact"
             value={formValues.emergencyContact}
             onChange={handleInputChange}
-            placeholder="긴급 연락처를 입력하세요"
           />
         </div>
         <div className="form-group">
@@ -199,10 +206,8 @@ const MyPageInfo = ({ currentUser, loginState }) => {
           <input
             type="text"
             id="height"
-            name="height"
             value={height}
             onChange={handleHeightChange}
-            placeholder="키를 입력하세요 (cm)"
           />
         </div>
         <div className="form-group">
@@ -210,10 +215,8 @@ const MyPageInfo = ({ currentUser, loginState }) => {
           <input
             type="text"
             id="weight"
-            name="weight"
             value={weight}
             onChange={handleWeightChange}
-            placeholder="몸무게를 입력하세요 (kg)"
           />
         </div>
         <div className="form-group">
@@ -224,24 +227,17 @@ const MyPageInfo = ({ currentUser, loginState }) => {
             name="disabilityType"
             value={formValues.disabilityType}
             onChange={handleInputChange}
-            placeholder="장애 유형을 입력하세요"
           />
         </div>
       </form>
 
-      {/* 제출 버튼 */}
-      <div className="submit-section">
-        <button className="submit-button" onClick={handleSubmit}>
-          변경하기
-        </button>
-      </div>
+      <button className="submit-button" onClick={handleSubmit}>
+        변경하기
+      </button>
 
-      {/* 비밀번호 변경 모달 */}
       {isPasswordModalOpen && (
         <PasswordChangeModal onClose={closePasswordModal} />
       )}
-
-      {/* 변경 완료 모달 */}
       {isConfirmModalOpen && (
         <ChangeConfirmModal
           isOpen={isConfirmModalOpen}
@@ -249,13 +245,10 @@ const MyPageInfo = ({ currentUser, loginState }) => {
           message="변경이 완료되었습니다."
         />
       )}
-
-      {/* 로그인 알림 모달 */}
       {isLoginAlertModalOpen && (
         <LoginAlertModal
           isOpen={isLoginAlertModalOpen}
           onClose={() => setIsLoginAlertModalOpen(false)}
-          onLoginRedirect={handleLoginRedirect}
         />
       )}
     </div>

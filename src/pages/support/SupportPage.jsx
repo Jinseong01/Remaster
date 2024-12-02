@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import Lsupport from "./Lsupport/Lsupport";
 import Tsupport from "./Tsupport/Tsupport";
 import "./SupportPage.css";
-import Sidebar from "../../components/side/Sidebar";
-import HelpDialog from "../../components/side/HelpButton";
 
 const SupportPage = ({ currentUser, loginState, setCurrentUser }) => {
   const [currentPage, setCurrentPage] = useState("livingSupport");
@@ -17,12 +15,6 @@ const SupportPage = ({ currentUser, loginState, setCurrentUser }) => {
 
   return (
     <div className="support-page-container">
-      {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
-        <Sidebar currentUser={currentUser} />
-        <HelpDialog />
-        </>
-      )}
       {/* 페이지 전환 버튼 */}
       <div className="support-page-buttons">
         <button

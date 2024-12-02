@@ -3,8 +3,6 @@ import { ChevronDown, Calendar, User, ChevronLeft, ChevronRight } from 'lucide-r
 import { Card } from '../../components/login/card';
 import notices from '../../data/notice';
 import { useSearchParams } from 'react-router-dom';
-import Sidebar from '../../components/side/Sidebar';
-import HelpDialog from '../../components/side/HelpButton';
 
 const NoticePage = ({currentUser}) => {
   const [searchParams] = useSearchParams();
@@ -41,12 +39,6 @@ const NoticePage = ({currentUser}) => {
           <div className="text-5xl font-bold text-indigo-100">Notice</div>
         </div>
       </div>
-      {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
-        <Sidebar currentUser={currentUser} />
-        <HelpDialog />
-        </>
-      )}
       {/* 공지사항 리스트 */}
       <div className="space-y-4">
         {currentNotices.map((notice) => (

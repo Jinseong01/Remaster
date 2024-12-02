@@ -6,11 +6,10 @@
   left: 20px; /* 왼쪽 고정 */
 }
 
-.transcription{
+.record-status-img-and-text{
   display: flex;
   flex-direction: row;
 }
-
 .record-icon {
   width: 50px; /* 이미지 크기 */
   height: 50px;
@@ -90,8 +89,7 @@
 .toggle-button{
   width: 50px; /* 이미지 크기 */
   height: 50px;
-  margin-top: 90px;
-  margin-bottom: 130px;
+  margin-top: 130px;
   left: 30%;
 }
 

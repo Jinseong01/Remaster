@@ -4,8 +4,6 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import "./MyPage.css";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
-import Sidebar from "../../components/side/Sidebar";
-import HelpButton from "../../components/side/HelpButton";
 
 const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
   const navigate = useNavigate();
@@ -121,12 +119,6 @@ const MyPage = ({ loginState, currentUser, setCurrentUser }) => {
 
   return (
     <div className="mypage-container">
-        {currentUser && Object.keys(currentUser).length > 0 && (
-          <>
-            <Sidebar currentUser={currentUser} />
-            <HelpButton currentUser={currentUser} />
-          </>
-        )}
       {/* 로그인 여부 확인을 위한 모달 */}
       <LoginAlertModal
         isOpen={isLoginAlertModalOpen}

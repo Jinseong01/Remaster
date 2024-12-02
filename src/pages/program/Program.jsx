@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import "./Program.css";
 import programs from "../../data/program";
 import Sidebar from "../../components/side/Sidebar";
-import HelpButton from "../../components/side/HelpButton";
 import ProgramImageModal from "../../components/program/ProgramImageModal";
 import LoginAlertModal from "../../components/common/LoginAlert/LoginAlertModal";
 import DuplicateModal from "../../components/common/DuplicateModal/DuplicateModal";
@@ -90,10 +89,7 @@ function Program({ currentUser }) {
     <div className="App">
       {/* currentUser가 유효한 객체일 때 Sidebar 표시 */}
       {currentUser && Object.keys(currentUser).length > 0 && (
-        <>
           <Sidebar currentUser={currentUser} />
-          <HelpButton currentUser={currentUser} />
-        </>
       )}
 
       {selectedProgram && (

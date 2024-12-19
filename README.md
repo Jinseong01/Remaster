@@ -1,61 +1,41 @@
-## 'react-scripts'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는배치 파일이 아닙니다. 인경우
+![header](https://capsule-render.vercel.app/api?type=cylinder&color=4682B4&height=200&text=ReLife&fontSize=60&desc=장애인%20대상의%20일정%20관리%20플랫폼&descSize=30&descAlignY=70&fontColor=FFFFFF&fontAlignY=40&animation=fadeIn)
 
-npm install react-scripts
+## 📆 프로젝트 개요
+### 장애인분들을 대상으로 하는 일정 관리 웹서비스입니다.
+### ✨ 주요 기능
+- 장애인을 대상으로 하는 다양한 서비스 신청
+- 달력을 통해 신청 내역과 개인 일정을 관리
+- 자주 이용하는 서비스를 커스텀하여 음성인식으로 페이지 이동
 
-## install description
+## ⚙️ 개발 환경
+※ 본 프로젝트는 프론트엔드만 구현되어 있습니다
 
-npm install react-router-dom
+<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"> 
+<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white"> 
+<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white"> 
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white"> 
 
-npm install lucide-react
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC?style=for-the-badge&logo=VisualStudio Code&logoColor=white"> 
 
-npm install react-hook-form
-
-
-npm install react-masonry-css
-
-npm install react-table
-
-
-npm install @fullcalendar/react
-
-npm install @fullcalendar/daygrid
-
-npm install @fullcalendar/interaction
-
-npm install @fullcalendar/rrule
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+<img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white"> 
+<img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> 
+<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white">
 
 
-npm install react-beautiful-dnd
+## 🚀 실행 방법
+사전 작업 : .env 파일 생성
+```bash
+REACT_APP_GOOGLE_MAP_API_KEY={본인 API키}
+```
 
-npm install react-slick
+의존성 설치
+```bash
+npm install
+```
 
-npm install slick-carousel
+실행
+```bash
+npm start
+```
 
-
-npm install @react-google-maps/api
-
-npm install react-datepicker
-
-# shadcn/ui 컴포넌트
-
-# 필수 의존성 설치
-
-# 기본 의존성 패키지들 설치
-
-npm install @radix-ui/react-icons @radix-ui/react-slot class-variance-authority clsx tailwind-merge lucide-react
-
-# Tailwind 관련 패키지 설치
-
-npm install -D tailwindcss postcss autoprefixer
-
-# Tailwind 초기화 (tailwind.config.js와 postcss.config.js 생성)
-
-npx tailwindcss init -p
-
-# 필요한 컴포넌트 추가
-
-# 현재 web_framework_project/src/components/ui에 생성됨
-
-npx @shadcn/ui@latest add button
-npx @shadcn/ui@latest add input
-npx @shadcn/ui@latest add card
